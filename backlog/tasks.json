@@ -3,37 +3,37 @@
   "milestones": [
     {
       "id": "M0",
-      "title": "M0 — Foundation and compatibility",
+      "title": "M0 \u2014 Foundation and compatibility",
       "gate": "Repository scope, pinned compatible stack, real CI, accessible primitives and strict schema boundary.",
       "optional": false
     },
     {
       "id": "M1",
-      "title": "M1 — First playable six-level slice",
+      "title": "M1 \u2014 First playable six-level slice",
       "gate": "Four free robots, six diverse puzzles, tap/drag/keyboard editor, primitive execution, tutorials, retries, ratings and local saves with actual smoke evidence.",
       "optional": false
     },
     {
       "id": "M2",
-      "title": "M2 — Complete mechanics and authored content",
+      "title": "M2 \u2014 Complete mechanics and authored content",
       "gate": "Repeat, latched gates, world progression, bounded content tooling and four fully authored 15-level worlds.",
       "optional": false
     },
     {
       "id": "M3",
-      "title": "M3 — Polish, offline and inclusive validation",
+      "title": "M3 \u2014 Polish, offline and inclusive validation",
       "gate": "Final-art review, storage/update hardening, equivalent board explorer, real-device evidence and consented formative playtests.",
       "optional": false
     },
     {
       "id": "M4",
-      "title": "M4 — Public web v1 readiness",
+      "title": "M4 \u2014 Public web v1 readiness",
       "gate": "Exact release candidate with 60 valid levels, privacy/support/asset review, deployment/rollback rehearsal and human GO/NO-GO.",
       "optional": false
     },
     {
       "id": "M5",
-      "title": "M5 — Optional post-v1 expansion",
+      "title": "M5 \u2014 Optional post-v1 expansion",
       "gate": "Opt-in native packaging, internal authoring tool or separate cloud-save proposal. Excluded from default issue import.",
       "optional": true
     }
@@ -46,7 +46,7 @@
       "area": "platform",
       "priority": "P1",
       "effort": "S",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [],
@@ -77,12 +77,12 @@
     },
     {
       "id": "RP-002",
-      "title": "Prove and pin the React–Phaser toolchain",
+      "title": "Prove and pin the React\u2013Phaser toolchain",
       "milestone": "M0",
       "area": "platform",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -120,7 +120,7 @@
       "area": "platform",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -159,7 +159,7 @@
       "area": "frontend",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -197,7 +197,7 @@
       "area": "core",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -235,7 +235,7 @@
       "area": "core",
       "priority": "P1",
       "effort": "S",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -272,7 +272,7 @@
       "area": "core",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -309,7 +309,7 @@
       "area": "core",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -347,7 +347,7 @@
       "area": "frontend",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -385,7 +385,7 @@
       "area": "frontend",
       "priority": "P1",
       "effort": "L",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -424,7 +424,7 @@
       "area": "renderer",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -463,7 +463,7 @@
       "area": "art",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -496,12 +496,12 @@
     },
     {
       "id": "RP-013",
-      "title": "Build the typed controller–renderer bridge and lifecycle",
+      "title": "Build the typed controller\u2013renderer bridge and lifecycle",
       "milestone": "M1",
       "area": "renderer",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -540,7 +540,7 @@
       "area": "gameplay",
       "priority": "P1",
       "effort": "L",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -580,7 +580,7 @@
       "area": "frontend",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -620,7 +620,7 @@
       "area": "frontend",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -659,7 +659,7 @@
       "area": "gameplay",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -699,7 +699,7 @@
       "area": "gameplay",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -739,7 +739,7 @@
       "area": "storage",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -777,7 +777,7 @@
       "area": "content",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -817,7 +817,7 @@
       "area": "qa",
       "priority": "P1",
       "effort": "M",
-      "status": "not_started",
+      "status": "completed",
       "optional": false,
       "human_gate": false,
       "dependencies": [
@@ -838,7 +838,7 @@
         "FR-028"
       ],
       "scope": [
-        "Exercise choose robot → tutorial → edit/run/retry → six-level progression → reload",
+        "Exercise choose robot \u2192 tutorial \u2192 edit/run/retry \u2192 six-level progression \u2192 reload",
         "Capture actual viewport screenshots and a short interaction recording",
         "Write M1 evidence and unresolved limitations"
       ],
@@ -877,7 +877,7 @@
         "FR-020"
       ],
       "scope": [
-        "Compile repeat counts 2–5 with primitive-only bodies",
+        "Compile repeat counts 2\u20135 with primitive-only bodies",
         "Charge repeat header/body static blocks and primitive runtime actions",
         "Preserve child source IDs and iteration metadata"
       ],
@@ -1771,7 +1771,7 @@
         "FR-030"
       ],
       "scope": [
-        "Recruit approximately 6–8 participants through adults under a reviewed protocol",
+        "Recruit approximately 6\u20138 participants through adults under a reviewed protocol",
         "Observe first use, deliberate debugging, robot choice and content progression",
         "Document findings and revise high-friction interactions/puzzles"
       ],

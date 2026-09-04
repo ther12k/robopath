@@ -57,6 +57,8 @@ def main():
         assert f"<!-- robo-paths:{task['id']} -->" in (ROOT/task['file']).read_text(),task['id']
     broken=[];links=0
     for path in ROOT.rglob('*.md'):
+        if any(part in ('node_modules', '.venv', 'dist') for part in path.parts):
+            continue
         for target in re.findall(r'!?\[[^\]]*\]\(([^)\s]+)\)',path.read_text(encoding='utf-8')):
             if target.startswith(('http:','https:','mailto:','#')):continue
             destination=(path.parent/unquote(target.split('#')[0])).resolve()

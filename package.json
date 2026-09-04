@@ -11,6 +11,8 @@
     "lint": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "test:browser": "node scripts/test_browser_journey.mjs",
+    "content:validate": "vitest run tests/core/witnesses.test.ts tests/core/validation.test.ts",
     "verify:package": ".venv/bin/python scripts/verify_package.py"
   },
   "dependencies": {
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^26.0.0",
+    "playwright": "^1.62.1",
     "typescript": "^5.7.3",
     "vite": "^6.2.0",
     "vitest": "^3.0.7"

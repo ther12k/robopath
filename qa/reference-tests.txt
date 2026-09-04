@@ -29,6 +29,6 @@ test_static_cap (test_reference_core.ReferenceTests.test_static_cap) ... ok
 test_unused_tail_still_costs_blocks (test_reference_core.ReferenceTests.test_unused_tail_still_costs_blocks) ... ok
 
 ----------------------------------------------------------------------
-Ran 29 tests in 0.098s
+Ran 29 tests in 0.181s
 
 OK

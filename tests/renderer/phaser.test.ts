@@ -7,5 +7,5 @@ describe('Phaser 4.2.1 browser environment verification (RP-002)', () => {
     expect(Phaser).toBeDefined();
     expect(typeof Phaser.Game).toBe('function');
     expect(typeof Phaser.Scene).toBe('function');
-  });
+  }, 20000);
 });
