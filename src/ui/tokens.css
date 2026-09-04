@@ -1,0 +1,82 @@
+:root {
+  /* Palette */
+  --color-ink: #17324d;
+  --color-sky: #eff9fd;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f8fafc;
+  --color-primary: #246fe5;
+  --color-primary-hover: #1b5cc2;
+  --color-action: #207a46;
+  --color-action-hover: #196137;
+  --color-accent: #f5bd35;
+  --color-accent-hover: #dfa825;
+  --color-coral: #e77a70;
+  --color-purple: #7056c8;
+  --color-border: #cbd5e1;
+  --color-border-subtle: #e2e8f0;
+  --color-muted: #64748b;
+  --color-focus: #246fe5;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px - WCAG / PRD body minimum */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-tile: 16px;
+  --radius-btn: 16px;
+  --radius-panel: 22px;
+  --radius-pill: 9999px;
+
+  /* Touch Target */
+  --min-target: 48px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(23, 50, 77, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(23, 50, 77, 0.1), 0 2px 4px -1px rgba(23, 50, 77, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(23, 50, 77, 0.1), 0 4px 6px -2px rgba(23, 50, 77, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(36, 111, 229, 0.35);
+
+  /* Safe Area Insets */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-sky);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
