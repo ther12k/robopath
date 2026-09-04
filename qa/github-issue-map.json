@@ -1,0 +1,221 @@
+{
+  "repo": "ther12k/robopath",
+  "issues": {
+    "RP-001": {
+      "number": 1,
+      "url": "https://github.com/ther12k/robopath/issues/1"
+    },
+    "RP-002": {
+      "number": 2,
+      "url": "https://github.com/ther12k/robopath/issues/2"
+    },
+    "RP-003": {
+      "number": 3,
+      "url": "https://github.com/ther12k/robopath/issues/3"
+    },
+    "RP-004": {
+      "number": 4,
+      "url": "https://github.com/ther12k/robopath/issues/4"
+    },
+    "RP-005": {
+      "number": 5,
+      "url": "https://github.com/ther12k/robopath/issues/5"
+    },
+    "RP-006": {
+      "number": 6,
+      "url": "https://github.com/ther12k/robopath/issues/6"
+    },
+    "RP-007": {
+      "number": 7,
+      "url": "https://github.com/ther12k/robopath/issues/7"
+    },
+    "RP-008": {
+      "number": 8,
+      "url": "https://github.com/ther12k/robopath/issues/8"
+    },
+    "RP-009": {
+      "number": 9,
+      "url": "https://github.com/ther12k/robopath/issues/9"
+    },
+    "RP-010": {
+      "number": 10,
+      "url": "https://github.com/ther12k/robopath/issues/10"
+    },
+    "RP-011": {
+      "number": 11,
+      "url": "https://github.com/ther12k/robopath/issues/11"
+    },
+    "RP-012": {
+      "number": 12,
+      "url": "https://github.com/ther12k/robopath/issues/12"
+    },
+    "RP-013": {
+      "number": 13,
+      "url": "https://github.com/ther12k/robopath/issues/13"
+    },
+    "RP-014": {
+      "number": 14,
+      "url": "https://github.com/ther12k/robopath/issues/14"
+    },
+    "RP-015": {
+      "number": 15,
+      "url": "https://github.com/ther12k/robopath/issues/15"
+    },
+    "RP-019": {
+      "number": 16,
+      "url": "https://github.com/ther12k/robopath/issues/16"
+    },
+    "RP-016": {
+      "number": 17,
+      "url": "https://github.com/ther12k/robopath/issues/17"
+    },
+    "RP-017": {
+      "number": 18,
+      "url": "https://github.com/ther12k/robopath/issues/18"
+    },
+    "RP-018": {
+      "number": 19,
+      "url": "https://github.com/ther12k/robopath/issues/19"
+    },
+    "RP-020": {
+      "number": 20,
+      "url": "https://github.com/ther12k/robopath/issues/20"
+    },
+    "RP-021": {
+      "number": 21,
+      "url": "https://github.com/ther12k/robopath/issues/21"
+    },
+    "RP-022": {
+      "number": 22,
+      "url": "https://github.com/ther12k/robopath/issues/22"
+    },
+    "RP-023": {
+      "number": 23,
+      "url": "https://github.com/ther12k/robopath/issues/23"
+    },
+    "RP-024": {
+      "number": 24,
+      "url": "https://github.com/ther12k/robopath/issues/24"
+    },
+    "RP-025": {
+      "number": 25,
+      "url": "https://github.com/ther12k/robopath/issues/25"
+    },
+    "RP-026": {
+      "number": 26,
+      "url": "https://github.com/ther12k/robopath/issues/26"
+    },
+    "RP-027": {
+      "number": 27,
+      "url": "https://github.com/ther12k/robopath/issues/27"
+    },
+    "RP-032": {
+      "number": 28,
+      "url": "https://github.com/ther12k/robopath/issues/28"
+    },
+    "RP-028": {
+      "number": 29,
+      "url": "https://github.com/ther12k/robopath/issues/29"
+    },
+    "RP-029": {
+      "number": 30,
+      "url": "https://github.com/ther12k/robopath/issues/30"
+    },
+    "RP-030": {
+      "number": 31,
+      "url": "https://github.com/ther12k/robopath/issues/31"
+    },
+    "RP-031": {
+      "number": 32,
+      "url": "https://github.com/ther12k/robopath/issues/32"
+    },
+    "RP-033": {
+      "number": 33,
+      "url": "https://github.com/ther12k/robopath/issues/33"
+    },
+    "RP-034": {
+      "number": 34,
+      "url": "https://github.com/ther12k/robopath/issues/34"
+    },
+    "RP-035": {
+      "number": 35,
+      "url": "https://github.com/ther12k/robopath/issues/35"
+    },
+    "RP-036": {
+      "number": 36,
+      "url": "https://github.com/ther12k/robopath/issues/36"
+    },
+    "RP-037": {
+      "number": 37,
+      "url": "https://github.com/ther12k/robopath/issues/37"
+    },
+    "RP-038": {
+      "number": 38,
+      "url": "https://github.com/ther12k/robopath/issues/38"
+    },
+    "RP-039": {
+      "number": 39,
+      "url": "https://github.com/ther12k/robopath/issues/39"
+    },
+    "RP-040": {
+      "number": 40,
+      "url": "https://github.com/ther12k/robopath/issues/40"
+    },
+    "RP-041": {
+      "number": 41,
+      "url": "https://github.com/ther12k/robopath/issues/41"
+    },
+    "RP-042": {
+      "number": 42,
+      "url": "https://github.com/ther12k/robopath/issues/42"
+    },
+    "RP-043": {
+      "number": 43,
+      "url": "https://github.com/ther12k/robopath/issues/43"
+    },
+    "RP-045": {
+      "number": 44,
+      "url": "https://github.com/ther12k/robopath/issues/44"
+    },
+    "RP-044": {
+      "number": 45,
+      "url": "https://github.com/ther12k/robopath/issues/45"
+    },
+    "RP-046": {
+      "number": 46,
+      "url": "https://github.com/ther12k/robopath/issues/46"
+    },
+    "RP-047": {
+      "number": 47,
+      "url": "https://github.com/ther12k/robopath/issues/47"
+    },
+    "RP-048": {
+      "number": 48,
+      "url": "https://github.com/ther12k/robopath/issues/48"
+    },
+    "RP-049": {
+      "number": 49,
+      "url": "https://github.com/ther12k/robopath/issues/49"
+    },
+    "RP-050": {
+      "number": 50,
+      "url": "https://github.com/ther12k/robopath/issues/50"
+    },
+    "RP-051": {
+      "number": 51,
+      "url": "https://github.com/ther12k/robopath/issues/51"
+    },
+    "RP-052": {
+      "number": 52,
+      "url": "https://github.com/ther12k/robopath/issues/52"
+    },
+    "RP-053": {
+      "number": 53,
+      "url": "https://github.com/ther12k/robopath/issues/53"
+    },
+    "RP-054": {
+      "number": 54,
+      "url": "https://github.com/ther12k/robopath/issues/54"
+    }
+  }
+}

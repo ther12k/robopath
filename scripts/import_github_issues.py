@@ -77,8 +77,26 @@ def run_gh(args: list[str], payload: dict[str, Any] | None = None) -> Any:
 
 
 def pages(path: str) -> list[dict[str, Any]]:
-    data = run_gh(['api', '--paginate', '--slurp', path])
-    return [entry for page in data for entry in page]
+    command = ['gh', 'api', '--paginate', path]
+    completed = subprocess.run(command, text=True, capture_output=True, check=True, timeout=60)
+    text = completed.stdout.strip()
+    if not text:
+        return []
+    decoder = json.JSONDecoder()
+    pos = 0
+    items: list[dict[str, Any]] = []
+    while pos < len(text):
+        while pos < len(text) and text[pos].isspace():
+            pos += 1
+        if pos >= len(text):
+            break
+        obj, end = decoder.raw_decode(text, pos)
+        if isinstance(obj, list):
+            items.extend(obj)
+        elif isinstance(obj, dict):
+            items.append(obj)
+        pos = end
+    return items
 
 
 def index_existing(issues: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
