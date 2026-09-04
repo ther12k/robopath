@@ -2,7 +2,7 @@
   "packageVersion": "1.0",
   "preparedDate": "2026-09-05",
   "status": "pass",
-  "pythonVersion": "3.13.5",
+  "pythonVersion": "3.12.3",
   "jsonschemaVersion": "4.26.0",
   "schemas": 7,
   "validatedSchemaInstances": 34,
@@ -136,8 +136,5 @@
     "Full 60-level executable content validation",
     "Live GitHub issue import",
     "Public deployment or app-store submission"
-  ],
-  "interfaceTypecheck": "passed; proposed interface file only",
-  "galleryResources": "all resolve",
-  "pngDecodeChecks": 13
+  ]
 }

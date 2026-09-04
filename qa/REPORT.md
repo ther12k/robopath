@@ -2,7 +2,7 @@
 
 Status: **PASS** for the delivered specification kit, not a production game.
 
-Python 3.13.5; jsonschema 4.26.0. Prepared baseline: 2026-09-05.
+Python 3.12.3; jsonschema 4.26.0. Prepared baseline: 2026-09-05.
 
 | Check | Result |
 |---|---|
@@ -48,7 +48,3 @@ Witnesses establish the listed example outcomes under the Python reference rules
 - Public deployment or app-store submission
 
 The GitHub importer was tested only in local dry-run/helper tests. Remote permissions, issue creation and store/deployment behavior were not exercised. Final production sprites and hint copy are not supplied. The four planned world manifests intentionally refer to future content and are not a ready release pack.
-
-## Additional packaging checks
-
-The proposed TypeScript interface file passed `tsc --noEmit --strict --target ES2022 contracts/game.ts`; the tool/version record is in `contract-typecheck.txt`. This is not a compiled game. All 13 PNGs passed image decoding checks, and all local gallery resource links resolved.
