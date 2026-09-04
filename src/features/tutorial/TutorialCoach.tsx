@@ -47,6 +47,20 @@ export const TutorialCoach: React.FC<TutorialCoachProps> = ({ isOpen, concept, o
           instruction: 'Stone walls and rocks block the way. Plan a route around obstacles to reach your goal!',
           icon: '🧱',
         };
+      case 'repeat':
+      case 'repeat-count':
+        return {
+          title: 'Loops and Repetition',
+          instruction: 'The Repeat command runs actions inside it multiple times! Saves precious program blocks.',
+          icon: '🔁',
+        };
+      case 'switches':
+      case 'gates':
+        return {
+          title: 'Switches and Gates',
+          instruction: 'Step on floor switches to open gates! Gates remain open until the attempt resets.',
+          icon: '🚪',
+        };
       default:
         return {
           title: 'New Coding Concept',

@@ -1,0 +1,2542 @@
+{
+  "w1-01": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-02": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "right"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      },
+      {
+        "id": "node-5",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-03": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "left"
+      },
+      {
+        "id": "node-3",
+        "op": "forward"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      },
+      {
+        "id": "node-5",
+        "op": "right"
+      },
+      {
+        "id": "node-6",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-04": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-05": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "right"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "left"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      },
+      {
+        "id": "node-5",
+        "op": "forward"
+      },
+      {
+        "id": "node-6",
+        "op": "left"
+      },
+      {
+        "id": "node-7",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-06": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "right"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "left"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      },
+      {
+        "id": "node-5",
+        "op": "forward"
+      },
+      {
+        "id": "node-6",
+        "op": "left"
+      },
+      {
+        "id": "node-7",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-07": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "right"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-08": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "left"
+      },
+      {
+        "id": "node-3",
+        "op": "forward"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      },
+      {
+        "id": "node-5",
+        "op": "right"
+      },
+      {
+        "id": "node-6",
+        "op": "forward"
+      },
+      {
+        "id": "node-7",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-01": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "repeat",
+        "count": 5,
+        "body": [
+          {
+            "id": "node-2",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-02": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "repeat",
+        "count": 3,
+        "body": [
+          {
+            "id": "node-2",
+            "op": "forward"
+          },
+          {
+            "id": "node-3",
+            "op": "right"
+          },
+          {
+            "id": "node-4",
+            "op": "forward"
+          },
+          {
+            "id": "node-5",
+            "op": "left"
+          }
+        ]
+      }
+    ]
+  },
+  "w3-01": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "right"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "left"
+      },
+      {
+        "id": "node-4",
+        "op": "left"
+      },
+      {
+        "id": "node-5",
+        "op": "forward"
+      },
+      {
+        "id": "node-6",
+        "op": "right"
+      },
+      {
+        "id": "node-7",
+        "op": "forward"
+      },
+      {
+        "id": "node-8",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-02": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "node-1",
+        "op": "forward"
+      },
+      {
+        "id": "node-2",
+        "op": "forward"
+      },
+      {
+        "id": "node-3",
+        "op": "right"
+      },
+      {
+        "id": "node-4",
+        "op": "forward"
+      },
+      {
+        "id": "node-5",
+        "op": "forward"
+      },
+      {
+        "id": "node-6",
+        "op": "right"
+      },
+      {
+        "id": "node-7",
+        "op": "forward"
+      },
+      {
+        "id": "node-8",
+        "op": "left"
+      },
+      {
+        "id": "node-9",
+        "op": "forward"
+      },
+      {
+        "id": "node-10",
+        "op": "left"
+      },
+      {
+        "id": "node-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-09": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "right"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-10": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "right"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-11": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "right"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "left"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "right"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-12": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-13": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-14": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "left"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      }
+    ]
+  },
+  "w1-15": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "right"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-03": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 4,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-04": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "right"
+      },
+      {
+        "id": "rep-6",
+        "op": "repeat",
+        "count": 3,
+        "body": [
+          {
+            "id": "c-2",
+            "op": "forward"
+          },
+          {
+            "id": "c-3",
+            "op": "left"
+          },
+          {
+            "id": "c-4",
+            "op": "forward"
+          },
+          {
+            "id": "c-5",
+            "op": "right"
+          }
+        ]
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-05": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 5,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-06": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 3,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          },
+          {
+            "id": "c-1",
+            "op": "forward"
+          },
+          {
+            "id": "c-2",
+            "op": "forward"
+          },
+          {
+            "id": "c-3",
+            "op": "right"
+          }
+        ]
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-07": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 5,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-08": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 4,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 3,
+        "body": [
+          {
+            "id": "c-3",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-09": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 4,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-10": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "right"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-11": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 3,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          },
+          {
+            "id": "c-1",
+            "op": "right"
+          },
+          {
+            "id": "c-2",
+            "op": "forward"
+          },
+          {
+            "id": "c-3",
+            "op": "left"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-12": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "left"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "right"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      }
+    ]
+  },
+  "w2-13": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 5,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 5,
+        "body": [
+          {
+            "id": "c-3",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-14": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 4,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 2,
+        "body": [
+          {
+            "id": "c-3",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-5",
+        "op": "left"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "rep-8",
+        "op": "repeat",
+        "count": 2,
+        "body": [
+          {
+            "id": "c-7",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w2-15": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 5,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 3,
+        "body": [
+          {
+            "id": "c-3",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w3-03": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "left"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "left"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "right"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-04": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "left"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "right"
+      },
+      {
+        "id": "c-4",
+        "op": "right"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "left"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "left"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-05": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "left"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "right"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-06": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "left"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-07": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "left"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "right"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "right"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "left"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-08": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "right"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "left"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-09": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "left"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-10": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "left"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "right"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "left"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "right"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-11": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "left"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-12": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "left"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-13": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "left"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "right"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-14": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "forward"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "forward"
+      },
+      {
+        "id": "c-4",
+        "op": "right"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "right"
+      },
+      {
+        "id": "c-9",
+        "op": "forward"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "left"
+      },
+      {
+        "id": "c-14",
+        "op": "left"
+      },
+      {
+        "id": "c-15",
+        "op": "forward"
+      },
+      {
+        "id": "c-16",
+        "op": "forward"
+      },
+      {
+        "id": "c-17",
+        "op": "forward"
+      },
+      {
+        "id": "c-18",
+        "op": "forward"
+      }
+    ]
+  },
+  "w3-15": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "rep-1",
+        "op": "repeat",
+        "count": 4,
+        "body": [
+          {
+            "id": "c-0",
+            "op": "forward"
+          }
+        ]
+      },
+      {
+        "id": "c-2",
+        "op": "right"
+      },
+      {
+        "id": "rep-4",
+        "op": "repeat",
+        "count": 4,
+        "body": [
+          {
+            "id": "c-3",
+            "op": "forward"
+          }
+        ]
+      }
+    ]
+  },
+  "w4-01": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-02": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-03": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-04": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-05": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-06": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-07": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-08": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-09": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-10": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-11": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-12": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-13": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-14": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  },
+  "w4-15": {
+    "schemaVersion": 1,
+    "engineRulesVersion": 1,
+    "commands": [
+      {
+        "id": "c-0",
+        "op": "right"
+      },
+      {
+        "id": "c-1",
+        "op": "forward"
+      },
+      {
+        "id": "c-2",
+        "op": "forward"
+      },
+      {
+        "id": "c-3",
+        "op": "left"
+      },
+      {
+        "id": "c-4",
+        "op": "forward"
+      },
+      {
+        "id": "c-5",
+        "op": "forward"
+      },
+      {
+        "id": "c-6",
+        "op": "left"
+      },
+      {
+        "id": "c-7",
+        "op": "forward"
+      },
+      {
+        "id": "c-8",
+        "op": "forward"
+      },
+      {
+        "id": "c-9",
+        "op": "right"
+      },
+      {
+        "id": "c-10",
+        "op": "forward"
+      },
+      {
+        "id": "c-11",
+        "op": "forward"
+      }
+    ]
+  }
+}

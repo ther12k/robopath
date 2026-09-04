@@ -306,6 +306,9 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           onRedo={() => dispatch({ type: 'REDO' })}
           canUndo={editorState.undoStack.length > 0}
           canRedo={editorState.redoStack.length > 0}
+          onAddToRepeat={(repeatIndex, op) => dispatch({ type: 'ADD_TO_REPEAT', repeatIndex, op })}
+          onRemoveFromRepeat={(repeatIndex, childIndex) => dispatch({ type: 'REMOVE_FROM_REPEAT', repeatIndex, childIndex })}
+          onChangeRepeatCount={(repeatIndex, count) => dispatch({ type: 'CHANGE_REPEAT_COUNT', repeatIndex, count })}
         />
 
         <PlaybackControls

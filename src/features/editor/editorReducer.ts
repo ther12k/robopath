@@ -36,7 +36,8 @@ export type EditorAction =
   | { type: 'SET_COMMANDS'; commands: readonly Node[]; resetHistory?: boolean }
   | { type: 'SELECT_INDEX'; index: number | null }
   | { type: 'ADD_TO_REPEAT'; repeatIndex: number; op: PrimitiveOp }
-  | { type: 'REMOVE_FROM_REPEAT'; repeatIndex: number; childIndex: number };
+  | { type: 'REMOVE_FROM_REPEAT'; repeatIndex: number; childIndex: number }
+  | { type: 'CHANGE_REPEAT_COUNT'; repeatIndex: number; count: 2 | 3 | 4 | 5 };
 
 const MAX_UNDO_DEPTH = 50;
 
@@ -245,6 +246,28 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       const updatedRepeat: Repeat = {
         ...target,
         body: target.body.filter((_, i) => i !== childIndex),
+      };
+
+      const next = [...state.commands];
+      next[repeatIndex] = updatedRepeat;
+
+      return {
+        ...state,
+        commands: next,
+        undoStack: pushUndo(state),
+        redoStack: [],
+      };
+    }
+
+    case 'CHANGE_REPEAT_COUNT': {
+      const { repeatIndex, count } = action;
+      if (repeatIndex < 0 || repeatIndex >= state.commands.length) return state;
+      const target = state.commands[repeatIndex];
+      if (target.op !== 'repeat') return state;
+
+      const updatedRepeat: Repeat = {
+        ...target,
+        count,
       };
 
       const next = [...state.commands];

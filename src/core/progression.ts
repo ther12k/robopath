@@ -78,9 +78,20 @@ export function recordLevelSuccess(
     ? progress.completedLevels
     : [...progress.completedLevels, levelId];
 
+  // Evaluate cosmetic milestones deterministically
+  const totalCompleted = completedLevels.length;
+  const nextAccents = new Set(progress.unlockedAccents);
+
+  if (totalCompleted >= 1) nextAccents.add('badge-first-step');
+  if (totalCompleted >= 5) nextAccents.add('accent-flower-crown');
+  if (totalCompleted >= 10) nextAccents.add('accent-golden-antenna');
+  if (totalCompleted >= 20) nextAccents.add('accent-neon-visor');
+  if (totalCompleted >= 40) nextAccents.add('accent-cosmic-pack');
+
   return {
     ...progress,
     completedLevels,
+    unlockedAccents: Array.from(nextAccents).sort(),
     levels: {
       ...progress.levels,
       [levelId]: levelRecord,

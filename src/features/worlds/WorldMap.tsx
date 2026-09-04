@@ -1,5 +1,5 @@
-import React from 'react';
-import { M1_LEVELS } from '../../content/levels';
+import React, { useState } from 'react';
+import { getLevelsForWorld } from '../../content/levels';
 import { PlayerProgress, isLevelUnlocked } from '../../core/progression';
 import { totalStars } from '../../core/score';
 import { RobotAvatar } from '../robots/RobotAvatar';
@@ -13,23 +13,44 @@ export interface WorldMapProps {
   onOpenSettings: () => void;
 }
 
+export const WORLDS = [
+  { id: 'w1', title: 'World 1 · Sunny Meadow', theme: 'Meadow', color: 'var(--color-action)' },
+  { id: 'w2', title: 'World 2 · Pebble Workshop', theme: 'Workshop', color: 'var(--color-primary)' },
+  { id: 'w3', title: 'World 3 · Crystal Grove', theme: 'Crystal', color: 'var(--color-purple)' },
+  { id: 'w4', title: 'World 4 · Sky Isles', theme: 'Sky', color: 'var(--color-accent)' },
+];
+
 export const WorldMap: React.FC<WorldMapProps> = ({
   progress,
   onSelectLevel,
   onOpenRobotPicker,
   onOpenSettings,
 }) => {
+  const [selectedWorldId, setSelectedWorldId] = useState<string>('w1');
+  const currentWorld = WORLDS.find((w) => w.id === selectedWorldId) || WORLDS[0];
+  const worldLevels = getLevelsForWorld(selectedWorldId);
+
+  const isWorldUnlocked = (wid: string): boolean => {
+    if (wid === 'w1') return true;
+    if (wid === 'w2') return progress.completedLevels.filter((id) => id.startsWith('w1-')).length >= 10;
+    if (wid === 'w3') return progress.completedLevels.filter((id) => id.startsWith('w2-')).length >= 10;
+    if (wid === 'w4') return progress.completedLevels.filter((id) => id.startsWith('w3-')).length >= 10;
+    return false;
+  };
+
+  const totalWorldCompleted = progress.completedLevels.filter((id) => id.startsWith(`${selectedWorldId}-`)).length;
+
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'column',
         height: '100dvh',
-        maxWidth: '680px',
+        maxWidth: '720px',
         margin: '0 auto',
-        padding: '20px 16px',
+        padding: '16px',
         boxSizing: 'border-box',
-        gap: '20px',
+        gap: '16px',
       }}
     >
       {/* Header */}
@@ -56,10 +77,10 @@ export const WorldMap: React.FC<WorldMapProps> = ({
           </button>
           <div>
             <h1 style={{ margin: 0, fontSize: 'var(--text-xl)', color: 'var(--color-ink)' }}>
-              World 1 · Sunny Meadow
+              {currentWorld.title}
             </h1>
             <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-muted)', fontWeight: 600 }}>
-              {progress.completedLevels.filter((id) => id.startsWith('w1-')).length} / {M1_LEVELS.length} Completed
+              {totalWorldCompleted} / {worldLevels.length} Completed
             </span>
           </div>
         </div>
@@ -90,6 +111,52 @@ export const WorldMap: React.FC<WorldMapProps> = ({
         </div>
       </header>
 
+      {/* World Tabs */}
+      <nav
+        aria-label="World tabs"
+        style={{
+          display: 'flex',
+          gap: '8px',
+          overflowX: 'auto',
+          paddingBottom: '4px',
+        }}
+      >
+        {WORLDS.map((w, index) => {
+          const unlocked = isWorldUnlocked(w.id);
+          const isSelected = w.id === selectedWorldId;
+
+          return (
+            <button
+              key={w.id}
+              role="tab"
+              aria-selected={isSelected}
+              disabled={!unlocked}
+              onClick={() => setSelectedWorldId(w.id)}
+              style={{
+                flex: 1,
+                minWidth: '120px',
+                padding: '10px 12px',
+                borderRadius: 'var(--radius-btn)',
+                border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
+                backgroundColor: isSelected ? 'var(--color-surface)' : 'var(--color-surface-soft)',
+                color: unlocked ? 'var(--color-ink)' : 'var(--color-muted)',
+                fontWeight: 700,
+                fontSize: 'var(--text-sm)',
+                cursor: unlocked ? 'pointer' : 'not-allowed',
+                boxShadow: isSelected ? 'var(--shadow-sm)' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span>{unlocked ? `World ${index + 1}` : `🔒 W${index + 1}`}</span>
+            </button>
+          );
+        })}
+      </nav>
+
       {/* Level List / Grid */}
       <main
         style={{
@@ -97,14 +164,14 @@ export const WorldMap: React.FC<WorldMapProps> = ({
           overflowY: 'auto',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '16px',
+          gap: '12px',
           alignContent: 'start',
           padding: '4px',
         }}
         role="region"
         aria-label="Level selection list"
       >
-        {M1_LEVELS.map((level) => {
+        {worldLevels.map((level) => {
           const unlocked = isLevelUnlocked(
             level.id,
             level.worldId,
@@ -127,7 +194,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '16px 20px',
+                padding: '14px 18px',
                 borderRadius: 'var(--radius-panel)',
                 backgroundColor: unlocked ? 'var(--color-surface)' : 'var(--color-surface-soft)',
                 border: completed
@@ -143,12 +210,12 @@ export const WorldMap: React.FC<WorldMapProps> = ({
                 transition: 'all 0.15s ease',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div
                   style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '12px',
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
                     backgroundColor: completed
                       ? 'var(--color-action)'
                       : unlocked
@@ -156,7 +223,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({
                       : 'var(--color-border)',
                     color: '#ffffff',
                     fontWeight: 800,
-                    fontSize: 'var(--text-lg)',
+                    fontSize: 'var(--text-base)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -167,7 +234,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({
                 </div>
 
                 <div>
-                  <h2 style={{ margin: 0, fontSize: 'var(--text-base)', color: 'var(--color-ink)' }}>
+                  <h2 style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--color-ink)' }}>
                     {t(level.titleKey)}
                   </h2>
                   <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-muted)' }}>
@@ -178,12 +245,12 @@ export const WorldMap: React.FC<WorldMapProps> = ({
 
               {/* Star rating display */}
               {unlocked && (
-                <div style={{ display: 'flex', gap: '4px' }} aria-hidden="true">
+                <div style={{ display: 'flex', gap: '3px' }} aria-hidden="true">
                   {[1, 2, 3].map((starIdx) => (
                     <svg
                       key={starIdx}
-                      width="18"
-                      height="18"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       fill={starIdx <= stars ? 'var(--color-accent)' : '#e2e8f0'}
                       stroke={starIdx <= stars ? '#d97706' : '#cbd5e1'}

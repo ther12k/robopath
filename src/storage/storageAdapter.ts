@@ -1,6 +1,13 @@
 import { Node } from '../core/model';
 import { createInitialProgress, PlayerProgress } from '../core/progression';
 
+export interface SaveEnvelope {
+  app: 'robo-paths';
+  schemaVersion: 1;
+  exportedAt: string;
+  progress: PlayerProgress;
+}
+
 export interface StorageAdapter {
   isFallback(): boolean;
   loadProgress(): Promise<PlayerProgress>;
@@ -8,6 +15,8 @@ export interface StorageAdapter {
   loadDraft(levelId: string): Promise<readonly Node[] | null>;
   saveDraft(levelId: string, commands: readonly Node[]): Promise<void>;
   clearAll(): Promise<void>;
+  exportSave(): Promise<string>;
+  importSave(rawJson: string): Promise<{ ok: true } | { ok: false; error: string }>;
 }
 
 export class InMemoryStorageAdapter implements StorageAdapter {
@@ -37,6 +46,32 @@ export class InMemoryStorageAdapter implements StorageAdapter {
   async clearAll(): Promise<void> {
     this.progress = createInitialProgress();
     this.drafts.clear();
+  }
+
+  async exportSave(): Promise<string> {
+    const envelope: SaveEnvelope = {
+      app: 'robo-paths',
+      schemaVersion: 1,
+      exportedAt: new Date().toISOString(),
+      progress: this.progress,
+    };
+    return JSON.stringify(envelope, null, 2);
+  }
+
+  async importSave(rawJson: string): Promise<{ ok: true } | { ok: false; error: string }> {
+    if (!rawJson || rawJson.length > 1024 * 1024) {
+      return { ok: false, error: 'Import exceeds 1MB limit or is empty' };
+    }
+    try {
+      const parsed = JSON.parse(rawJson);
+      if (parsed.app !== 'robo-paths' || parsed.schemaVersion !== 1 || !parsed.progress) {
+        return { ok: false, error: 'Incompatible save file or unknown format' };
+      }
+      this.progress = parsed.progress;
+      return { ok: true };
+    } catch {
+      return { ok: false, error: 'Invalid JSON save format' };
+    }
   }
 }
 
@@ -143,5 +178,32 @@ export class LocalStorageAdapter implements StorageAdapter {
       // Ignored
     }
     await this.memoryFallback.clearAll();
+  }
+
+  async exportSave(): Promise<string> {
+    const progress = await this.loadProgress();
+    const envelope: SaveEnvelope = {
+      app: 'robo-paths',
+      schemaVersion: 1,
+      exportedAt: new Date().toISOString(),
+      progress,
+    };
+    return JSON.stringify(envelope, null, 2);
+  }
+
+  async importSave(rawJson: string): Promise<{ ok: true } | { ok: false; error: string }> {
+    if (!rawJson || rawJson.length > 1024 * 1024) {
+      return { ok: false, error: 'Import exceeds 1MB limit or is empty' };
+    }
+    try {
+      const parsed = JSON.parse(rawJson);
+      if (parsed.app !== 'robo-paths' || parsed.schemaVersion !== 1 || !parsed.progress) {
+        return { ok: false, error: 'Incompatible save file or unknown format' };
+      }
+      await this.saveProgress(parsed.progress);
+      return { ok: true };
+    } catch {
+      return { ok: false, error: 'Invalid JSON save format' };
+    }
   }
 }
