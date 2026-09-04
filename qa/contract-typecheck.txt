@@ -1,0 +1,5 @@
+Specification-interface typecheck only; not a production game build.
+
+Tool: Version 5.8.3
+Command: tsc --noEmit --strict --target ES2022 contracts/game.ts
+Exit code: 0

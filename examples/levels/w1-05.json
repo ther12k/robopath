@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "id": "w1-05",
+  "revision": 1,
+  "worldId": "w1",
+  "ordinal": 5,
+  "titleKey": "level.w1-05.title",
+  "board": {
+    "width": 3,
+    "height": 2,
+    "tiles": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 2,
+        "y": 0
+      },
+      {
+        "x": 0,
+        "y": 1
+      },
+      {
+        "x": 1,
+        "y": 1
+      },
+      {
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "walls": []
+  },
+  "start": {
+    "x": 0,
+    "y": 0,
+    "facing": "E"
+  },
+  "goal": {
+    "x": 2,
+    "y": 0
+  },
+  "collectibles": [
+    {
+      "id": "item-1",
+      "x": 1,
+      "y": 1,
+      "kind": "bonus"
+    }
+  ],
+  "gates": [],
+  "switches": [],
+  "commands": [
+    "forward",
+    "left",
+    "right"
+  ],
+  "limits": {
+    "maxBlocks": 9,
+    "maxActions": 14
+  },
+  "rating": {
+    "parBlocks": 7
+  },
+  "teaching": {
+    "concept": "optional-detour",
+    "archetype": "two-route-loop",
+    "difficulty": 2
+  },
+  "hintKeys": [
+    "level.w1-05.hint.1",
+    "level.w1-05.hint.2",
+    "level.w1-05.hint.3"
+  ]
+}

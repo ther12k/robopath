@@ -1,0 +1,2198 @@
+{
+  "schemaVersion": 1,
+  "milestones": [
+    {
+      "id": "M0",
+      "title": "M0 — Foundation and compatibility",
+      "gate": "Repository scope, pinned compatible stack, real CI, accessible primitives and strict schema boundary.",
+      "optional": false
+    },
+    {
+      "id": "M1",
+      "title": "M1 — First playable six-level slice",
+      "gate": "Four free robots, six diverse puzzles, tap/drag/keyboard editor, primitive execution, tutorials, retries, ratings and local saves with actual smoke evidence.",
+      "optional": false
+    },
+    {
+      "id": "M2",
+      "title": "M2 — Complete mechanics and authored content",
+      "gate": "Repeat, latched gates, world progression, bounded content tooling and four fully authored 15-level worlds.",
+      "optional": false
+    },
+    {
+      "id": "M3",
+      "title": "M3 — Polish, offline and inclusive validation",
+      "gate": "Final-art review, storage/update hardening, equivalent board explorer, real-device evidence and consented formative playtests.",
+      "optional": false
+    },
+    {
+      "id": "M4",
+      "title": "M4 — Public web v1 readiness",
+      "gate": "Exact release candidate with 60 valid levels, privacy/support/asset review, deployment/rollback rehearsal and human GO/NO-GO.",
+      "optional": false
+    },
+    {
+      "id": "M5",
+      "title": "M5 — Optional post-v1 expansion",
+      "gate": "Opt-in native packaging, internal authoring tool or separate cloud-save proposal. Excluded from default issue import.",
+      "optional": true
+    }
+  ],
+  "tasks": [
+    {
+      "id": "RP-001",
+      "title": "Adopt the specification and establish repository boundaries",
+      "milestone": "M0",
+      "area": "platform",
+      "priority": "P1",
+      "effort": "S",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [],
+      "requirements": [
+        "FR-020",
+        "FR-028",
+        "FR-029"
+      ],
+      "scope": [
+        "Inspect the supplied repository or initialize a new one only when authorized; record branch and worktree state",
+        "Place this planning kit under a stable documented path and establish contribution/evidence conventions",
+        "Record unresolved owner choices without changing the game scope"
+      ],
+      "acceptance": [
+        "No existing work is overwritten or unrelated project files imported",
+        "README points to PRD, architecture, design references and task order",
+        "Initial repository inventory distinguishes existing code from planned work"
+      ],
+      "tests": [
+        "Run package verification and record actual results",
+        "Check all local documentation links resolve"
+      ],
+      "documents": [
+        "PRD.md",
+        "docs/decisions-and-risks.md"
+      ],
+      "file": "backlog/issues/RP-001.md"
+    },
+    {
+      "id": "RP-002",
+      "title": "Prove and pin the React–Phaser toolchain",
+      "milestone": "M0",
+      "area": "platform",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-001"
+      ],
+      "requirements": [
+        "FR-017",
+        "FR-025",
+        "FR-028"
+      ],
+      "scope": [
+        "Spike a React shell with one Phaser scene and responsive resize",
+        "Evaluate Phaser 4.2.1 as a candidate with a supported Node 24 LTS patch and compatible tools",
+        "Record exact versions, remove template log.js telemetry and unused starter behavior"
+      ],
+      "acceptance": [
+        "Clean install and production build reproduce from the lockfile",
+        "Scene mounts, resizes, destroys and remounts without duplicate canvases",
+        "Basic touch and rendering work in recorded browser probes; unsupported probes are explicit"
+      ],
+      "tests": [
+        "Run mount/unmount and Strict Mode probes",
+        "Capture actual tool versions and network destinations during dev/build"
+      ],
+      "documents": [
+        "docs/stack-and-architecture.md",
+        "docs/sources.md"
+      ],
+      "file": "backlog/issues/RP-002.md"
+    },
+    {
+      "id": "RP-003",
+      "title": "Bootstrap quality tooling and honest CI scripts",
+      "milestone": "M0",
+      "area": "platform",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-002"
+      ],
+      "requirements": [
+        "FR-020",
+        "FR-027",
+        "FR-028",
+        "FR-029"
+      ],
+      "scope": [
+        "Create the proposed core/ui/renderer/storage boundaries and strict TypeScript configuration",
+        "Implement real lint, typecheck, unit-test, production-build and browser-test commands",
+        "Create CI jobs with pinned runners/toolchain and artifact retention"
+      ],
+      "acceptance": [
+        "No test script merely echoes success",
+        "Core import rules forbid React, Phaser and browser storage dependencies",
+        "A deliberately failing test fails the corresponding CI job"
+      ],
+      "tests": [
+        "Run clean install, typecheck, lint, unit tests and build",
+        "Verify failing-test and missing-content negative probes"
+      ],
+      "documents": [
+        "docs/stack-and-architecture.md",
+        "docs/quality-and-release.md"
+      ],
+      "file": "backlog/issues/RP-003.md"
+    },
+    {
+      "id": "RP-004",
+      "title": "Build responsive tokens and accessible base components",
+      "milestone": "M0",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-003"
+      ],
+      "requirements": [
+        "FR-017",
+        "FR-018",
+        "FR-026"
+      ],
+      "scope": [
+        "Implement spacing, type, palette, focus and safe-area tokens",
+        "Create buttons, dialog, status chip, cards and loading/error primitives",
+        "Add an isolated component showcase for review"
+      ],
+      "acceptance": [
+        "Primary targets are at least 48 CSS pixels",
+        "Disabled, focused and error states are perceivable beyond color",
+        "Components reflow at 360 px and 200% zoom without unreachable controls"
+      ],
+      "tests": [
+        "Measure target sizes and contrast in representative states",
+        "Keyboard-test dialog entry, escape and focus return"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/design-system-and-assets.md"
+      ],
+      "file": "backlog/issues/RP-004.md"
+    },
+    {
+      "id": "RP-005",
+      "title": "Implement schema and semantic content validation",
+      "milestone": "M0",
+      "area": "core",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-003"
+      ],
+      "requirements": [
+        "FR-020",
+        "FR-022",
+        "FR-027"
+      ],
+      "scope": [
+        "Adopt the supplied level/program/draft/world/robot/save schemas with strict runtime validation",
+        "Implement semantic board, ID, gate-reference and capability checks",
+        "Return stable structured errors with useful paths"
+      ],
+      "acceptance": [
+        "Unknown fields and incompatible versions fail before gameplay",
+        "Byte, array, coordinate and AST limits are enforced",
+        "All supplied valid examples pass and malformed variants fail clearly"
+      ],
+      "tests": [
+        "Test duplicate coordinates, bad gate targets, start on goal and forbidden commands",
+        "Test oversized input and future-version rejection"
+      ],
+      "documents": [
+        "docs/content-authoring.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-005.md"
+    },
+    {
+      "id": "RP-006",
+      "title": "Implement immutable board and facing model",
+      "milestone": "M1",
+      "area": "core",
+      "priority": "P1",
+      "effort": "S",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-005"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-020"
+      ],
+      "scope": [
+        "Create pure position/facing/entity types and normalized state creation",
+        "Implement cardinal rotations and passability lookup",
+        "Establish sorted ID-set serialization for deterministic fixtures"
+      ],
+      "acceptance": [
+        "Initial state has no implicit pickups or gate opening",
+        "Four identical turns restore facing",
+        "Caller-owned inputs cannot be mutated by normalization or stepping"
+      ],
+      "tests": [
+        "Test all four headings and tile boundaries",
+        "Freeze inputs and verify state operations remain safe"
+      ],
+      "documents": [
+        "docs/game-engine.md",
+        "docs/stack-and-architecture.md"
+      ],
+      "file": "backlog/issues/RP-006.md"
+    },
+    {
+      "id": "RP-007",
+      "title": "Implement primitive command compilation and simulation",
+      "milestone": "M1",
+      "area": "core",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-006"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-007",
+        "FR-008"
+      ],
+      "scope": [
+        "Compile forward/left/right nodes with source IDs",
+        "Execute actions without renderer, timers or wall-clock state",
+        "Return before/after states and blocked-target reasons"
+      ],
+      "acceptance": [
+        "Turning does not change tile and forward follows logical facing",
+        "Blocked attempts consume one action and preserve the last legal position",
+        "Repeated identical input yields identical trace JSON"
+      ],
+      "tests": [
+        "Golden-test simple routes, all turn combinations and void/wall collisions",
+        "Assert original level/program objects are unchanged"
+      ],
+      "documents": [
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-007.md"
+    },
+    {
+      "id": "RP-008",
+      "title": "Implement goals, pickups, budgets and rating outcomes",
+      "milestone": "M1",
+      "area": "core",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-007"
+      ],
+      "requirements": [
+        "FR-007",
+        "FR-008",
+        "FR-013"
+      ],
+      "scope": [
+        "Apply collectible entry effects and required-goal conditions",
+        "Implement static block cap and runtime action cap with specified precedence",
+        "Calculate per-run completion/bonus/efficiency award bits"
+      ],
+      "acceptance": [
+        "Success on the last allowed action is accepted",
+        "Goal without required items can be visited and left without winning",
+        "Trailing unused nodes count toward blocks but not executed actions"
+      ],
+      "tests": [
+        "Test incomplete vs out_of_actions vs blocked distinction",
+        "Verify optional-detour and direct-route ratings against fixtures"
+      ],
+      "documents": [
+        "docs/game-engine.md",
+        "PRD.md"
+      ],
+      "file": "backlog/issues/RP-008.md"
+    },
+    {
+      "id": "RP-009",
+      "title": "Build the pure program-editing reducer",
+      "milestone": "M1",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-005"
+      ],
+      "requirements": [
+        "FR-004",
+        "FR-008",
+        "FR-020"
+      ],
+      "scope": [
+        "Implement add/insert/reorder/replace/delete/clear actions with stable node IDs",
+        "Support bounded undo and a distinct draft-to-runnable validation step",
+        "Keep capacity accounting centralized and reusable by all input methods"
+      ],
+      "acceptance": [
+        "At least 50 current-level operations are undoable",
+        "Canceling an edit leaves draft unchanged",
+        "Clear and reset have separate effects; capacity is never silently exceeded"
+      ],
+      "tests": [
+        "Property-test reorder/undo and unique IDs",
+        "Test replacement at full capacity and empty draft serialization"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-009.md"
+    },
+    {
+      "id": "RP-010",
+      "title": "Implement tap, pointer drag and keyboard program editing",
+      "milestone": "M1",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-004",
+        "RP-009"
+      ],
+      "requirements": [
+        "FR-004",
+        "FR-005",
+        "FR-018"
+      ],
+      "scope": [
+        "Build semantic palette, insertion slots and block action menu",
+        "Implement pointer threshold/capture, insertion preview and canceled drops",
+        "Provide equivalent tap-to-place and keyboard operations with announcements"
+      ],
+      "acceptance": [
+        "Every edit is possible without dragging",
+        "Off-target drops and pointercancel never leave ghost blocks",
+        "Focus follows edits and native page scrolling remains usable"
+      ],
+      "tests": [
+        "Run touch/pointer integration tests and keyboard-only flows",
+        "Test full strip, landscape, Escape cancel and screen-reader edit announcements"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/privacy-security-accessibility.md"
+      ],
+      "file": "backlog/issues/RP-010.md"
+    },
+    {
+      "id": "RP-011",
+      "title": "Render the isometric board with reliable depth and framing",
+      "milestone": "M1",
+      "area": "renderer",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-002",
+        "RP-006"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-017",
+        "FR-020"
+      ],
+      "scope": [
+        "Implement integer-grid projection and consistent foot pivots",
+        "Render terrain, walls, goal and pickups from data",
+        "Fit board to its available rectangle and use deterministic object depth"
+      ],
+      "acceptance": [
+        "Logical tile positions agree with rendered markers at each facing",
+        "Tall decoration cannot obscure critical board information",
+        "Resize changes framing only, not simulation state"
+      ],
+      "tests": [
+        "Capture board at all required viewport classes",
+        "Test robot depth on both sides of tall scenery and no-WebGL recovery entry"
+      ],
+      "documents": [
+        "docs/stack-and-architecture.md",
+        "docs/design-system-and-assets.md"
+      ],
+      "file": "backlog/issues/RP-011.md"
+    },
+    {
+      "id": "RP-012",
+      "title": "Create four consistent placeholder robot asset sets",
+      "milestone": "M1",
+      "area": "art",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-004",
+        "RP-011"
+      ],
+      "requirements": [
+        "FR-002",
+        "FR-019",
+        "FR-020"
+      ],
+      "scope": [
+        "Provide clearly labeled temporary Pip, Mochi, Bolt and Sprout assets",
+        "Match directional poses, dimensions and ground pivots",
+        "Map semantic asset-set IDs to local trusted files"
+      ],
+      "acceptance": [
+        "All four characters are recognizably robotic",
+        "No robot changes rule parameters or occludes a different number of tiles",
+        "Missing art falls back visibly without crashing"
+      ],
+      "tests": [
+        "Preview all poses and selected portraits side by side",
+        "Verify asset IDs and equal logical traces for each robot ID"
+      ],
+      "documents": [
+        "docs/design-system-and-assets.md"
+      ],
+      "file": "backlog/issues/RP-012.md"
+    },
+    {
+      "id": "RP-013",
+      "title": "Build the typed controller–renderer bridge and lifecycle",
+      "milestone": "M1",
+      "area": "renderer",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-007",
+        "RP-011"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-025",
+        "FR-028"
+      ],
+      "scope": [
+        "Implement controller messages and renderer acknowledgments with runId and step index",
+        "Ignore stale/out-of-order events",
+        "Dispose all scene subscriptions, timers and owned resources on teardown"
+      ],
+      "acceptance": [
+        "No simulation or scoring happens inside scene callbacks",
+        "Old acknowledgments cannot mutate a new run",
+        "Repeated navigation does not add duplicate listeners/canvases"
+      ],
+      "tests": [
+        "Mount/destroy 100 times in a lifecycle probe",
+        "Inject stale and duplicate acknowledgments and inspect resulting state"
+      ],
+      "documents": [
+        "docs/stack-and-architecture.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-013.md"
+    },
+    {
+      "id": "RP-014",
+      "title": "Implement run, pause, resume, step and reset",
+      "milestone": "M1",
+      "area": "gameplay",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-008",
+        "RP-010",
+        "RP-013"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-007",
+        "FR-025"
+      ],
+      "scope": [
+        "Connect an immutable program snapshot to trace playback",
+        "Implement action-boundary pause and cancellation/reset",
+        "Pause on hidden page and require deliberate resume"
+      ],
+      "acceptance": [
+        "Edit operations are blocked during running/paused playback",
+        "Reset preserves draft, restores board and grants no canceled completion",
+        "Single Step advances exactly one primitive and stops at the next boundary"
+      ],
+      "tests": [
+        "Test pause/reset at beginning, mid-tween and final success step",
+        "Verify background/resume and repeated Run clicks do not duplicate execution"
+      ],
+      "documents": [
+        "docs/game-engine.md",
+        "docs/ui-ux.md"
+      ],
+      "file": "backlog/issues/RP-014.md"
+    },
+    {
+      "id": "RP-015",
+      "title": "Build the mobile-first application shell and routes",
+      "milestone": "M1",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-004",
+        "RP-011"
+      ],
+      "requirements": [
+        "FR-001",
+        "FR-003",
+        "FR-017",
+        "FR-024"
+      ],
+      "scope": [
+        "Implement welcome, gameplay, robot picker and settings navigation",
+        "Use portrait dock and wide-screen editor panel",
+        "Handle route loading, safe areas and invalid route recovery"
+      ],
+      "acceptance": [
+        "New users enter play without signup or install prompt",
+        "360 px and landscape layouts keep controls reachable",
+        "Navigation does not leave background game/audio activity"
+      ],
+      "tests": [
+        "Run viewport screenshot matrix",
+        "Test back/forward, invalid URL and navigation during a draft"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/stack-and-architecture.md"
+      ],
+      "file": "backlog/issues/RP-015.md"
+    },
+    {
+      "id": "RP-016",
+      "title": "Implement robot selection consistently across the game",
+      "milestone": "M1",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-012",
+        "RP-015",
+        "RP-019"
+      ],
+      "requirements": [
+        "FR-002",
+        "FR-015"
+      ],
+      "scope": [
+        "Build four free starter cards with large preview and selected check",
+        "Persist confirmed selection through the storage adapter",
+        "Use the selected character in welcome, board, tutorial/hint and results"
+      ],
+      "acceptance": [
+        "Changing robot preserves drafts, awards and world progress",
+        "Selection can be changed without payment or game advantage",
+        "Mid-run changes are deferred or require reset, never swap an active sprite unsafely"
+      ],
+      "tests": [
+        "Reload and verify selected robot",
+        "Compare a fixture trace and ratings for all four robot choices"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/design-system-and-assets.md"
+      ],
+      "file": "backlog/issues/RP-016.md"
+    },
+    {
+      "id": "RP-017",
+      "title": "Implement first-command visual tutorials",
+      "milestone": "M1",
+      "area": "gameplay",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-010",
+        "RP-012",
+        "RP-015"
+      ],
+      "requirements": [
+        "FR-001",
+        "FR-011",
+        "FR-019"
+      ],
+      "scope": [
+        "Create short in-context demos for forward and the two turns",
+        "Expose replay/skip and reduced-motion keyframes",
+        "Persist tutorial acknowledgments separately from level success"
+      ],
+      "acceptance": [
+        "Only relevant commands appear before introduction",
+        "Tutorial does not hide both target board and insertion slot",
+        "Skipping never blocks access to play"
+      ],
+      "tests": [
+        "Test skip/replay and tutorial restore after reload",
+        "Check no audio is required and focus returns to the intended editor target"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-017.md"
+    },
+    {
+      "id": "RP-018",
+      "title": "Implement helpful retry, hint and success panels",
+      "milestone": "M1",
+      "area": "gameplay",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-008",
+        "RP-014",
+        "RP-015"
+      ],
+      "requirements": [
+        "FR-007",
+        "FR-012",
+        "FR-013"
+      ],
+      "scope": [
+        "Create distinct blocked/incomplete/action-cap feedback",
+        "Retain draft and show authored three-tier hints",
+        "Render award bits, target blocks and nonblocking save status on success"
+      ],
+      "acceptance": [
+        "No retry consumes lives, currency or time allowance",
+        "Hint requests never reduce stars",
+        "Success and retry actions lead to the correct reset/edit/next state"
+      ],
+      "tests": [
+        "Test all outcome variants and repeat completion",
+        "Verify three-star and two-star sample messages and accessible status announcements"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-018.md"
+    },
+    {
+      "id": "RP-019",
+      "title": "Implement local save adapter and in-memory fallback",
+      "milestone": "M1",
+      "area": "storage",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-003",
+        "RP-005"
+      ],
+      "requirements": [
+        "FR-015",
+        "FR-024",
+        "FR-025"
+      ],
+      "scope": [
+        "Create local profile/settings/drafts/progress stores with Dexie abstraction",
+        "Persist edits and selected robot with explicit error handling",
+        "Provide in-memory play when storage fails"
+      ],
+      "acceptance": [
+        "Reload restores stable drafts and settings but not an in-flight run",
+        "No saved indicator precedes successful write",
+        "Storage denial does not prevent the first six puzzles from being played"
+      ],
+      "tests": [
+        "Test durable save and denied/quota-error fallback",
+        "Verify incomplete drafts remain drafts and cannot execute without validation"
+      ],
+      "documents": [
+        "docs/persistence-and-offline.md"
+      ],
+      "file": "backlog/issues/RP-019.md"
+    },
+    {
+      "id": "RP-020",
+      "title": "Integrate and validate the first six diverse puzzles",
+      "milestone": "M1",
+      "area": "content",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-005",
+        "RP-008",
+        "RP-017"
+      ],
+      "requirements": [
+        "FR-011",
+        "FR-021",
+        "FR-022"
+      ],
+      "scope": [
+        "Adapt w1-01 through w1-06 examples to production content/locale paths",
+        "Run their witnesses against the TypeScript core",
+        "Author and review visual hints for each new decision"
+      ],
+      "acceptance": [
+        "The six levels cover forward, both turns, pickup, optional detour and obstacle correction",
+        "Each has a verified three-star witness and sensible limits",
+        "No solution is hardcoded by level ID"
+      ],
+      "tests": [
+        "Compare production traces with reference witnesses",
+        "Manually play both direct and bonus paths where the example permits them"
+      ],
+      "documents": [
+        "docs/content-authoring.md",
+        "docs/curriculum.md"
+      ],
+      "file": "backlog/issues/RP-020.md"
+    },
+    {
+      "id": "RP-021",
+      "title": "Validate the first playable vertical slice",
+      "milestone": "M1",
+      "area": "qa",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-004",
+        "RP-014",
+        "RP-016",
+        "RP-017",
+        "RP-018",
+        "RP-019",
+        "RP-020"
+      ],
+      "requirements": [
+        "FR-001",
+        "FR-002",
+        "FR-005",
+        "FR-006",
+        "FR-017",
+        "FR-028"
+      ],
+      "scope": [
+        "Exercise choose robot → tutorial → edit/run/retry → six-level progression → reload",
+        "Capture actual viewport screenshots and a short interaction recording",
+        "Write M1 evidence and unresolved limitations"
+      ],
+      "acceptance": [
+        "All four robots and six puzzles work from the same production build",
+        "Tap and keyboard paths work even when drag is unused",
+        "No browser/physical-device test is marked passed unless executed"
+      ],
+      "tests": [
+        "Run core tests, production build and browser smoke journeys",
+        "Record at least one physical phone probe or explicitly mark M1 device gate incomplete"
+      ],
+      "documents": [
+        "docs/quality-and-release.md",
+        "docs/ui-ux.md"
+      ],
+      "file": "backlog/issues/RP-021.md"
+    },
+    {
+      "id": "RP-022",
+      "title": "Implement bounded repeat compilation and core rules",
+      "milestone": "M2",
+      "area": "core",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-008",
+        "RP-021"
+      ],
+      "requirements": [
+        "FR-008",
+        "FR-009",
+        "FR-020"
+      ],
+      "scope": [
+        "Compile repeat counts 2–5 with primitive-only bodies",
+        "Charge repeat header/body static blocks and primitive runtime actions",
+        "Preserve child source IDs and iteration metadata"
+      ],
+      "acceptance": [
+        "Nested/empty/disallowed repeats are rejected",
+        "A repeat header costs no runtime action",
+        "Early success truncates playback without changing full-program block cost"
+      ],
+      "tests": [
+        "Run w2 examples and expansion-limit negatives",
+        "Test repeated body turns, budget boundaries and deterministic trace source mapping"
+      ],
+      "documents": [
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-022.md"
+    },
+    {
+      "id": "RP-023",
+      "title": "Build the responsive repeat-block editor",
+      "milestone": "M2",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-010",
+        "RP-022"
+      ],
+      "requirements": [
+        "FR-004",
+        "FR-005",
+        "FR-009",
+        "FR-018"
+      ],
+      "scope": [
+        "Add repeat container, count selector and primitive body slots",
+        "Support atomic move/delete/undo of grouped nodes",
+        "Expose equivalent keyboard/tap controls and clear invalid-draft state"
+      ],
+      "acceptance": [
+        "Repeat child blocks are counted even when the group is collapsed",
+        "No drag/drop or paste can create a nested repeat",
+        "A collapsed group still communicates order, count and accessible content"
+      ],
+      "tests": [
+        "Test counts, empty bodies, full cap, reorder and undo",
+        "Run 360 px, zoom and keyboard-only repeat editing journeys"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-023.md"
+    },
+    {
+      "id": "RP-024",
+      "title": "Add repeat tutorials and execution visualization",
+      "milestone": "M2",
+      "area": "gameplay",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-017",
+        "RP-022",
+        "RP-023"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-009",
+        "FR-011",
+        "FR-019"
+      ],
+      "scope": [
+        "Create repeat demonstration with count and body cues",
+        "Show current child and iteration while playing/stepping",
+        "Keep reduced-motion and non-audio feedback equivalent"
+      ],
+      "acceptance": [
+        "Child command rather than only header is highlighted",
+        "Single Step advances one primitive within a repeat",
+        "Count label and robot movement match the core trace at every step"
+      ],
+      "tests": [
+        "Pause and step at each repeat boundary",
+        "Test early success within the final body before a trailing turn"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-024.md"
+    },
+    {
+      "id": "RP-025",
+      "title": "Implement latched switches and gates end to end",
+      "milestone": "M2",
+      "area": "gameplay",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-008",
+        "RP-011",
+        "RP-014",
+        "RP-022"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-010",
+        "FR-020"
+      ],
+      "scope": [
+        "Add switch-entry effects and gate passability to the core",
+        "Render closed/open gates and matched shape/color signals",
+        "Reset attempt state and expose gate status in board data"
+      ],
+      "acceptance": [
+        "Switches only open their declared gates and never toggle closed",
+        "Blocked gate entry occurs before pickups or switches on target tile",
+        "Reset closes gates and restores collectibles consistently"
+      ],
+      "tests": [
+        "Run w3 fixtures including backtracking and two gates",
+        "Test revisits, duplicate opens, missing references and reset"
+      ],
+      "documents": [
+        "docs/game-engine.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-025.md"
+    },
+    {
+      "id": "RP-026",
+      "title": "Implement world map, level picker and unlock rules",
+      "milestone": "M2",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-015",
+        "RP-018",
+        "RP-019"
+      ],
+      "requirements": [
+        "FR-003",
+        "FR-013",
+        "FR-021"
+      ],
+      "scope": [
+        "Build four world groups and 15-level layouts from manifests",
+        "Implement sequential level access and ten-completion world threshold",
+        "Separate progression locks from pack readiness"
+      ],
+      "acceptance": [
+        "Efficiency and bonus stars never block the next normal puzzle",
+        "Completed levels remain replayable",
+        "Accessible list and visual map expose the same availability"
+      ],
+      "tests": [
+        "Test thresholds at 9/10/15 completed levels",
+        "Test newly available but offline-missing world messaging"
+      ],
+      "documents": [
+        "PRD.md",
+        "docs/ui-ux.md"
+      ],
+      "file": "backlog/issues/RP-026.md"
+    },
+    {
+      "id": "RP-027",
+      "title": "Implement idempotent progression and cosmetic rewards",
+      "milestone": "M2",
+      "area": "storage",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-008",
+        "RP-019",
+        "RP-026"
+      ],
+      "requirements": [
+        "FR-013",
+        "FR-014",
+        "FR-015"
+      ],
+      "scope": [
+        "Merge independent award bits and successful-run metrics transactionally",
+        "Grant deterministic badges/accents by completion milestones",
+        "Deduplicate completion receipts and update the robot workshop"
+      ],
+      "acceptance": [
+        "Replaying cannot repeatedly grant the same cosmetic",
+        "A worse successful replay cannot remove awards",
+        "Minima from separate runs are not represented as one fictitious run"
+      ],
+      "tests": [
+        "Test duplicate/out-of-order success events and multi-tab transactions",
+        "Verify bonus and efficiency awards may be accumulated across valid completions"
+      ],
+      "documents": [
+        "docs/game-engine.md",
+        "docs/persistence-and-offline.md"
+      ],
+      "file": "backlog/issues/RP-027.md"
+    },
+    {
+      "id": "RP-028",
+      "title": "Author and approve all 15 Sunny Meadow levels",
+      "milestone": "M2",
+      "area": "content",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-020",
+        "RP-032"
+      ],
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-021",
+        "FR-022"
+      ],
+      "scope": [
+        "Finish the W1 curriculum with facing, detours, ordering and debugging",
+        "Write locales, three-tier hints and intended/alternative solutions",
+        "Complete structural diversity review and tune generous limits"
+      ],
+      "acceptance": [
+        "15 level IDs exist and all have single three-star witnesses",
+        "At least eight W1 decision/topology archetypes are documented",
+        "Required W2 prerequisites are taught within the first ten W1 levels"
+      ],
+      "tests": [
+        "Run production content/witness validation",
+        "Review alternative routes and no more than two repetitive neighbors without rationale"
+      ],
+      "documents": [
+        "docs/curriculum.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-028.md"
+    },
+    {
+      "id": "RP-029",
+      "title": "Author and approve all 15 Pebble Workshop levels",
+      "milestone": "M2",
+      "area": "content",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-023",
+        "RP-024",
+        "RP-032"
+      ],
+      "requirements": [
+        "FR-009",
+        "FR-011",
+        "FR-012",
+        "FR-021",
+        "FR-022"
+      ],
+      "scope": [
+        "Build repeat curriculum from count discovery to mixed prefix/body/suffix patterns",
+        "Include compression decisions that cannot be solved by merely recoloring earlier levels",
+        "Write progressive hints and documented block targets"
+      ],
+      "acceptance": [
+        "15 W2 puzzles have valid three-star witnesses",
+        "No level requires nested loops or unintroduced commands",
+        "Block efficiency claims distinguish verified target from proven minimum"
+      ],
+      "tests": [
+        "Run all witnesses and bounded solver reports",
+        "Manually compare equivalent expanded and repeat programs"
+      ],
+      "documents": [
+        "docs/curriculum.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-029.md"
+    },
+    {
+      "id": "RP-030",
+      "title": "Author and approve all 15 Crystal Grove levels",
+      "milestone": "M2",
+      "area": "content",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-025",
+        "RP-032"
+      ],
+      "requirements": [
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-021",
+        "FR-022"
+      ],
+      "scope": [
+        "Build state-planning puzzles around latched gate/switch rules",
+        "Include revisits, detours and loop/state combinations",
+        "Teach all mechanics needed in W4 by W3 level ten"
+      ],
+      "acceptance": [
+        "15 W3 puzzles have reachable switches and three-star witnesses",
+        "Gate dependencies do not accidentally make a level unsolvable",
+        "Switch patterns are understandable without color discrimination"
+      ],
+      "tests": [
+        "Run witnesses from initial closed-gate state",
+        "Review order-dependence and alternative unintended bypasses"
+      ],
+      "documents": [
+        "docs/curriculum.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-030.md"
+    },
+    {
+      "id": "RP-031",
+      "title": "Author and approve all 15 Sky Isles synthesis levels",
+      "milestone": "M2",
+      "area": "content",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-030",
+        "RP-032"
+      ],
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-012",
+        "FR-021",
+        "FR-022"
+      ],
+      "scope": [
+        "Create new topology and decision combinations using existing mechanics",
+        "Include multiple valid strategies and optional efficient refinements",
+        "Avoid adding unexplained commands to create difficulty"
+      ],
+      "acceptance": [
+        "15 W4 puzzles pass full content and three-star checks",
+        "Each level has a teaching/transfer note and differs beyond decoration",
+        "Optional mastery does not trap progression"
+      ],
+      "tests": [
+        "Run all witness programs and review structural duplicates",
+        "Playtest complete routes without relying on author memory"
+      ],
+      "documents": [
+        "docs/curriculum.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-031.md"
+    },
+    {
+      "id": "RP-032",
+      "title": "Build content CLI, witness runner and bounded search reports",
+      "milestone": "M2",
+      "area": "tooling",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-005",
+        "RP-022",
+        "RP-025"
+      ],
+      "requirements": [
+        "FR-020",
+        "FR-021",
+        "FR-022",
+        "FR-028"
+      ],
+      "scope": [
+        "Implement schema/semantic/world validation and production-core witness replay",
+        "Add bounded reachability/AST search with timeout and provenance reporting",
+        "Emit diversity warnings and per-level trace/award evidence"
+      ],
+      "acceptance": [
+        "Report states distinguish verified witness, bounded proof and inconclusive search",
+        "A primitive path search never claims minimum repeat-block count",
+        "Invalid content or a broken witness fails CI with a precise level ID"
+      ],
+      "tests": [
+        "Inject an unwinnable map, impossible target and malformed world dependency",
+        "Compare included reference witnesses with production core output"
+      ],
+      "documents": [
+        "docs/content-authoring.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-032.md"
+    },
+    {
+      "id": "RP-033",
+      "title": "Produce and integrate the approved final art slice and asset pipeline",
+      "milestone": "M3",
+      "area": "art",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": true,
+      "dependencies": [
+        "RP-004",
+        "RP-012"
+      ],
+      "requirements": [
+        "FR-002",
+        "FR-017",
+        "FR-019",
+        "FR-020"
+      ],
+      "scope": [
+        "Obtain owner approval of a visual direction and four robot silhouettes",
+        "Produce directional robots, tiles, UI icons and atlas manifests",
+        "Add byte/dimension/pivot/license checks and local fallbacks"
+      ],
+      "acceptance": [
+        "No screenshot fragments are used as final robot/UI sprites",
+        "Robot portraits and all runtime directional poses agree",
+        "Shared/world assets meet measured pack budgets or approved documented adjustments"
+      ],
+      "tests": [
+        "Review depth/facing/readability on physical small screens",
+        "Run asset integrity and license/provenance checks"
+      ],
+      "documents": [
+        "docs/design-system-and-assets.md",
+        "design/README.md"
+      ],
+      "file": "backlog/issues/RP-033.md"
+    },
+    {
+      "id": "RP-034",
+      "title": "Polish motion, local audio and reduced-motion behavior",
+      "milestone": "M3",
+      "area": "renderer",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-014",
+        "RP-033"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-019",
+        "FR-024"
+      ],
+      "scope": [
+        "Tune move/turn/pickup/blocked/celebration timings",
+        "Unlock audio only after user interaction and persist independent settings",
+        "Provide equivalent reduced-motion state changes and low-effects mode"
+      ],
+      "acceptance": [
+        "No gameplay action depends on successful sound playback",
+        "Reduced-motion mode removes decorative motion without hiding executed state",
+        "Backgrounding and reset stop obsolete run sounds/effects"
+      ],
+      "tests": [
+        "Test autoplay rejection, mute/reload and visibility changes",
+        "Compare traces and awards across motion/speed settings"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/design-system-and-assets.md"
+      ],
+      "file": "backlog/issues/RP-034.md"
+    },
+    {
+      "id": "RP-035",
+      "title": "Harden save migrations, import/export and erase",
+      "milestone": "M3",
+      "area": "storage",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-019",
+        "RP-027"
+      ],
+      "requirements": [
+        "FR-015",
+        "FR-024",
+        "FR-025",
+        "FR-027"
+      ],
+      "scope": [
+        "Implement version migrations and future-version rejection",
+        "Build size-bounded export/import with preview and atomic replacement",
+        "Implement explicit erase and stale-tab generation protection"
+      ],
+      "acceptance": [
+        "Failed import/migration preserves prior data",
+        "Incomplete drafts are restored only as drafts; changed revisions are handled explicitly",
+        "Another tab cannot resurrect erased progress"
+      ],
+      "tests": [
+        "Test malformed/oversized/prototype-key/future-version imports",
+        "Test migration interruption, storage denial and multi-tab erase"
+      ],
+      "documents": [
+        "docs/persistence-and-offline.md",
+        "docs/privacy-security-accessibility.md"
+      ],
+      "file": "backlog/issues/RP-035.md"
+    },
+    {
+      "id": "RP-036",
+      "title": "Implement transactional offline world-pack installation",
+      "milestone": "M3",
+      "area": "offline",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-005",
+        "RP-019",
+        "RP-033"
+      ],
+      "requirements": [
+        "FR-016",
+        "FR-020",
+        "FR-025",
+        "FR-027"
+      ],
+      "scope": [
+        "Create trusted immutable pack manifests and staging cache downloads",
+        "Verify bytes/hashes/schema/assets before committing ready status",
+        "Add progress, cancel, retry, quota and missing-pack states"
+      ],
+      "acceptance": [
+        "Ready means the complete verified pack exists",
+        "Partial failure preserves a previous ready revision",
+        "No arbitrary URL from imported data is fetched"
+      ],
+      "tests": [
+        "Interrupt downloads at each phase and restart",
+        "Test quota errors, orphan staging cleanup and missing files behind a ready record"
+      ],
+      "documents": [
+        "docs/persistence-and-offline.md"
+      ],
+      "file": "backlog/issues/RP-036.md"
+    },
+    {
+      "id": "RP-037",
+      "title": "Implement safe service-worker updates and multi-tab coordination",
+      "milestone": "M3",
+      "area": "offline",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-035",
+        "RP-036"
+      ],
+      "requirements": [
+        "FR-016",
+        "FR-025",
+        "FR-029"
+      ],
+      "scope": [
+        "Precache shell and apply the selected version-safe caching strategy",
+        "Keep updates waiting during active runs/unsaved state",
+        "Coordinate other tabs and preserve old assets until no client needs them"
+      ],
+      "acceptance": [
+        "No mid-run automatic reload or mixed-version shell/content",
+        "Cold/warm offline cases have accurate messages",
+        "Base-path deployments and worker scope work correctly"
+      ],
+      "tests": [
+        "Test old/new build lifecycle with two active tabs",
+        "Test offline navigation, interrupted promotion and stale hashed chunks"
+      ],
+      "documents": [
+        "docs/persistence-and-offline.md",
+        "docs/quality-and-release.md"
+      ],
+      "file": "backlog/issues/RP-037.md"
+    },
+    {
+      "id": "RP-038",
+      "title": "Implement graphics, content and network recovery surfaces",
+      "milestone": "M3",
+      "area": "gameplay",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-013",
+        "RP-037"
+      ],
+      "requirements": [
+        "FR-016",
+        "FR-025"
+      ],
+      "scope": [
+        "Handle context loss, invalid content, unavailable rendering and asset errors",
+        "Recover at an authoritative action boundary with draft intact",
+        "Differentiate retryable network problems from incompatible content"
+      ],
+      "acceptance": [
+        "No blank page or hidden uncaught error is the only feedback",
+        "Recovery never grants a not-yet-displayed success",
+        "Retry/cancel navigation works without orphan scenes"
+      ],
+      "tests": [
+        "Inject context loss and corrupt/missing assets",
+        "Test reconnect and scene recreation during paused playback"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-038.md"
+    },
+    {
+      "id": "RP-039",
+      "title": "Deliver the board explorer and full accessibility review",
+      "milestone": "M3",
+      "area": "accessibility",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-010",
+        "RP-015",
+        "RP-023",
+        "RP-038"
+      ],
+      "requirements": [
+        "FR-005",
+        "FR-017",
+        "FR-018"
+      ],
+      "scope": [
+        "Implement semantic board inspection using the same logical state",
+        "Review keyboard/tap parity, focus, contrast, zoom and modal behavior",
+        "Run desktop/mobile screen-reader sessions and document limitations"
+      ],
+      "acceptance": [
+        "All essential puzzle interactions are possible without dragging",
+        "Board cells, facing, objects and gate state are inspectable without vision",
+        "No accessibility claim is based only on automated checks"
+      ],
+      "tests": [
+        "Run automated accessibility scans on all major screens",
+        "Manually finish primitive, repeat and gate puzzles with keyboard/screen reader"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/privacy-security-accessibility.md"
+      ],
+      "file": "backlog/issues/RP-039.md"
+    },
+    {
+      "id": "RP-040",
+      "title": "Measure and optimize real-device performance and cleanup",
+      "milestone": "M3",
+      "area": "performance",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-033",
+        "RP-034",
+        "RP-036",
+        "RP-039"
+      ],
+      "requirements": [
+        "FR-017",
+        "FR-019",
+        "FR-028"
+      ],
+      "scope": [
+        "Establish exact modest Android/iPhone/tablet/desktop inventory",
+        "Measure transfer, cold/warm loads, action frame timing and tap latency",
+        "Optimize atlases, lazy loading, resolution and lifecycle leaks without changing rules"
+      ],
+      "acceptance": [
+        "PRD budgets have measured results or explicit unresolved gaps",
+        "100 navigation/run/reset cycles show no accumulating owned resources",
+        "Low-effects mode preserves all game information"
+      ],
+      "tests": [
+        "Run documented cold-cache and 60-second scene protocol",
+        "Attach per-run measurements, build SHA and device settings"
+      ],
+      "documents": [
+        "PRD.md",
+        "docs/quality-and-release.md"
+      ],
+      "file": "backlog/issues/RP-040.md"
+    },
+    {
+      "id": "RP-041",
+      "title": "Perform privacy, parsing, dependency and asset security review",
+      "milestone": "M3",
+      "area": "security",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": true,
+      "dependencies": [
+        "RP-003",
+        "RP-035",
+        "RP-036"
+      ],
+      "requirements": [
+        "FR-023",
+        "FR-027",
+        "FR-029"
+      ],
+      "scope": [
+        "Audit network requests, hosting data practices and template/build calls",
+        "Fuzz/bound imported content and review CSP/security headers",
+        "Review third-party dependencies, licenses and final asset provenance with owner"
+      ],
+      "acceptance": [
+        "No undeclared third-party runtime requests or secrets in client output",
+        "Content/save bounds and strict URL allowlists are enforced",
+        "Legal/privacy approvals remain explicit human gates, not inferred from code"
+      ],
+      "tests": [
+        "Capture production network traffic and malicious-input tests",
+        "Run dependency/license scan and manual deployment header review"
+      ],
+      "documents": [
+        "docs/privacy-security-accessibility.md",
+        "docs/sources.md"
+      ],
+      "file": "backlog/issues/RP-041.md"
+    },
+    {
+      "id": "RP-042",
+      "title": "Externalize and review all English UI and level copy",
+      "milestone": "M3",
+      "area": "frontend",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-018",
+        "RP-026",
+        "RP-027",
+        "RP-035"
+      ],
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-024",
+        "FR-026"
+      ],
+      "scope": [
+        "Put visible text, accessible names and hints behind locale keys",
+        "Check generated artwork does not carry required untranslated text",
+        "Review encouraging plain language and text expansion"
+      ],
+      "acceptance": [
+        "No technical error dump is shown as child-facing copy",
+        "All 60 authored levels resolve title/hint keys",
+        "Long/pseudo-localized text does not hide essential actions"
+      ],
+      "tests": [
+        "Run missing-key checks and pseudo-localization screenshots",
+        "Review errors, offline wording, robot names and assistive labels"
+      ],
+      "documents": [
+        "docs/ui-ux.md",
+        "docs/content-authoring.md"
+      ],
+      "file": "backlog/issues/RP-042.md"
+    },
+    {
+      "id": "RP-043",
+      "title": "Complete production cross-browser regression coverage",
+      "milestone": "M3",
+      "area": "qa",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-024",
+        "RP-025",
+        "RP-031",
+        "RP-038",
+        "RP-039",
+        "RP-040",
+        "RP-041",
+        "RP-042"
+      ],
+      "requirements": [
+        "FR-006",
+        "FR-016",
+        "FR-017",
+        "FR-018",
+        "FR-025",
+        "FR-028"
+      ],
+      "scope": [
+        "Implement all critical QA matrix journeys against production builds",
+        "Run pinned Chromium/Firefox/WebKit jobs plus physical-device evidence",
+        "Attach traces/screenshots and triage failures with severity"
+      ],
+      "acceptance": [
+        "No unresolved P0/P1 core journey defects",
+        "Unsupported environments and skipped tests are clearly listed",
+        "Browser tests exercise actual program/scene bridge, not a mocked success screen"
+      ],
+      "tests": [
+        "Run QA-01 through QA-18 and viewport matrix",
+        "Repeat offline/update/import and selected-robot journeys"
+      ],
+      "documents": [
+        "docs/quality-and-release.md"
+      ],
+      "file": "backlog/issues/RP-043.md"
+    },
+    {
+      "id": "RP-044",
+      "title": "Conduct guardian-consented formative child playtests",
+      "milestone": "M3",
+      "area": "research",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": true,
+      "dependencies": [
+        "RP-033",
+        "RP-043",
+        "RP-045"
+      ],
+      "requirements": [
+        "FR-001",
+        "FR-011",
+        "FR-021",
+        "FR-030"
+      ],
+      "scope": [
+        "Recruit approximately 6–8 participants through adults under a reviewed protocol",
+        "Observe first use, deliberate debugging, robot choice and content progression",
+        "Document findings and revise high-friction interactions/puzzles"
+      ],
+      "acceptance": [
+        "Permission/assent and data minimization are documented",
+        "Actual observations replace assumed usability pass rates",
+        "Critical confusion/accessibility findings are fixed or block release"
+      ],
+      "tests": [
+        "Pilot the protocol with an adult before child sessions",
+        "Retest changed teaching levels and record remaining uncertainty"
+      ],
+      "documents": [
+        "PRD.md",
+        "docs/privacy-security-accessibility.md"
+      ],
+      "file": "backlog/issues/RP-044.md"
+    },
+    {
+      "id": "RP-045",
+      "title": "Add opt-in local research diagnostics without production tracking",
+      "milestone": "M3",
+      "area": "research",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-019",
+        "RP-041"
+      ],
+      "requirements": [
+        "FR-023",
+        "FR-028",
+        "FR-030"
+      ],
+      "scope": [
+        "Create developer/research-only local counters for command edits, runs and hint requests",
+        "Provide adult-initiated anonymized export with bounded retention",
+        "Exclude collection/transmission from the default public build"
+      ],
+      "acceptance": [
+        "No remote gameplay event endpoint or persistent tracking ID exists",
+        "Research mode is explicit and cannot be activated by an untrusted URL",
+        "Export contains no names, recordings or device fingerprint"
+      ],
+      "tests": [
+        "Inspect public bundle/network behavior for absent diagnostics",
+        "Validate bounded local export and erase behavior"
+      ],
+      "documents": [
+        "docs/privacy-security-accessibility.md",
+        "PRD.md"
+      ],
+      "file": "backlog/issues/RP-045.md"
+    },
+    {
+      "id": "RP-046",
+      "title": "Implement reproducible static deployment and rollback rehearsal",
+      "milestone": "M4",
+      "area": "platform",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-003",
+        "RP-037",
+        "RP-041"
+      ],
+      "requirements": [
+        "FR-016",
+        "FR-027",
+        "FR-029"
+      ],
+      "scope": [
+        "Configure chosen HTTPS host, cache/security headers and base-path handling",
+        "Build once and promote tested immutable artifacts",
+        "Rehearse rollback without destructive save migrations"
+      ],
+      "acceptance": [
+        "Deployed artifact matches tested build/content hashes",
+        "Old active clients retain required hashed assets",
+        "Public deployment still requires owner authorization"
+      ],
+      "tests": [
+        "Test subpath navigation, service-worker scope and headers",
+        "Rehearse new/old build rollback using saved progress fixtures"
+      ],
+      "documents": [
+        "docs/quality-and-release.md",
+        "docs/persistence-and-offline.md"
+      ],
+      "file": "backlog/issues/RP-046.md"
+    },
+    {
+      "id": "RP-047",
+      "title": "Audit the full 60-level library and progression after playtesting",
+      "milestone": "M4",
+      "area": "content",
+      "priority": "P1",
+      "effort": "L",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-028",
+        "RP-029",
+        "RP-030",
+        "RP-031",
+        "RP-032",
+        "RP-044"
+      ],
+      "requirements": [
+        "FR-003",
+        "FR-021",
+        "FR-022",
+        "FR-030"
+      ],
+      "scope": [
+        "Run all release content through actual production-core validation",
+        "Review prerequisite order, three-star attainability and structural diversity",
+        "Incorporate observed child-study issues and regenerate evidence"
+      ],
+      "acceptance": [
+        "Exactly 60 intended release levels are present, not curriculum placeholders",
+        "100% have successful and single-run three-star witness evidence",
+        "No unresolved unwinnable, contradictory or unintroduced-mechanic levels"
+      ],
+      "tests": [
+        "Run witness and world-unlock suites on exact candidate content",
+        "Manually audit every first-teaching level and flagged duplicate"
+      ],
+      "documents": [
+        "docs/content-authoring.md",
+        "docs/curriculum.md"
+      ],
+      "file": "backlog/issues/RP-047.md"
+    },
+    {
+      "id": "RP-048",
+      "title": "Finish grown-up guidance, credits and support documentation",
+      "milestone": "M4",
+      "area": "docs",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": false,
+      "dependencies": [
+        "RP-035",
+        "RP-041",
+        "RP-042",
+        "RP-047"
+      ],
+      "requirements": [
+        "FR-015",
+        "FR-023",
+        "FR-024",
+        "FR-029"
+      ],
+      "scope": [
+        "Write accurate local-save/offline/privacy and play guidance",
+        "Publish tested environment limitations and asset credits",
+        "Document export, erase, content updates and adult support reporting"
+      ],
+      "acceptance": [
+        "No unsupported claim of permanent saves, full compliance or proven education",
+        "Credits reflect final asset licenses and providers",
+        "Support flow does not ask children to disclose personal information"
+      ],
+      "tests": [
+        "Review docs against actual build/network/storage behavior",
+        "Validate links and adult guidance on a small screen"
+      ],
+      "documents": [
+        "docs/privacy-security-accessibility.md",
+        "docs/quality-and-release.md"
+      ],
+      "file": "backlog/issues/RP-048.md"
+    },
+    {
+      "id": "RP-049",
+      "title": "Run the public-v1 release-candidate GO/NO-GO gate",
+      "milestone": "M4",
+      "area": "release",
+      "priority": "P1",
+      "effort": "M",
+      "status": "not_started",
+      "optional": false,
+      "human_gate": true,
+      "dependencies": [
+        "RP-033",
+        "RP-040",
+        "RP-043",
+        "RP-044",
+        "RP-045",
+        "RP-046",
+        "RP-047",
+        "RP-048"
+      ],
+      "requirements": [
+        "FR-021",
+        "FR-023",
+        "FR-028",
+        "FR-029",
+        "FR-030"
+      ],
+      "scope": [
+        "Assemble exact build/content evidence with all automated/manual gates",
+        "Record product, art, privacy, accessibility and support approvals",
+        "Prepare release notes, known limitations and rollback action"
+      ],
+      "acceptance": [
+        "Zero unresolved P0/P1 and no fabricated/unrun evidence",
+        "Human owner explicitly authorizes publication or records NO-GO",
+        "Optional M5 work is not used to delay or claim web-v1 completeness"
+      ],
+      "tests": [
+        "Run fresh clean-install battery and final offline/progression smoke tests",
+        "Verify artifact hashes and approvals belong to this exact candidate"
+      ],
+      "documents": [
+        "docs/quality-and-release.md",
+        "docs/delivery-plan.md"
+      ],
+      "file": "backlog/issues/RP-049.md"
+    },
+    {
+      "id": "RP-050",
+      "title": "Optional: prototype Android packaging with Capacitor",
+      "milestone": "M5",
+      "area": "native",
+      "priority": "P2",
+      "effort": "M",
+      "status": "not_started",
+      "optional": true,
+      "human_gate": false,
+      "dependencies": [
+        "RP-049"
+      ],
+      "requirements": [
+        "FR-017",
+        "FR-025",
+        "FR-029"
+      ],
+      "scope": [
+        "Package the validated web build in a separate native lane",
+        "Disable web worker update behavior where inappropriate for packaged assets",
+        "Test Android back navigation, lifecycle, storage and WebView rendering"
+      ],
+      "acceptance": [
+        "Web release remains independently deployable",
+        "Native permissions are minimal and documented",
+        "No claim that web tests establish Android correctness"
+      ],
+      "tests": [
+        "Run physical Android lifecycle/audio/offline tests",
+        "Verify selected robot and progress through app restarts"
+      ],
+      "documents": [
+        "docs/stack-and-architecture.md",
+        "docs/persistence-and-offline.md"
+      ],
+      "file": "backlog/issues/RP-050.md"
+    },
+    {
+      "id": "RP-051",
+      "title": "Optional: prototype iOS packaging with Capacitor",
+      "milestone": "M5",
+      "area": "native",
+      "priority": "P2",
+      "effort": "M",
+      "status": "not_started",
+      "optional": true,
+      "human_gate": false,
+      "dependencies": [
+        "RP-049"
+      ],
+      "requirements": [
+        "FR-017",
+        "FR-025",
+        "FR-029"
+      ],
+      "scope": [
+        "Create a dedicated iOS build lane when authorized tools/devices exist",
+        "Test safe areas, lifecycle, gesture/audio and storage behavior",
+        "Document signing and platform requirements without embedding credentials"
+      ],
+      "acceptance": [
+        "Physical iPhone evidence is collected separately",
+        "Packaged content/update strategy is explicit",
+        "Unavailable Apple tools or credentials are marked blockers, never faked"
+      ],
+      "tests": [
+        "Test real-device suspend/resume and offline first launch",
+        "Compare controller traces with web build"
+      ],
+      "documents": [
+        "docs/stack-and-architecture.md",
+        "docs/persistence-and-offline.md"
+      ],
+      "file": "backlog/issues/RP-051.md"
+    },
+    {
+      "id": "RP-052",
+      "title": "Optional: complete native store readiness and human submission gates",
+      "milestone": "M5",
+      "area": "release",
+      "priority": "P2",
+      "effort": "L",
+      "status": "not_started",
+      "optional": true,
+      "human_gate": true,
+      "dependencies": [
+        "RP-050",
+        "RP-051"
+      ],
+      "requirements": [
+        "FR-023",
+        "FR-027",
+        "FR-029"
+      ],
+      "scope": [
+        "Review current store policies, child-category requirements and disclosures",
+        "Prepare approved screenshots, signing and distribution configuration",
+        "Obtain human account/legal/submission authorization"
+      ],
+      "acceptance": [
+        "No automatic public submission from an agent task",
+        "App IDs, ownership and privacy answers are supplied by authorized owners",
+        "Store-specific tests and evidence exist for each claimed platform"
+      ],
+      "tests": [
+        "Run platform release checklists and final installed-build smoke tests",
+        "Verify screenshots match real final apps rather than concept images"
+      ],
+      "documents": [
+        "docs/quality-and-release.md",
+        "docs/privacy-security-accessibility.md"
+      ],
+      "file": "backlog/issues/RP-052.md"
+    },
+    {
+      "id": "RP-053",
+      "title": "Optional: design and build an internal visual level authoring tool",
+      "milestone": "M5",
+      "area": "tooling",
+      "priority": "P2",
+      "effort": "L",
+      "status": "not_started",
+      "optional": true,
+      "human_gate": false,
+      "dependencies": [
+        "RP-032",
+        "RP-049"
+      ],
+      "requirements": [
+        "FR-020",
+        "FR-021",
+        "FR-022"
+      ],
+      "scope": [
+        "Create grid/entity editing, program preview and pack export for internal authors",
+        "Reuse production schema, validator and simulator",
+        "Keep public sharing/accounts out of scope"
+      ],
+      "acceptance": [
+        "Exported content is identical in meaning to CLI-authored JSON",
+        "Tool reports bounded proof vs inconclusive search honestly",
+        "No alternative simulation rules emerge in the editor"
+      ],
+      "tests": [
+        "Round-trip example levels and compare traces",
+        "Test malformed exports and asset references"
+      ],
+      "documents": [
+        "docs/content-authoring.md",
+        "docs/game-engine.md"
+      ],
+      "file": "backlog/issues/RP-053.md"
+    },
+    {
+      "id": "RP-054",
+      "title": "Optional: prepare a separate cloud-save product/privacy proposal",
+      "milestone": "M5",
+      "area": "product",
+      "priority": "P2",
+      "effort": "M",
+      "status": "not_started",
+      "optional": true,
+      "human_gate": true,
+      "dependencies": [
+        "RP-049"
+      ],
+      "requirements": [
+        "FR-015",
+        "FR-023",
+        "FR-029"
+      ],
+      "scope": [
+        "Write options for parent-controlled identity and cross-device saves",
+        "Evaluate consent, minimal data, deletion, conflict semantics and cost",
+        "Seek product approval before any backend or collection implementation"
+      ],
+      "acceptance": [
+        "Task output is a reviewed proposal, not a silently added network feature",
+        "Existing offline anonymous play remains available",
+        "New data handling requires its own requirements and human approval"
+      ],
+      "tests": [
+        "Review conflict/erase scenarios with example data only",
+        "Verify current public build remains unchanged"
+      ],
+      "documents": [
+        "docs/persistence-and-offline.md",
+        "docs/privacy-security-accessibility.md"
+      ],
+      "file": "backlog/issues/RP-054.md"
+    }
+  ]
+}

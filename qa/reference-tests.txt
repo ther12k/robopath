@@ -1,0 +1,34 @@
+test_ambiguous_title_rejected (test_importer.ImporterTests.test_ambiguous_title_rejected) ... ok
+test_cycle_rejected (test_importer.ImporterTests.test_cycle_rejected) ... ok
+test_dag_order (test_importer.ImporterTests.test_dag_order) ... ok
+test_document_rewrite (test_importer.ImporterTests.test_document_rewrite) ... ok
+test_dry_run_no_remote_credentials (test_importer.ImporterTests.test_dry_run_no_remote_credentials) ... ok
+test_duplicate_markers_rejected (test_importer.ImporterTests.test_duplicate_markers_rejected) ... ok
+test_existing_marker_skip_index (test_importer.ImporterTests.test_existing_marker_skip_index) ... ok
+test_optional_selection (test_importer.ImporterTests.test_optional_selection) ... ok
+test_remote_links_unchanged (test_importer.ImporterTests.test_remote_links_unchanged) ... ok
+test_unknown_dependency (test_importer.ImporterTests.test_unknown_dependency) ... ok
+test_action_limit_has_next_action (test_reference_core.ReferenceTests.test_action_limit_has_next_action) ... ok
+test_all_twelve_witnesses (test_reference_core.ReferenceTests.test_all_twelve_witnesses) ... ok
+test_blocked_wall_costs_one (test_reference_core.ReferenceTests.test_blocked_wall_costs_one) ... ok
+test_closed_gate_no_pickup (test_reference_core.ReferenceTests.test_closed_gate_no_pickup) ... ok
+test_deterministic_and_immutable (test_reference_core.ReferenceTests.test_deterministic_and_immutable) ... ok
+test_duplicate_node_id (test_reference_core.ReferenceTests.test_duplicate_node_id) ... ok
+test_empty_program (test_reference_core.ReferenceTests.test_empty_program) ... ok
+test_exact_end_away_from_goal_is_incomplete (test_reference_core.ReferenceTests.test_exact_end_away_from_goal_is_incomplete) ... ok
+test_four_turns_restore_heading (test_reference_core.ReferenceTests.test_four_turns_restore_heading) ... ok
+test_goal_without_required_item (test_reference_core.ReferenceTests.test_goal_without_required_item) ... ok
+test_inputs_reset_for_second_run (test_reference_core.ReferenceTests.test_inputs_reset_for_second_run) ... ok
+test_invalid_gate_reference (test_reference_core.ReferenceTests.test_invalid_gate_reference) ... ok
+test_last_action_success (test_reference_core.ReferenceTests.test_last_action_success) ... ok
+test_optional_direct_route_two_stars (test_reference_core.ReferenceTests.test_optional_direct_route_two_stars) ... ok
+test_repeat_early_success_source (test_reference_core.ReferenceTests.test_repeat_early_success_source) ... ok
+test_repeat_rejects_empty_body (test_reference_core.ReferenceTests.test_repeat_rejects_empty_body) ... ok
+test_repeat_static_and_dynamic_cost (test_reference_core.ReferenceTests.test_repeat_static_and_dynamic_cost) ... ok
+test_static_cap (test_reference_core.ReferenceTests.test_static_cap) ... ok
+test_unused_tail_still_costs_blocks (test_reference_core.ReferenceTests.test_unused_tail_still_costs_blocks) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 1.201s
+
+OK

@@ -1,0 +1,18 @@
+{
+  "app": "robo-paths",
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "profileId": "local",
+  "selectedRobotId": "pip",
+  "settings": {
+    "soundEnabled": true,
+    "musicEnabled": false,
+    "motion": "system",
+    "locale": "en"
+  },
+  "levels": {},
+  "drafts": {},
+  "tutorialsSeen": [],
+  "ownedCosmetics": [],
+  "equippedAccent": null
+}

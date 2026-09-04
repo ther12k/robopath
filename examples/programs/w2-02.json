@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "commands": [
+    {
+      "id": "node-1",
+      "op": "repeat",
+      "count": 3,
+      "body": [
+        {
+          "id": "node-2",
+          "op": "forward"
+        },
+        {
+          "id": "node-3",
+          "op": "right"
+        },
+        {
+          "id": "node-4",
+          "op": "forward"
+        },
+        {
+          "id": "node-5",
+          "op": "left"
+        }
+      ]
+    }
+  ]
+}

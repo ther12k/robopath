@@ -1,0 +1,34 @@
+[
+  {
+    "schemaVersion": 1,
+    "id": "pip",
+    "name": "Pip",
+    "starter": true,
+    "cosmeticOnly": true,
+    "assetSet": "pip-placeholder-v1"
+  },
+  {
+    "schemaVersion": 1,
+    "id": "mochi",
+    "name": "Mochi",
+    "starter": true,
+    "cosmeticOnly": true,
+    "assetSet": "mochi-placeholder-v1"
+  },
+  {
+    "schemaVersion": 1,
+    "id": "bolt",
+    "name": "Bolt",
+    "starter": true,
+    "cosmeticOnly": true,
+    "assetSet": "bolt-placeholder-v1"
+  },
+  {
+    "schemaVersion": 1,
+    "id": "sprout",
+    "name": "Sprout",
+    "starter": true,
+    "cosmeticOnly": true,
+    "assetSet": "sprout-placeholder-v1"
+  }
+]

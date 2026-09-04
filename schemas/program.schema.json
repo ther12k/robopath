@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://robo-paths.invalid/schemas/program.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "engineRulesVersion": {
+      "const": 1
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              },
+              "op": {
+                "enum": [
+                  "forward",
+                  "left",
+                  "right"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "op"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              },
+              "op": {
+                "const": "repeat"
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 5
+              },
+              "body": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                    },
+                    "op": {
+                      "enum": [
+                        "forward",
+                        "left",
+                        "right"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "op"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 6
+              }
+            },
+            "required": [
+              "id",
+              "op",
+              "count",
+              "body"
+            ]
+          }
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 24
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "engineRulesVersion",
+    "commands"
+  ]
+}

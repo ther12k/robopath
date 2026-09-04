@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://robo-paths.invalid/schemas/world.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "enum": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ]
+    },
+    "titleKey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "theme": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    },
+    "levelIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^w[1-4]-[0-9]{2}$"
+      },
+      "minItems": 15,
+      "maxItems": 15,
+      "uniqueItems": true
+    },
+    "unlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "previousWorldId": {
+          "enum": [
+            null,
+            "w1",
+            "w2",
+            "w3"
+          ]
+        },
+        "completedLevels": {
+          "enum": [
+            0,
+            10
+          ]
+        }
+      },
+      "required": [
+        "previousWorldId",
+        "completedLevels"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "titleKey",
+    "theme",
+    "order",
+    "levelIds",
+    "unlock"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "id": "w2-01",
+  "revision": 1,
+  "worldId": "w2",
+  "ordinal": 1,
+  "titleKey": "level.w2-01.title",
+  "board": {
+    "width": 6,
+    "height": 1,
+    "tiles": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 2,
+        "y": 0
+      },
+      {
+        "x": 3,
+        "y": 0
+      },
+      {
+        "x": 4,
+        "y": 0
+      },
+      {
+        "x": 5,
+        "y": 0
+      }
+    ],
+    "walls": []
+  },
+  "start": {
+    "x": 0,
+    "y": 0,
+    "facing": "E"
+  },
+  "goal": {
+    "x": 5,
+    "y": 0
+  },
+  "collectibles": [],
+  "gates": [],
+  "switches": [],
+  "commands": [
+    "forward",
+    "left",
+    "right",
+    "repeat"
+  ],
+  "limits": {
+    "maxBlocks": 2,
+    "maxActions": 8
+  },
+  "rating": {
+    "parBlocks": 2
+  },
+  "teaching": {
+    "concept": "repeat-count",
+    "archetype": "long-stride",
+    "difficulty": 1
+  },
+  "hintKeys": [
+    "level.w2-01.hint.1",
+    "level.w2-01.hint.2",
+    "level.w2-01.hint.3"
+  ]
+}

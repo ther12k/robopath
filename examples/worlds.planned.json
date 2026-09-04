@@ -1,0 +1,114 @@
+[
+  {
+    "schemaVersion": 1,
+    "id": "w1",
+    "titleKey": "world.w1.title",
+    "theme": "meadow",
+    "order": 1,
+    "levelIds": [
+      "w1-01",
+      "w1-02",
+      "w1-03",
+      "w1-04",
+      "w1-05",
+      "w1-06",
+      "w1-07",
+      "w1-08",
+      "w1-09",
+      "w1-10",
+      "w1-11",
+      "w1-12",
+      "w1-13",
+      "w1-14",
+      "w1-15"
+    ],
+    "unlock": {
+      "previousWorldId": null,
+      "completedLevels": 0
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "w2",
+    "titleKey": "world.w2.title",
+    "theme": "workshop",
+    "order": 2,
+    "levelIds": [
+      "w2-01",
+      "w2-02",
+      "w2-03",
+      "w2-04",
+      "w2-05",
+      "w2-06",
+      "w2-07",
+      "w2-08",
+      "w2-09",
+      "w2-10",
+      "w2-11",
+      "w2-12",
+      "w2-13",
+      "w2-14",
+      "w2-15"
+    ],
+    "unlock": {
+      "previousWorldId": "w1",
+      "completedLevels": 10
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "w3",
+    "titleKey": "world.w3.title",
+    "theme": "crystal",
+    "order": 3,
+    "levelIds": [
+      "w3-01",
+      "w3-02",
+      "w3-03",
+      "w3-04",
+      "w3-05",
+      "w3-06",
+      "w3-07",
+      "w3-08",
+      "w3-09",
+      "w3-10",
+      "w3-11",
+      "w3-12",
+      "w3-13",
+      "w3-14",
+      "w3-15"
+    ],
+    "unlock": {
+      "previousWorldId": "w2",
+      "completedLevels": 10
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "w4",
+    "titleKey": "world.w4.title",
+    "theme": "sky",
+    "order": 4,
+    "levelIds": [
+      "w4-01",
+      "w4-02",
+      "w4-03",
+      "w4-04",
+      "w4-05",
+      "w4-06",
+      "w4-07",
+      "w4-08",
+      "w4-09",
+      "w4-10",
+      "w4-11",
+      "w4-12",
+      "w4-13",
+      "w4-14",
+      "w4-15"
+    ],
+    "unlock": {
+      "previousWorldId": "w3",
+      "completedLevels": 10
+    }
+  }
+]

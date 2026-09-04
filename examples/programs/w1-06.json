@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "commands": [
+    {
+      "id": "node-1",
+      "op": "right"
+    },
+    {
+      "id": "node-2",
+      "op": "forward"
+    },
+    {
+      "id": "node-3",
+      "op": "left"
+    },
+    {
+      "id": "node-4",
+      "op": "forward"
+    },
+    {
+      "id": "node-5",
+      "op": "forward"
+    },
+    {
+      "id": "node-6",
+      "op": "left"
+    },
+    {
+      "id": "node-7",
+      "op": "forward"
+    }
+  ]
+}

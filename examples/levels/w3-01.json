@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "id": "w3-01",
+  "revision": 1,
+  "worldId": "w3",
+  "ordinal": 1,
+  "titleKey": "level.w3-01.title",
+  "board": {
+    "width": 3,
+    "height": 2,
+    "tiles": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 2,
+        "y": 0
+      },
+      {
+        "x": 0,
+        "y": 1
+      },
+      {
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "walls": []
+  },
+  "start": {
+    "x": 0,
+    "y": 0,
+    "facing": "E"
+  },
+  "goal": {
+    "x": 2,
+    "y": 0
+  },
+  "collectibles": [],
+  "gates": [
+    {
+      "id": "gate-a",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "switches": [
+    {
+      "id": "switch-a",
+      "x": 0,
+      "y": 1,
+      "opens": [
+        "gate-a"
+      ]
+    }
+  ],
+  "commands": [
+    "forward",
+    "left",
+    "right",
+    "repeat"
+  ],
+  "limits": {
+    "maxBlocks": 10,
+    "maxActions": 16
+  },
+  "rating": {
+    "parBlocks": 8
+  },
+  "teaching": {
+    "concept": "latched-switch",
+    "archetype": "switch-backtrack",
+    "difficulty": 1
+  },
+  "hintKeys": [
+    "level.w3-01.hint.1",
+    "level.w3-01.hint.2",
+    "level.w3-01.hint.3"
+  ]
+}

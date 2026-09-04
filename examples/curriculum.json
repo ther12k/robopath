@@ -1,0 +1,602 @@
+[
+  {
+    "id": "w1-01",
+    "worldId": "w1",
+    "ordinal": 1,
+    "title": "First steps",
+    "concept": "Forward",
+    "brief": "Short straight path; place two commands and see sequential highlights.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-02",
+    "worldId": "w1",
+    "ordinal": 2,
+    "title": "Round the corner",
+    "concept": "Right turn",
+    "brief": "An elbow corridor makes rotation visibly different from moving sideways.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-03",
+    "worldId": "w1",
+    "ordinal": 3,
+    "title": "Turn the other way",
+    "concept": "Left turn",
+    "brief": "Offset elbows require both turn directions instead of mirroring the earlier answer.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-04",
+    "worldId": "w1",
+    "ordinal": 4,
+    "title": "Battery delivery",
+    "concept": "Required pickup",
+    "brief": "Collect a required battery on a visible route before the flag.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-05",
+    "worldId": "w1",
+    "ordinal": 5,
+    "title": "A star detour",
+    "concept": "Optional objectives",
+    "brief": "A short success route and a longer bonus route both work.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-06",
+    "worldId": "w1",
+    "ordinal": 6,
+    "title": "Around the rock",
+    "concept": "Debugging",
+    "brief": "A direct route is blocked; take a side route through a required pickup.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-07",
+    "worldId": "w1",
+    "ordinal": 7,
+    "title": "Which way am I facing?",
+    "concept": "Facing transfer",
+    "brief": "Start north rather than east and keep the same forward semantics.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-08",
+    "worldId": "w1",
+    "ordinal": 8,
+    "title": "Two deliveries",
+    "concept": "Pickup order",
+    "brief": "Visit two required batteries and choose the useful turn order.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w1-09",
+    "worldId": "w1",
+    "ordinal": 9,
+    "title": "Not that shortcut",
+    "concept": "Goal prerequisites",
+    "brief": "Reach the flag early without a battery, then plan a valid return.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w1-10",
+    "worldId": "w1",
+    "ordinal": 10,
+    "title": "A little less code",
+    "concept": "Block budget",
+    "brief": "A turn-heavy detour fits actions but wastes static blocks.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w1-11",
+    "worldId": "w1",
+    "ordinal": 11,
+    "title": "Back to the fork",
+    "concept": "Backtracking",
+    "brief": "A battery is in a short dead-end branch requiring a deliberate return.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w1-12",
+    "worldId": "w1",
+    "ordinal": 12,
+    "title": "Repair one turn",
+    "concept": "Debugging sequence",
+    "brief": "Offer an optional editable starter draft with one wrong turn; any valid solution works.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w1-13",
+    "worldId": "w1",
+    "ordinal": 13,
+    "title": "Both paths work",
+    "concept": "Multiple solutions",
+    "brief": "Two distinct corridors fit the cap and lead to the same goal.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w1-14",
+    "worldId": "w1",
+    "ordinal": 14,
+    "title": "Follow the batteries",
+    "concept": "Ordering",
+    "brief": "Three pickups on an asymmetric route test sequence planning.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w1-15",
+    "worldId": "w1",
+    "ordinal": 15,
+    "title": "Meadow adventure",
+    "concept": "Transfer",
+    "brief": "Combine facing, optional detour and a block target without new commands.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-01",
+    "worldId": "w2",
+    "ordinal": 1,
+    "title": "Five little steps",
+    "concept": "Repeat count",
+    "brief": "A long stride introduces repeat as a compact program rather than a faster robot.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w2-02",
+    "worldId": "w2",
+    "ordinal": 2,
+    "title": "Little staircase",
+    "concept": "Repeat body",
+    "brief": "Repeat forward/right/forward/left across three stair steps.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w2-03",
+    "worldId": "w2",
+    "ordinal": 3,
+    "title": "Two then turn",
+    "concept": "Prefix/suffix",
+    "brief": "Use repeated moves followed by a non-repeated final turn.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-04",
+    "worldId": "w2",
+    "ordinal": 4,
+    "title": "The pattern starts later",
+    "concept": "Prefix",
+    "brief": "One setup action precedes a repeated sequence.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-05",
+    "worldId": "w2",
+    "ordinal": 5,
+    "title": "Three or four?",
+    "concept": "Repeat count",
+    "brief": "Choose the repeat count from spatial structure, not a text prompt.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-06",
+    "worldId": "w2",
+    "ordinal": 6,
+    "title": "A corner pattern",
+    "concept": "Rotating bodies",
+    "brief": "A repeated forward/turn pattern visits corners; avoid premature stopping assumptions.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-07",
+    "worldId": "w2",
+    "ordinal": 7,
+    "title": "Make room",
+    "concept": "Static limits",
+    "brief": "An expanded correct program exceeds slots; its repeated equivalent fits.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-08",
+    "worldId": "w2",
+    "ordinal": 8,
+    "title": "Different long sides",
+    "concept": "Mixed patterns",
+    "brief": "Two runs of different lengths need separate repeat groups or literals.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-09",
+    "worldId": "w2",
+    "ordinal": 9,
+    "title": "The last step",
+    "concept": "Suffix reasoning",
+    "brief": "A repeated motif ends one step short of the goal.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-10",
+    "worldId": "w2",
+    "ordinal": 10,
+    "title": "Stars on the pattern",
+    "concept": "Bonus planning",
+    "brief": "Collect a bonus through a repeated route without treating repeat as free movement.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-11",
+    "worldId": "w2",
+    "ordinal": 11,
+    "title": "Wrong-sized repeat",
+    "concept": "Debug repeat",
+    "brief": "An editable draft repeats once too many; preserve creative alternative fixes.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-12",
+    "worldId": "w2",
+    "ordinal": 12,
+    "title": "A broken pattern",
+    "concept": "Exception",
+    "brief": "An obstacle breaks regularity and needs a prefix/suffix intervention.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-13",
+    "worldId": "w2",
+    "ordinal": 13,
+    "title": "Small program, longer walk",
+    "concept": "Tradeoff",
+    "brief": "Compare low block count against runtime action budget.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-14",
+    "worldId": "w2",
+    "ordinal": 14,
+    "title": "Two compact answers",
+    "concept": "Multiple programs",
+    "brief": "Different valid repeat groupings reach the same required objectives.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w2-15",
+    "worldId": "w2",
+    "ordinal": 15,
+    "title": "Workshop finale",
+    "concept": "Transfer",
+    "brief": "Combine counts, asymmetric turns and optional efficiency in a new topology.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-01",
+    "worldId": "w3",
+    "ordinal": 1,
+    "title": "Open the garden gate",
+    "concept": "Switch entry",
+    "brief": "Step on a visible switch, return and pass the latched gate.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w3-02",
+    "worldId": "w3",
+    "ordinal": 2,
+    "title": "Two gate journey",
+    "concept": "State order",
+    "brief": "Open two gates in a spatially legible sequence.",
+    "status": "example_witness_supplied",
+    "budgetStatus": "see_example"
+  },
+  {
+    "id": "w3-03",
+    "worldId": "w3",
+    "ordinal": 3,
+    "title": "Still open",
+    "concept": "Latched state",
+    "brief": "Walk away from a switch and see the gate remain open.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-04",
+    "worldId": "w3",
+    "ordinal": 4,
+    "title": "One switch, two paths",
+    "concept": "Shared switch",
+    "brief": "A switch opens two gates; choose the useful path.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-05",
+    "worldId": "w3",
+    "ordinal": 5,
+    "title": "Behind the gate",
+    "concept": "Required pickup",
+    "brief": "The flag is reachable early but a required battery needs a gate.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-06",
+    "worldId": "w3",
+    "ordinal": 6,
+    "title": "Back through the garden",
+    "concept": "Backtracking",
+    "brief": "Open a route then revisit an earlier junction.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-07",
+    "worldId": "w3",
+    "ordinal": 7,
+    "title": "A repeating approach",
+    "concept": "Loop plus state",
+    "brief": "Use a repeated path to reach a switch without changing switch semantics.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-08",
+    "worldId": "w3",
+    "ordinal": 8,
+    "title": "Two switches, two choices",
+    "concept": "Ordering",
+    "brief": "Independent switch order permits two valid approaches.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-09",
+    "worldId": "w3",
+    "ordinal": 9,
+    "title": "Gate or detour",
+    "concept": "Alternative solution",
+    "brief": "An openable shortcut and a longer ungated route can both succeed.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-10",
+    "worldId": "w3",
+    "ordinal": 10,
+    "title": "Clear the route",
+    "concept": "Combined prerequisite",
+    "brief": "Prepare several gates before a final route through required items.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-11",
+    "worldId": "w3",
+    "ordinal": 11,
+    "title": "Pick the useful switch",
+    "concept": "Selective planning",
+    "brief": "Some openable branches are optional; do not imply every switch must be used.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-12",
+    "worldId": "w3",
+    "ordinal": 12,
+    "title": "Remember the open path",
+    "concept": "State debugging",
+    "brief": "An optional starter program wrongly revisits an already-satisfied switch.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-13",
+    "worldId": "w3",
+    "ordinal": 13,
+    "title": "Optional crystal star",
+    "concept": "Bonus detour",
+    "brief": "A bonus behind a gate rewards extra planning without blocking completion.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-14",
+    "worldId": "w3",
+    "ordinal": 14,
+    "title": "Save a few blocks",
+    "concept": "Compression",
+    "brief": "Compress repeated sections around a non-repeating switch detour.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w3-15",
+    "worldId": "w3",
+    "ordinal": 15,
+    "title": "Grove finale",
+    "concept": "Transfer",
+    "brief": "A fresh route combines latches, pickup order and bounded repetition.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-01",
+    "worldId": "w4",
+    "ordinal": 1,
+    "title": "New island, same rules",
+    "concept": "Transfer",
+    "brief": "A new theme tests known commands without new mechanics.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-02",
+    "worldId": "w4",
+    "ordinal": 2,
+    "title": "Start facing home",
+    "concept": "Facing plus repeat",
+    "brief": "A changed start heading requires setup before a familiar pattern.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-03",
+    "worldId": "w4",
+    "ordinal": 3,
+    "title": "The winding bridge",
+    "concept": "Topology",
+    "brief": "Narrow asymmetric paths prevent straight-line pattern guessing.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-04",
+    "worldId": "w4",
+    "ordinal": 4,
+    "title": "Supply circuit",
+    "concept": "Ordering",
+    "brief": "Several required pickups allow more than one meaningful collection order.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-05",
+    "worldId": "w4",
+    "ordinal": 5,
+    "title": "Open, then explore",
+    "concept": "State planning",
+    "brief": "Open a branch first, then use a repeated traversal.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-06",
+    "worldId": "w4",
+    "ordinal": 6,
+    "title": "Tiny program adventure",
+    "concept": "Compression",
+    "brief": "A small static budget favors a repeated motif in an unfamiliar layout.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-07",
+    "worldId": "w4",
+    "ordinal": 7,
+    "title": "Watch the action meter",
+    "concept": "Two budgets",
+    "brief": "A compact program still must fit runtime action limits.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-08",
+    "worldId": "w4",
+    "ordinal": 8,
+    "title": "Choose a bonus route",
+    "concept": "Optional challenge",
+    "brief": "Trade a short completion route against an all-bonus route.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-09",
+    "worldId": "w4",
+    "ordinal": 9,
+    "title": "Fix the journey",
+    "concept": "Debugging transfer",
+    "brief": "Repair a provided optional draft with a logic error in the middle.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-10",
+    "worldId": "w4",
+    "ordinal": 10,
+    "title": "Two ways to the flag",
+    "concept": "Alternative strategies",
+    "brief": "Direct literals and a repeat-based route both fit the limits.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-11",
+    "worldId": "w4",
+    "ordinal": 11,
+    "title": "The long return",
+    "concept": "Backtracking synthesis",
+    "brief": "A gate and required pickup require revisiting an earlier region.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-12",
+    "worldId": "w4",
+    "ordinal": 12,
+    "title": "The pattern changes",
+    "concept": "Prefix/body/suffix",
+    "brief": "Recognize where regular movement stops and one exception begins.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-13",
+    "worldId": "w4",
+    "ordinal": 13,
+    "title": "Garden in the clouds",
+    "concept": "State synthesis",
+    "brief": "Pair visible switch relations with several spatial choices.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-14",
+    "worldId": "w4",
+    "ordinal": 14,
+    "title": "Your clever route",
+    "concept": "Efficiency mastery",
+    "brief": "Support more than one target-meeting program and avoid answer matching.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  },
+  {
+    "id": "w4-15",
+    "worldId": "w4",
+    "ordinal": 15,
+    "title": "Robo expedition",
+    "concept": "Final transfer",
+    "brief": "Combine familiar mechanics in a unique celebratory map; no sudden new rule.",
+    "status": "authoring_brief_only",
+    "budgetStatus": "to_be_set_after_solver_and_playtest"
+  }
+]

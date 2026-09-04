@@ -1,0 +1,143 @@
+{
+  "packageVersion": "1.0",
+  "preparedDate": "2026-09-05",
+  "status": "pass",
+  "pythonVersion": "3.13.5",
+  "jsonschemaVersion": "4.26.0",
+  "schemas": 7,
+  "validatedSchemaInstances": 34,
+  "exampleWitnesses": [
+    {
+      "level": "w1-01",
+      "outcome": "success",
+      "blocks": 2,
+      "actions": 2,
+      "stars": 3,
+      "traceSha256": "ffffb00c9be23d25731c7a282e96a958b08ea4a9766bf6344be29f8aa3f7cdd6",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-02",
+      "outcome": "success",
+      "blocks": 5,
+      "actions": 5,
+      "stars": 3,
+      "traceSha256": "3bd690307eb0fc1d5ba5ab70411221516f376f9a926c734270a13bcff6c6ab4e",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-03",
+      "outcome": "success",
+      "blocks": 6,
+      "actions": 6,
+      "stars": 3,
+      "traceSha256": "6c19591decef2882d4ec8f87b92c8257d70cf78a5cba2937aa10ad0c42746ea6",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-04",
+      "outcome": "success",
+      "blocks": 3,
+      "actions": 3,
+      "stars": 3,
+      "traceSha256": "b93615208b46d6e551bcaa1aa39332ea62304875bb91a56e1885b1154b1d4dd4",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-05",
+      "outcome": "success",
+      "blocks": 7,
+      "actions": 7,
+      "stars": 3,
+      "traceSha256": "a6e59d7f46a8fd6998a61db5a2c3cf1b54325b05a6956681fab257f9916ec903",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-06",
+      "outcome": "success",
+      "blocks": 7,
+      "actions": 7,
+      "stars": 3,
+      "traceSha256": "a6e59d7f46a8fd6998a61db5a2c3cf1b54325b05a6956681fab257f9916ec903",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-07",
+      "outcome": "success",
+      "blocks": 4,
+      "actions": 4,
+      "stars": 3,
+      "traceSha256": "374e6e41cbea775af9ff3f8dbcaf5313e1e26acd88e6f4e43d0ba2fc53bf64f2",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w1-08",
+      "outcome": "success",
+      "blocks": 7,
+      "actions": 7,
+      "stars": 3,
+      "traceSha256": "b20f8b62ceb6d63fa9b8c91cc3aa4caa02d7b13c28cfdbacc7584b88fb4211e9",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w2-01",
+      "outcome": "success",
+      "blocks": 2,
+      "actions": 5,
+      "stars": 3,
+      "traceSha256": "c173b6544609d6a23dea895793a89577a4bb89335685dfb60239124e3930ec81",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w2-02",
+      "outcome": "success",
+      "blocks": 5,
+      "actions": 11,
+      "stars": 3,
+      "traceSha256": "d4dbea01656c5205e8426d117a93da12ff15ea8b3b4d9bb94398d2350b18fc21",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w3-01",
+      "outcome": "success",
+      "blocks": 8,
+      "actions": 8,
+      "stars": 3,
+      "traceSha256": "40355eac273fbcce0964f6a126d1b88139c64321f0b1244a243479ef49078d71",
+      "evidence": "witness_verified_no_optimality_claim"
+    },
+    {
+      "level": "w3-02",
+      "outcome": "success",
+      "blocks": 11,
+      "actions": 11,
+      "stars": 3,
+      "traceSha256": "b1cb676e89e8234f269cb8a05b4f5884eee8a7efc4d7e8c8f188754dbf8e583f",
+      "evidence": "witness_verified_no_optimality_claim"
+    }
+  ],
+  "unitTests": 29,
+  "tasks": 54,
+  "webV1Tasks": 49,
+  "optionalTasks": 5,
+  "requirementsCovered": 30,
+  "curriculumBriefs": 60,
+  "internalLinksChecked": 362,
+  "dependencyGraph": "acyclic",
+  "mockupBoards": 5,
+  "referenceCrops": 8,
+  "notRun": [
+    "Production React/Phaser implementation or build",
+    "Production TypeScript core tests",
+    "Browser or real-device game tests",
+    "Performance/accessibility/privacy certification",
+    "Child playtests",
+    "Global program optimality proof",
+    "Full 60-level executable content validation",
+    "Live GitHub issue import",
+    "Public deployment or app-store submission"
+  ],
+  "interfaceTypecheck": "passed; proposed interface file only",
+  "galleryResources": "all resolve",
+  "pngDecodeChecks": 13
+}

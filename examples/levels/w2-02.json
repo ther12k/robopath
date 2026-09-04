@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "id": "w2-02",
+  "revision": 1,
+  "worldId": "w2",
+  "ordinal": 2,
+  "titleKey": "level.w2-02.title",
+  "board": {
+    "width": 4,
+    "height": 4,
+    "tiles": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 1
+      },
+      {
+        "x": 2,
+        "y": 1
+      },
+      {
+        "x": 2,
+        "y": 2
+      },
+      {
+        "x": 3,
+        "y": 2
+      },
+      {
+        "x": 3,
+        "y": 3
+      }
+    ],
+    "walls": []
+  },
+  "start": {
+    "x": 0,
+    "y": 0,
+    "facing": "E"
+  },
+  "goal": {
+    "x": 3,
+    "y": 3
+  },
+  "collectibles": [],
+  "gates": [],
+  "switches": [],
+  "commands": [
+    "forward",
+    "left",
+    "right",
+    "repeat"
+  ],
+  "limits": {
+    "maxBlocks": 5,
+    "maxActions": 16
+  },
+  "rating": {
+    "parBlocks": 5
+  },
+  "teaching": {
+    "concept": "repeat-body",
+    "archetype": "staircase",
+    "difficulty": 1
+  },
+  "hintKeys": [
+    "level.w2-02.hint.1",
+    "level.w2-02.hint.2",
+    "level.w2-02.hint.3"
+  ]
+}

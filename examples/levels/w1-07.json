@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "id": "w1-07",
+  "revision": 1,
+  "worldId": "w1",
+  "ordinal": 7,
+  "titleKey": "level.w1-07.title",
+  "board": {
+    "width": 3,
+    "height": 3,
+    "tiles": [
+      {
+        "x": 1,
+        "y": 2
+      },
+      {
+        "x": 1,
+        "y": 1
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "walls": []
+  },
+  "start": {
+    "x": 1,
+    "y": 2,
+    "facing": "N"
+  },
+  "goal": {
+    "x": 2,
+    "y": 0
+  },
+  "collectibles": [],
+  "gates": [],
+  "switches": [],
+  "commands": [
+    "forward",
+    "left",
+    "right"
+  ],
+  "limits": {
+    "maxBlocks": 6,
+    "maxActions": 10
+  },
+  "rating": {
+    "parBlocks": 4
+  },
+  "teaching": {
+    "concept": "facing-transfer",
+    "archetype": "north-start",
+    "difficulty": 2
+  },
+  "hintKeys": [
+    "level.w1-07.hint.1",
+    "level.w1-07.hint.2",
+    "level.w1-07.hint.3"
+  ]
+}

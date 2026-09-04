@@ -1,0 +1,86 @@
+[
+  {
+    "level": "levels/w1-01.json",
+    "program": "programs/w1-01.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-02.json",
+    "program": "programs/w1-02.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-03.json",
+    "program": "programs/w1-03.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-04.json",
+    "program": "programs/w1-04.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-05.json",
+    "program": "programs/w1-05.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-06.json",
+    "program": "programs/w1-06.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-07.json",
+    "program": "programs/w1-07.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w1-08.json",
+    "program": "programs/w1-08.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w2-01.json",
+    "program": "programs/w2-01.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w2-02.json",
+    "program": "programs/w2-02.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w3-01.json",
+    "program": "programs/w3-01.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  },
+  {
+    "level": "levels/w3-02.json",
+    "program": "programs/w3-02.json",
+    "expectedOutcome": "success",
+    "expectedStars": 3,
+    "evidence": "witness_only_not_minimum_proof"
+  }
+]

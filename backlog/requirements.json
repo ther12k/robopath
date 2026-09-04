@@ -1,0 +1,152 @@
+[
+  {
+    "id": "FR-001",
+    "name": "Immediate play",
+    "requirement": "A new player can enter robot choice and the first puzzle without account, age entry, purchase, download wall or compulsory text tutorial."
+  },
+  {
+    "id": "FR-002",
+    "name": "Choose a robot",
+    "requirement": "Four visibly robotic starter characters are freely selectable, cosmetic-only and interchangeable without resetting progress."
+  },
+  {
+    "id": "FR-003",
+    "name": "World and level discovery",
+    "requirement": "World cards and numbered level nodes show completed, available, upcoming and offline-unavailable states distinctly."
+  },
+  {
+    "id": "FR-004",
+    "name": "Visual program editor",
+    "requirement": "Add, insert, reorder, replace, remove, clear and undo command blocks with deterministic program order and visible capacity."
+  },
+  {
+    "id": "FR-005",
+    "name": "Equivalent input methods",
+    "requirement": "Every programming action works with touch drag, tap-to-place and keyboard; no hover-only or drag-only essential action."
+  },
+  {
+    "id": "FR-006",
+    "name": "Run control",
+    "requirement": "Run, pause, resume, single-step and reset show exactly the authoritative execution trace; editing is disabled while playing."
+  },
+  {
+    "id": "FR-007",
+    "name": "Helpful outcomes",
+    "requirement": "Success, collision, unfinished route, action limit and invalid-program states have different, non-shaming feedback and preserve the draft."
+  },
+  {
+    "id": "FR-008",
+    "name": "Explicit constraints",
+    "requirement": "Program blocks and executed actions are separate limits. The full AST counts for blocks; each primitive action costs one action."
+  },
+  {
+    "id": "FR-009",
+    "name": "Bounded repeat",
+    "requirement": "World 2 introduces repeat 2–5 times with a nonempty primitive-only body. No nested, conditional or infinite loops in v1."
+  },
+  {
+    "id": "FR-010",
+    "name": "Switches and gates",
+    "requirement": "World 3 introduces auto-triggered floor switches that permanently open named gates for the current attempt; reset closes them."
+  },
+  {
+    "id": "FR-011",
+    "name": "Progressive discovery",
+    "requirement": "Short skippable visual demonstrations introduce only the next needed command and can be replayed on demand."
+  },
+  {
+    "id": "FR-012",
+    "name": "Gentle hints",
+    "requirement": "Authored hints progress from goal cue to spatial cue to command-pattern cue; no timers, payment or reward penalties."
+  },
+  {
+    "id": "FR-013",
+    "name": "Transparent ratings",
+    "requirement": "Each level earns up to three persistent stars for completion, collecting all bonus stars and meeting the block target; best awards never decrease."
+  },
+  {
+    "id": "FR-014",
+    "name": "Lightweight rewards",
+    "requirement": "Earn badges and cosmetic accents from completion milestones; no currency, loot boxes, streak pressure, character power or paid hints."
+  },
+  {
+    "id": "FR-015",
+    "name": "Local progress",
+    "requirement": "Save the robot, settings, drafts and best results locally; export, validated import and erase are available in the grown-up area."
+  },
+  {
+    "id": "FR-016",
+    "name": "Honest offline play",
+    "requirement": "Shell and confirmed-downloaded worlds work offline. Missing packs are unavailable, not incorrectly labeled locked or ready."
+  },
+  {
+    "id": "FR-017",
+    "name": "Responsive interface",
+    "requirement": "Play at 360 CSS pixels wide and above, with portrait, landscape, tablet and desktop arrangements and safe-area support."
+  },
+  {
+    "id": "FR-018",
+    "name": "Accessible play",
+    "requirement": "Provide semantic controls, visible focus, motion reduction, non-color signals, accessible program order and an equivalent textual board explorer."
+  },
+  {
+    "id": "FR-019",
+    "name": "Audio and motion",
+    "requirement": "Animation and sound reinforce outcomes but are never required; sound starts only after interaction and settings persist."
+  },
+  {
+    "id": "FR-020",
+    "name": "Data-driven content",
+    "requirement": "Versioned JSON defines worlds, robots, levels and programs; no special case based on a level ID in the simulator."
+  },
+  {
+    "id": "FR-021",
+    "name": "Substantial level library",
+    "requirement": "Public v1 contains 60 authored levels in four 15-level worlds, with a six-level first playable slice and documented diversity review."
+  },
+  {
+    "id": "FR-022",
+    "name": "Content validation",
+    "requirement": "Every released level has schema checks, semantic checks, replayable witnesses and tested three-star attainability; proof claims are bounded."
+  },
+  {
+    "id": "FR-023",
+    "name": "Child-focused privacy",
+    "requirement": "No child accounts, personal profiles, advertising, chat, trackers or remote gameplay analytics in v1; hosting data practices require human review."
+  },
+  {
+    "id": "FR-024",
+    "name": "Settings and grown-up area",
+    "requirement": "Expose sound, reduced motion, replay tutorial and storage controls; protect destructive actions with explicit confirmation, not a false consent claim."
+  },
+  {
+    "id": "FR-025",
+    "name": "Recovery",
+    "requirement": "Interrupted runs, corrupt saves, asset errors, storage denial, multiple tabs and graphics loss recover without silently awarding or erasing progress."
+  },
+  {
+    "id": "FR-026",
+    "name": "Localization readiness",
+    "requirement": "English is the v1 content language; all user text uses locale keys, supports expansion and avoids language baked into game assets."
+  },
+  {
+    "id": "FR-027",
+    "name": "Safe parsing and delivery",
+    "requirement": "Reject malformed, oversized or incompatible content and imports; never eval program data or accept arbitrary asset/script URLs."
+  },
+  {
+    "id": "FR-028",
+    "name": "Evidence-led quality",
+    "requirement": "Use headless rule tests, component interaction tests, browser journeys, manual accessibility review and recorded physical-device measurements."
+  },
+  {
+    "id": "FR-029",
+    "name": "Controlled release",
+    "requirement": "Deploy immutable static builds with tested base paths, cache lifecycle, compatible saves and rollback; public release requires human sign-off."
+  },
+  {
+    "id": "FR-030",
+    "name": "Learning validation",
+    "requirement": "Conduct guardian-consented formative playtests and examine independent command use, retry behavior and puzzle diversity without claiming proven learning gains."
+  }
+]

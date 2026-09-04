@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://robo-paths.invalid/schemas/pack.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "engineRulesVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^pack-w[1-4]$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "worldId": {
+      "enum": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ]
+    },
+    "sharedAssetSet": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "levelIds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 15,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^w[1-4]-[0-9]{2}$"
+      }
+    },
+    "estimatedDownloadBytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 33554432
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*:)[A-Za-z0-9_./-]+$"
+          },
+          "byteLength": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16777216
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "kind": {
+            "enum": [
+              "level",
+              "locale",
+              "image",
+              "audio",
+              "atlas"
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "byteLength",
+          "sha256",
+          "kind"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "engineRulesVersion",
+    "id",
+    "revision",
+    "worldId",
+    "sharedAssetSet",
+    "levelIds",
+    "estimatedDownloadBytes",
+    "files"
+  ]
+}

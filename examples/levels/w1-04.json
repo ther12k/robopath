@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "engineRulesVersion": 1,
+  "id": "w1-04",
+  "revision": 1,
+  "worldId": "w1",
+  "ordinal": 4,
+  "titleKey": "level.w1-04.title",
+  "board": {
+    "width": 4,
+    "height": 1,
+    "tiles": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 2,
+        "y": 0
+      },
+      {
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "walls": []
+  },
+  "start": {
+    "x": 0,
+    "y": 0,
+    "facing": "E"
+  },
+  "goal": {
+    "x": 3,
+    "y": 0
+  },
+  "collectibles": [
+    {
+      "id": "item-1",
+      "x": 1,
+      "y": 0,
+      "kind": "required"
+    }
+  ],
+  "gates": [],
+  "switches": [],
+  "commands": [
+    "forward",
+    "left",
+    "right"
+  ],
+  "limits": {
+    "maxBlocks": 4,
+    "maxActions": 6
+  },
+  "rating": {
+    "parBlocks": 3
+  },
+  "teaching": {
+    "concept": "required-pickup",
+    "archetype": "pickup-line",
+    "difficulty": 2
+  },
+  "hintKeys": [
+    "level.w1-04.hint.1",
+    "level.w1-04.hint.2",
+    "level.w1-04.hint.3"
+  ]
+}
