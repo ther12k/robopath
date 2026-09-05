@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer, useRef } from 'react';
 import { Level, RunTrace, State, Step } from '../../core/model';
 import { PlaybackState } from '../../bridge/messages';
-import { M1_LEVELS } from '../../content/levels';
+import { ALL_LEVELS } from '../../content/levels';
 import { editorReducer, createInitialEditorState } from '../editor/editorReducer';
 import { RunController } from './RunController';
 import { ProgramEditor } from '../editor/ProgramEditor';
@@ -38,9 +38,9 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 }) => {
   const currentLevelIndex = Math.max(
     0,
-    M1_LEVELS.findIndex((l) => l.id === levelId),
+    ALL_LEVELS.findIndex((l) => l.id === levelId),
   );
-  const level: Level = M1_LEVELS[currentLevelIndex] || M1_LEVELS[0];
+  const level: Level = ALL_LEVELS[currentLevelIndex] || ALL_LEVELS[0];
 
   const [editorState, dispatch] = useReducer(
     editorReducer,
@@ -162,8 +162,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   const handleNextLevel = () => {
     handleReset();
-    if (currentLevelIndex + 1 < M1_LEVELS.length) {
-      onSelectLevel(M1_LEVELS[currentLevelIndex + 1].id);
+    if (currentLevelIndex + 1 < ALL_LEVELS.length) {
+      onSelectLevel(ALL_LEVELS[currentLevelIndex + 1].id);
     } else {
       onBackToMap();
     }
@@ -346,7 +346,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           level={level}
           robotId={progress.selectedRobotId}
           trace={lastTrace}
-          hasNextLevel={currentLevelIndex + 1 < M1_LEVELS.length}
+          hasNextLevel={currentLevelIndex + 1 < ALL_LEVELS.length}
           onNextLevel={handleNextLevel}
           onRetry={handleReset}
           onBackToMap={onBackToMap}

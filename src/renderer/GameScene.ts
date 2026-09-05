@@ -58,6 +58,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image('rp-gate-open', world('gate-open'));
     this.load.image('rp-switch', world('switch'));
     this.load.image('rp-rock', world('rock'));
+    this.load.image('rp-tree', world('tree'));
     for (const id of ['pip', 'mochi', 'bolt', 'sprout']) {
       for (const view of ['n', 'e', 's', 'w'] as const) {
         this.load.image(`rp-robot-${id}-${view}`, `assets/robots/${id}-${view}.svg`);
@@ -132,6 +133,9 @@ export class GameScene extends Phaser.Scene {
 
     const { tiles, walls } = this.level.board;
     const wallSet = new Set(walls.map((w) => `${w.x},${w.y}`));
+    const decorationSet = new Set(
+      (this.level.board.decorations ?? []).map((d) => `${d.x},${d.y}`),
+    );
     const content = calculateContentBounds(this.level.board.width, this.level.board.height);
 
     // Decorative sky clouds behind the floating island (scene-level, depth < 0)
@@ -172,13 +176,21 @@ export class GameScene extends Phaser.Scene {
       grass.setDisplaySize(79, 59);
 
       if (isWall) {
-        const rock = this.track(
-          this.add.image(screenPos.x, screenPos.y - 4, 'rp-rock').setDepth(
+        // Decorated walls show tall scenery; depth (layer 30) still sorts the
+        // robot behind it approaching from lower x+y and in front past it.
+        const isTree = decorationSet.has(`${tile.x},${tile.y}`);
+        const prop = this.track(
+          this.add.image(screenPos.x, screenPos.y - 4, isTree ? 'rp-tree' : 'rp-rock').setDepth(
             calculateDepth(tile.x, tile.y, 30),
           ),
         );
-        rock.setOrigin(0.5, 0.78);
-        rock.setDisplaySize(52, 52);
+        if (isTree) {
+          prop.setOrigin(0.5, 0.92);
+          prop.setDisplaySize(64, 88);
+        } else {
+          prop.setOrigin(0.5, 0.78);
+          prop.setDisplaySize(52, 52);
+        }
       }
     }
 

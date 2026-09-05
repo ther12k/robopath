@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { PlayerProgress, createInitialProgress } from '../core/progression';
 import { LocalStorageAdapter, StorageAdapter } from '../storage/storageAdapter';
 import { WelcomeScreen } from '../features/welcome/WelcomeScreen';
@@ -80,6 +81,7 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <div
       className="rp-sky-gradient"
       style={{
@@ -142,5 +144,6 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
         onClose={() => setIsSettingsOpen(false)}
       />
     </div>
+    </MotionConfig>
   );
 };

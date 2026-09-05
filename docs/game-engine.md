@@ -4,7 +4,7 @@ This document is normative for engine rules version **1**. Example code is a ref
 
 ## 1. Coordinates and board state
 
-A board is at most 8×8 cells. Coordinates start at `(0,0)` in the logical upper-left; +x is east, +y is south. Facing is `N`, `E`, `S`, or `W`. The board’s `tiles` array enumerates walkable coordinates; a missing tile is a void. Optional `walls` make listed tiles impassable. There is no physics, continuous collision, diagonal movement, pushing, jump, height traversal or moving obstacle.
+A board is at most 8×8 cells. Coordinates start at `(0,0)` in the logical upper-left; +x is east, +y is south. Facing is `N`, `E`, `S`, or `W`. The board’s `tiles` array enumerates walkable coordinates; a missing tile is a void. Optional `walls` make listed tiles impassable. Optional `board.decorations` place cosmetic scenery (e.g. trees) on wall tiles only; decorations are rendered with painter’s-order depth so the robot passes behind and in front of them, but have no rule effect. There is no physics, continuous collision, diagonal movement, pushing, jump, height traversal or moving obstacle.
 
 Start and goal each occupy a valid, non-wall tile and must be distinct. Neither can contain a gate or switch. Collectibles have unique IDs and positions; their kind is `required` (battery) or `bonus` (star). A collectible may share a traversable switch/gate tile; it may not share the start. Each switch has a unique position, unique ID and one or more existing gate IDs in `opens`. Every gate must be referenced by a switch; switches and gates cannot share a tile. Gate tiles must not be walls. All board coordinates and entity IDs must be unique where applicable and within bounds.
 

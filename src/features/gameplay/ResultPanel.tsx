@@ -1,9 +1,18 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Level, Outcome, RunTrace } from '../../core/model';
 import { totalStars } from '../../core/score';
 import { Button } from '../../ui/Button';
 import { RobotAvatar } from '../robots/RobotAvatar';
 import { t } from '../../content/locales';
+
+/** Shared entrance for both dialog variants; reducedMotion="user" at the
+ *  app root degrades these to a simple fade. */
+const cardMotion = {
+  initial: { opacity: 0, scale: 0.88, y: 16 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  transition: { type: 'spring' as const, stiffness: 320, damping: 24 },
+};
 
 export interface ResultPanelProps {
   level: Level;
@@ -43,9 +52,11 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
 
   if (!isSuccess) {
     return (
-      <div
+      <motion.div
         role="dialog"
         aria-label="Level attempt feedback"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         style={{
           position: 'fixed',
           inset: 0,
@@ -57,7 +68,7 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
           zIndex: 500,
         }}
       >
-        <div
+        <motion.div {...cardMotion}
           style={{
             backgroundColor: 'var(--color-surface)',
             borderRadius: 'var(--radius-panel)',
@@ -90,15 +101,17 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
               Back to Map
             </Button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     );
   }
 
   return (
-    <div
+    <motion.div
       role="dialog"
       aria-label="Level success celebration"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       style={{
         position: 'fixed',
         inset: 0,
@@ -110,7 +123,7 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
         zIndex: 500,
       }}
     >
-      <div
+      <motion.div {...cardMotion}
         style={{
           backgroundColor: 'var(--color-surface)',
           borderRadius: 'var(--radius-panel)',
@@ -136,12 +149,12 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
           </p>
         </div>
 
-        {/* Stars earned row */}
+        {/* Stars earned row — earned stars pop in staggered (reduced motion: fade only) */}
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           {[1, 2, 3].map((starIndex) => {
             const earned = starIndex <= starsEarned;
             return (
-              <svg
+              <motion.svg
                 key={starIndex}
                 width="40"
                 height="40"
@@ -149,13 +162,12 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
                 fill={earned ? 'var(--color-accent)' : '#e2e8f0'}
                 stroke={earned ? '#d97706' : '#94a3b8'}
                 strokeWidth="1.5"
-                style={{
-                  transform: earned ? 'scale(1.1)' : 'scale(0.9)',
-                  transition: 'transform 0.2s ease',
-                }}
+                initial={earned ? { scale: 0, rotate: -40, opacity: 0 } : false}
+                animate={earned ? { scale: 1.1, rotate: 0, opacity: 1 } : undefined}
+                transition={{ type: 'spring', stiffness: 380, damping: 17, delay: 0.25 + (starIndex - 1) * 0.18 }}
               >
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
+              </motion.svg>
             );
           })}
         </div>
@@ -207,7 +219,7 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
             Back to Map
           </Button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

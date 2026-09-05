@@ -35,13 +35,13 @@ await page.waitForSelector('text=Robo Paths');
 
 // Returning-player fast path: Continue → map.
 await page.click('button:has-text("Continue Adventure")');
-await page.waitForSelector('text=World 1 · Sunny Meadow');
-await page.click('button:has-text("Battery delivery")');
+await page.waitForSelector('text=Sunny Meadow');
+await page.click('button[aria-label^="Level 4:"]');
 await page.waitForSelector('text=Battery delivery');
 
 // Run a partial program: Forward, Forward collects the battery at (1,0)
 // and stops mid-route (incomplete → retry panel).
-const forward = page.getByRole('button', { name: 'Add forward command' });
+const forward = page.locator('button[aria-label^="Add forward command"]');
 await forward.click();
 await forward.click();
 await page.click('button:has-text("Run Program")');

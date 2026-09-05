@@ -684,6 +684,13 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "x": 2,
           "y": 0
         }
+      ],
+      "decorations": [
+        {
+          "x": 2,
+          "y": 0,
+          "kind": "tree"
+        }
       ]
     },
     "start": {
@@ -1347,6 +1354,23 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 1,
           "y": 2
+        }
+      ],
+      "decorations": [
+        {
+          "x": 1,
+          "y": 1,
+          "kind": "tree"
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "kind": "tree"
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "kind": "tree"
         }
       ]
     },
@@ -3906,6 +3930,18 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 2,
           "y": 2
+        }
+      ],
+      "decorations": [
+        {
+          "x": 1,
+          "y": 1,
+          "kind": "tree"
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "kind": "tree"
         }
       ]
     },

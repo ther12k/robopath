@@ -60,6 +60,48 @@ describe('Content validation (RP-005)', () => {
     }
   });
 
+  it('accepts tree decorations on wall tiles and rejects them elsewhere', () => {
+    const walled = {
+      ...validLevel,
+      board: { ...validLevel.board, walls: [{ x: 1, y: 1 }] },
+    };
+    const ok = validateLevel({
+      ...walled,
+      board: { ...walled.board, decorations: [{ x: 1, y: 1, kind: 'tree' }] },
+    });
+    expect(ok.ok).toBe(true);
+
+    const onWalkable = validateLevel({
+      ...validLevel,
+      board: { ...validLevel.board, decorations: [{ x: 0, y: 0, kind: 'tree' }] },
+    });
+    expect(onWalkable.ok).toBe(false);
+    if (!onWalkable.ok) {
+      expect(onWalkable.errors.some((e) => e.code === 'DECORATION_NOT_BLOCKED')).toBe(true);
+    }
+
+    const unknownKind = validateLevel({
+      ...walled,
+      board: { ...walled.board, decorations: [{ x: 1, y: 1, kind: 'lava' }] },
+    });
+    expect(unknownKind.ok).toBe(false);
+    if (!unknownKind.ok) {
+      expect(unknownKind.errors.some((e) => e.code === 'UNKNOWN_DECORATION')).toBe(true);
+    }
+
+    const duplicated = validateLevel({
+      ...walled,
+      board: {
+        ...walled.board,
+        decorations: [{ x: 1, y: 1, kind: 'tree' }, { x: 1, y: 1, kind: 'tree' }],
+      },
+    });
+    expect(duplicated.ok).toBe(false);
+    if (!duplicated.ok) {
+      expect(duplicated.errors.some((e) => e.code === 'DUPLICATE_COORDINATE')).toBe(true);
+    }
+  });
+
   it('rejects unreferenced gate or switch referencing missing gate', () => {
     const res = validateLevel({
       ...validLevel,

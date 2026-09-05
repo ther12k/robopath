@@ -81,6 +81,26 @@ export function validateLevel(level: unknown): Result<Level> {
     }
   }
 
+  // Decorations are cosmetic-only and must sit on blocked (wall) tiles so
+  // they can never alter the simulation.
+  const KNOWN_DECORATIONS: readonly string[] = ['tree'];
+  const decorations = Array.isArray(board.decorations) ? board.decorations : [];
+  const decorationSet = new Set<string>();
+  for (let i = 0; i < decorations.length; i++) {
+    const d = decorations[i];
+    const key = coordKey(d);
+    if (decorationSet.has(key)) {
+      errors.push({ code: 'DUPLICATE_COORDINATE', path: `board.decorations[${i}]`, message: `Duplicate decoration at ${key}` });
+    }
+    decorationSet.add(key);
+    if (!wallSet.has(key)) {
+      errors.push({ code: 'DECORATION_NOT_BLOCKED', path: `board.decorations[${i}]`, message: `Decoration at ${key} must sit on a wall tile` });
+    }
+    if (!KNOWN_DECORATIONS.includes(d.kind)) {
+      errors.push({ code: 'UNKNOWN_DECORATION', path: `board.decorations[${i}].kind`, message: `Unknown decoration kind: ${d.kind}` });
+    }
+  }
+
   const start = l.start;
   const goal = l.goal;
   if (!start || typeof start !== 'object' || !goal || typeof goal !== 'object') {

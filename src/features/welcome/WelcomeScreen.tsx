@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { PlayerProgress } from '../../core/progression';
 import { getRobotById } from '../robots/robotCatalog';
 import { Button } from '../../ui/Button';
@@ -76,7 +77,16 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         }}
         aria-hidden="true"
       >
-        {/* Island */}
+        {/* Island (gentle ambient bob; disabled by reducedMotion="user") */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, -10, 0] }}
+          transition={{
+            opacity: { duration: 0.5 },
+            y: { duration: 5.5, repeat: Infinity, ease: 'easeInOut' },
+          }}
+          style={{ position: 'absolute', inset: 0 }}
+        >
         <div
           style={{
             position: 'absolute',
@@ -119,6 +129,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             />
           </div>
         </div>
+        </motion.div>
       </div>
 
       {/* Title + actions: quiet, over the scene's lower edge */}

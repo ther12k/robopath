@@ -51,6 +51,13 @@ export interface Switch extends Coordinate {
   readonly opens: readonly string[];
 }
 
+/** Cosmetic scenery. Decorations never affect simulation rules. */
+export type DecorationKind = 'tree';
+
+export interface BoardDecoration extends Coordinate {
+  readonly kind: DecorationKind;
+}
+
 export interface Level {
   readonly schemaVersion: 1;
   readonly engineRulesVersion: 1;
@@ -64,6 +71,8 @@ export interface Level {
     readonly height: number;
     readonly tiles: readonly Coordinate[];
     readonly walls: readonly Coordinate[];
+    /** Optional cosmetic scenery; must sit on wall (blocked) tiles. */
+    readonly decorations?: readonly BoardDecoration[];
   };
   readonly start: Coordinate & { readonly facing: Facing };
   readonly goal: Coordinate;

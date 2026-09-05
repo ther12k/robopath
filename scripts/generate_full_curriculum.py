@@ -23,10 +23,19 @@ for entry in json.loads((ROOT / 'examples/curriculum.json').read_text()):
         CONCEPTS[entry['id']] = entry['concept'].lower()
 
 # Helper to create level
-def make_level(wid, num, title, concept, archetype, diff, w, h, tiles, walls, start, goal, collectibles, gates, switches, commands, maxBlocks, maxActions, parBlocks):
+def make_level(wid, num, title, concept, archetype, diff, w, h, tiles, walls, start, goal, collectibles, gates, switches, commands, maxBlocks, maxActions, parBlocks, decorations=None):
     lid = f"{wid}-{num:02d}"
     TITLES[lid] = title
     CONCEPTS[lid] = concept
+    board = {
+        "width": w,
+        "height": h,
+        "tiles": [{"x": x, "y": y} for x, y in tiles],
+        "walls": [{"x": x, "y": y} for x, y in walls]
+    }
+    # Cosmetic scenery (trees etc.) always sits on blocked wall tiles.
+    if decorations:
+        board["decorations"] = [{"x": x, "y": y, "kind": kind} for x, y, kind in decorations]
     return {
         "schemaVersion": 1,
         "engineRulesVersion": 1,
@@ -35,12 +44,7 @@ def make_level(wid, num, title, concept, archetype, diff, w, h, tiles, walls, st
         "worldId": wid,
         "ordinal": num,
         "titleKey": f"level.{lid}.title",
-        "board": {
-            "width": w,
-            "height": h,
-            "tiles": [{"x": x, "y": y} for x, y in tiles],
-            "walls": [{"x": x, "y": y} for x, y in walls]
-        },
+        "board": board,
         "start": start,
         "goal": goal,
         "collectibles": collectibles,
@@ -85,7 +89,8 @@ def repeat_prog(commands):
 # ==================== WORLD 1 (09 to 15) ====================
 # w1-09: Not that shortcut
 l09_tiles = [(x, y) for x in range(4) for y in range(2)]
-levels['w1-09'] = make_level('w1', 9, "Not that shortcut", "goal-prerequisites", "detour", 2, 4, 2, l09_tiles, [(2,0)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":0}, [{"id":"b1","x":1,"y":1,"kind":"required"}], [], [], ["forward","left","right"], 12, 16, 8)
+levels['w1-09'] = make_level('w1', 9, "Not that shortcut", "goal-prerequisites", "detour", 2, 4, 2, l09_tiles, [(2,0)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":0}, [{"id":"b1","x":1,"y":1,"kind":"required"}], [], [], ["forward","left","right"], 12, 16, 8,
+    decorations=[(2, 0, 'tree')])
 programs['w1-09'] = prim_prog("FRFLFFLF")
 
 # w1-10: A little less code
@@ -115,7 +120,8 @@ programs['w1-14'] = prim_prog("FLFFFFLF")
 
 # w1-15: Meadow adventure
 l15_tiles = [(x, y) for x in range(4) for y in range(4)]
-levels['w1-15'] = make_level('w1', 15, "Meadow adventure", "transfer", "meadow-mastery", 3, 4, 4, l15_tiles, [(1,1),(2,1),(1,2)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":3}, [{"id":"b1","x":3,"y":0,"kind":"required"}], [], [], ["forward","left","right"], 14, 20, 8)
+levels['w1-15'] = make_level('w1', 15, "Meadow adventure", "transfer", "meadow-mastery", 3, 4, 4, l15_tiles, [(1,1),(2,1),(1,2)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":3}, [{"id":"b1","x":3,"y":0,"kind":"required"}], [], [], ["forward","left","right"], 14, 20, 8,
+    decorations=[(1, 1, 'tree'), (2, 1, 'tree'), (1, 2, 'tree')])
 programs['w1-15'] = prim_prog("FFFRFFF")
 
 # ==================== WORLD 2 (03 to 15) ====================
@@ -202,7 +208,8 @@ programs['w3-05'] = prim_prog("RFFLFFFLFFRFF")
 
 # w3-06: The crystal key
 l306_tiles = [(x, y) for x in range(4) for y in range(4)]
-levels['w3-06'] = make_level('w3', 6, "The crystal key", "gate-loop", "loop-gate", 2, 4, 4, l306_tiles, [(1,1),(2,2)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":0}, [], [{"id":"g1","x":2,"y":0}], [{"id":"sw1","x":0,"y":3,"opens":["g1"]}], ["forward","left","right"], 16, 22, 12)
+levels['w3-06'] = make_level('w3', 6, "The crystal key", "gate-loop", "loop-gate", 2, 4, 4, l306_tiles, [(1,1),(2,2)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":0}, [], [{"id":"g1","x":2,"y":0}], [{"id":"sw1","x":0,"y":3,"opens":["g1"]}], ["forward","left","right"], 16, 22, 12,
+    decorations=[(1, 1, 'tree'), (2, 2, 'tree')])
 programs['w3-06'] = prim_prog("RFFFLFFFLFFF")
 
 # w3-07: Two switches, one gate

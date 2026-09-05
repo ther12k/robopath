@@ -8,7 +8,7 @@ IDs are stable (`w1-01`, `w2-01`, etc.); revisions increase when a map, budget, 
 
 ## 2. Level fields
 
-`schemaVersion` and `engineRulesVersion` define compatibility. `id`, `revision`, `worldId` and `ordinal` identify the level. `titleKey` is a locale reference. `board` contains width, height, explicit tiles and walls. `start` includes facing; `goal` is a coordinate. `collectibles`, `switches` and `gates` are always arrays, including when empty.
+`schemaVersion` and `engineRulesVersion` define compatibility. `id`, `revision`, `worldId` and `ordinal` identify the level. `titleKey` is a locale reference. `board` contains width, height, explicit tiles and walls. `board.decorations` is an optional cosmetic-scenery list (`{ x, y, kind }`, currently `kind: "tree"`); every decoration must sit on a wall (blocked) tile and never affects the simulation. `start` includes facing; `goal` is a coordinate. `collectibles`, `switches` and `gates` are always arrays, including when empty.
 
 `commands` is an allowlist; `limits.maxBlocks` bounds the written AST and `limits.maxActions` bounds executed primitives. `rating.parBlocks` is a target, not a proven optimum unless separately evidenced. `teaching` identifies concept, structural archetype and proposed difficulty. `hintKeys` contains three progressive authored hints. Human-facing content belongs in locale JSON, not hardcoded engine code.
 

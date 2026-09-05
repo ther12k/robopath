@@ -30,8 +30,8 @@ await page.addInitScript(() => {
 await page.goto('http://localhost:8081', { waitUntil: 'networkidle' });
 await page.waitForSelector('text=Robo Paths');
 await page.click('button:has-text("Continue Adventure")');
-await page.waitForSelector('text=World 1 · Sunny Meadow');
-await page.click('button:has-text("Round the corner")');
+await page.waitForSelector('text=Sunny Meadow');
+await page.click('button[aria-label^="Level 2:"]');
 await page.waitForSelector('text=Round the corner');
 await page.waitForTimeout(1200);
 
@@ -40,8 +40,8 @@ console.log('pose before turn:', poseBefore);
 
 // Turn right, then try to move (blocked at the southern void) — the turn
 // step must already have swapped the pose.
-await page.getByRole('button', { name: 'Add right command' }).click();
-await page.getByRole('button', { name: 'Add forward command' }).click();
+await page.locator('button[aria-label^="Add right command"]').click();
+await page.locator('button[aria-label^="Add forward command"]').click();
 await page.click('button:has-text("Run Program")');
 await page.waitForSelector('text=Keep Exploring', { timeout: 8000 });
 await page.waitForTimeout(300);

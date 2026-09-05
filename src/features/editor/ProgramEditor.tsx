@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { CommandOp, Node, PrimitiveOp, Repeat } from '../../core/model';
 import { calculateBlockCost } from './editorReducer';
 import { IconButton } from '../../ui/IconButton';
@@ -144,7 +145,15 @@ const PrimitiveBlock: React.FC<PrimitiveBlockProps> = ({
           onClick={onRemove}
           title={disabled ? undefined : 'Drag to move · tap to remove'}
         >
-          {children}
+          {/* Pop-in on mount (new blocks); key stability means reorders never replay it. */}
+          <motion.div
+            initial={{ scale: 0.4, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+            style={{ display: 'flex' }}
+          >
+            {children}
+          </motion.div>
           <span
             style={{
               position: 'absolute',
@@ -579,11 +588,13 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
 
           return (
             <PaletteDraggable key={op} op={op} disabled={disabled}>
-            <button
+            <motion.button
               role="button"
               aria-label={`Add ${op} command. Drag into the program or press to add at the end.`}
               disabled={isButtonDisabled}
               onClick={() => onAddCommand(op)}
+              whileHover={isButtonDisabled ? undefined : { scale: 1.06 }}
+              whileTap={isButtonDisabled ? undefined : { scale: 0.9 }}
               style={{
                 display: 'inline-flex',
                 flexDirection: 'column',
@@ -599,7 +610,6 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                 cursor: isButtonDisabled ? 'not-allowed' : 'grab',
                 opacity: isButtonDisabled ? 0.4 : 1,
                 boxShadow: isButtonDisabled || hasKitArt ? 'none' : 'var(--shadow-md)',
-                transition: 'transform 0.1s ease, filter 0.1s ease',
                 WebkitTapHighlightColor: 'transparent',
               }}
             >
@@ -616,7 +626,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
               >
                 {op}
               </span>
-            </button>
+            </motion.button>
             </PaletteDraggable>
           );
         })}
