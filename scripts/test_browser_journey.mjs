@@ -34,7 +34,7 @@ async function runJourney(engine, browserFactory, screenshotPrefix) {
     await page.screenshot({ path: `qa/screenshots/${screenshotPrefix}-level-editing.png` });
 
     // 4. Assemble program: Forward, Forward
-    const forwardBtn = page.getByRole('button', { name: 'Add forward command' });
+    const forwardBtn = page.locator('button[aria-label^="Add forward command"]');
     await forwardBtn.click();
     await forwardBtn.click();
     await page.waitForTimeout(250);
@@ -51,7 +51,7 @@ async function runJourney(engine, browserFactory, screenshotPrefix) {
 
     // 7. Back to world map
     await page.click('button:has-text("Back to Map")');
-    await page.waitForSelector('text=World 1 · Sunny Meadow');
+    await page.waitForSelector('text=Sunny Meadow');
     await page.waitForTimeout(250);
     await page.screenshot({ path: `qa/screenshots/${screenshotPrefix}-world-map.png` });
 

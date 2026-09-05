@@ -35,10 +35,9 @@ describe('App full M1 journey integration (RP-015, RP-021)', () => {
     const tryItBtn = await screen.findByRole('button', { name: /Try It!/i });
     fireEvent.click(tryItBtn);
 
-    // Add commands via editor
-    const forwardBtn = screen.getByRole('button', { name: /Add forward command/i });
-    fireEvent.click(forwardBtn);
-    fireEvent.click(forwardBtn);
+    // Add commands via editor (re-query each time: dnd wrappers remount)
+    fireEvent.click(screen.getByRole('button', { name: /Add forward command/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Add forward command/i }));
 
     expect(screen.getByRole('group', { name: /Slot 1, forward/i })).toBeInTheDocument();
     expect(screen.getByRole('group', { name: /Slot 2, forward/i })).toBeInTheDocument();
@@ -64,6 +63,6 @@ describe('App full M1 journey integration (RP-015, RP-021)', () => {
     fireEvent.click(backBtn);
 
     // World map header
-    expect(await screen.findByRole('heading', { name: /World 1 · Sunny Meadow/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /Sunny Meadow/i })).toBeInTheDocument();
   });
 });

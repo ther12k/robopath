@@ -296,6 +296,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           activeIteration={activeStep?.source.iteration}
           disabled={playbackState === 'running' || playbackState === 'paused'}
           onAddCommand={(op) => dispatch({ type: 'ADD_COMMAND', op })}
+          onReorderCommand={(from, to) => dispatch({ type: 'REORDER_COMMAND', fromIndex: from, toIndex: to })}
           onDeleteCommand={(idx) => dispatch({ type: 'DELETE_COMMAND', index: idx })}
           onClearCommands={() => dispatch({ type: 'CLEAR_COMMANDS' })}
           onUndo={() => dispatch({ type: 'UNDO' })}

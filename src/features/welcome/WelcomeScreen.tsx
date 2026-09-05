@@ -12,6 +12,10 @@ export interface WelcomeScreenProps {
   onOpenSettings: () => void;
 }
 
+/**
+ * Scene-led welcome (audit RPUX-003): the meadow world and the chosen robot
+ * are the hero. Copy is minimal; controls sit quietly at the bottom.
+ */
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   progress,
   onPlay,
@@ -29,23 +33,21 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         height: '100dvh',
-        maxWidth: '480px',
         margin: '0 auto',
-        padding: '32px 24px calc(32px + var(--sab))',
+        padding: '16px 20px calc(20px + var(--sab))',
         boxSizing: 'border-box',
-        textAlign: 'center',
+        maxWidth: '560px',
+        width: '100%',
       }}
     >
-      {/* Decorative floating clouds */}
-      <div className="rp-cloud" style={{ width: 130, height: 38, top: '12%', left: '-30px' }} aria-hidden="true" />
-      <div className="rp-cloud" style={{ width: 90, height: 28, top: '22%', right: '-14px', opacity: 0.7 }} aria-hidden="true" />
-      <div className="rp-cloud" style={{ width: 160, height: 44, bottom: '26%', left: '-40px', opacity: 0.6 }} aria-hidden="true" />
+      {/* Sky: drifting clouds */}
+      <div className="rp-cloud" style={{ width: 150, height: 42, top: '9%', left: '-34px' }} aria-hidden="true" />
+      <div className="rp-cloud" style={{ width: 100, height: 30, top: '17%', right: '-18px', opacity: 0.75 }} aria-hidden="true" />
+      <div className="rp-cloud" style={{ width: 120, height: 34, top: '38%', right: '8%', opacity: 0.5 }} aria-hidden="true" />
 
-      {/* Top Bar: Settings Button */}
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
+      {/* Header: settings only — everything else belongs to the scene */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', zIndex: 2 }}>
         <IconButton
           label="Settings and Grown-Up Area"
           variant="secondary"
@@ -60,88 +62,118 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         />
       </div>
 
-      {/* Hero Section: Title & Robot Avatar */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', zIndex: 1 }}>
-        <div>
-          <span
-            style={{
-              display: 'inline-block',
-              backgroundColor: '#dbeafe',
-              color: 'var(--color-primary)',
-              fontWeight: 800,
-              fontSize: 'var(--text-xs)',
-              padding: '4px 12px',
-              borderRadius: 'var(--radius-pill)',
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-              marginBottom: '8px',
-            }}
-          >
-            Coding Puzzle Toy
-          </span>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: '2.5rem',
-              color: 'var(--color-ink)',
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Robo Paths
-          </h1>
-          <p
-            style={{
-              margin: '8px 0 0 0',
-              fontSize: 'var(--text-base)',
-              color: 'var(--color-muted)',
-              lineHeight: 1.4,
-            }}
-          >
-            Guide your robot through floating puzzles using simple command blocks!
-          </p>
-        </div>
-
-        {/* Robot Hero Avatar Card */}
-          <button
-          className="rp-card-hover rp-welcome-hero"
-          onClick={onChooseRobot}
-          aria-label={`Current robot: ${robot.name}. Click to change.`}
+      {/* Scene: floating meadow island carrying the chosen robot */}
+      <div
+        style={{
+          flex: 1,
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1,
+          minHeight: 0,
+        }}
+        aria-hidden="true"
+      >
+        {/* Island */}
+        <div
           style={{
-            background: 'var(--color-surface)',
-            border: '2px solid var(--color-border-subtle)',
-            borderRadius: 'var(--radius-panel)',
-            padding: '24px 32px',
-            boxShadow: 'var(--shadow-md)',
-            cursor: 'pointer',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '12px',
-            marginTop: '12px',
+            position: 'absolute',
+            bottom: '6%',
+            width: '78%',
+            maxWidth: '380px',
+            height: '110px',
+            borderRadius: '50% 50% 46% 46% / 64% 64% 36% 36%',
+            background: 'linear-gradient(180deg, #9be267 0%, #7cc44e 58%, #5f9e3b 100%)',
+            boxShadow: '0 22px 30px rgba(36, 111, 229, 0.18)',
           }}
-        >
+        />
+        {/* Island underside (floating-earth taper) */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '1%',
+            width: '46%',
+            maxWidth: '220px',
+            height: '52px',
+            borderRadius: '0 0 48% 48% / 0 0 90% 90%',
+            background: 'linear-gradient(180deg, #8a6a4a 0%, #6d5138 100%)',
+            opacity: 0.92,
+          }}
+        />
+        {/* Flag on the island */}
+        <KitImage
+          src="world/flag.svg"
+          alt=""
+          size={64}
+          style={{ position: 'absolute', bottom: '34%', right: '22%' }}
+        />
+        {/* Chosen robot, standing on the island */}
+        <div style={{ position: 'absolute', bottom: '24%', left: '18%' }}>
           <div className="rp-hero-blob" style={{ display: 'flex' }}>
-            <KitImage src={ROBOT_FRONT[robot.id] ?? ROBOT_FRONT.pip} alt={`${robot.name} robot`} size={124} />
+            <KitImage
+              src={ROBOT_FRONT[robot.id] ?? ROBOT_FRONT.pip}
+              alt={`${robot.name} robot on a floating meadow island`}
+              size={150}
+            />
           </div>
-          <div>
-            <h2 style={{ margin: 0, fontSize: 'var(--text-xl)', color: 'var(--color-ink)' }}>
-              {robot.name}
-            </h2>
-            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-primary)', fontWeight: 700 }}>
-              Tap to switch robot ↻
-            </span>
-          </div>
-        </button>
+        </div>
       </div>
 
-      {/* Action Buttons */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', zIndex: 1 }}>
+      {/* Title + actions: quiet, over the scene's lower edge */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          zIndex: 2,
+        }}
+      >
+        <h1
+          style={{
+            margin: 0,
+            fontSize: '2.4rem',
+            color: 'var(--color-ink)',
+            fontWeight: 800,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Robo Paths
+        </h1>
+
+        {/* The chosen robot doubles as the change-robot control */}
+        <button
+          className="rp-card-hover"
+          onClick={onChooseRobot}
+          aria-label={`Playing as ${robot.name}. Choose a different robot.`}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            background: 'var(--color-surface)',
+            border: '2px solid var(--color-border-subtle)',
+            borderRadius: 'var(--radius-pill)',
+            padding: '8px 16px',
+            boxShadow: 'var(--shadow-sm)',
+            cursor: 'pointer',
+          }}
+        >
+          <KitImage src={`robots/avatars/${robot.id}-avatar.svg`} alt="" size={32} />
+          <span style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--color-ink)' }}>
+            {robot.name}
+          </span>
+          <span
+            aria-hidden="true"
+            style={{ fontSize: 'var(--text-xs)', color: 'var(--color-primary)', fontWeight: 700 }}
+          >
+            change ↻
+          </span>
+        </button>
+
         <Button variant="action" size="lg" fullWidth className="rp-press" onClick={onPlay}>
           {hasProgress ? 'Continue Adventure →' : 'Start Playing! →'}
-        </Button>
-        <Button variant="secondary" size="md" fullWidth className="rp-press" onClick={onChooseRobot}>
-          Choose Another Robot
         </Button>
       </div>
     </div>

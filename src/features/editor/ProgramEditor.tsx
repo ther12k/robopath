@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CommandOp, Node, PrimitiveOp, Repeat } from '../../core/model';
 import { calculateBlockCost } from './editorReducer';
 import { IconButton } from '../../ui/IconButton';
 import { Chip } from '../../ui/Chip';
 import { KitImage, BLOCK_ICON } from '../../ui/KitImage';
+import {
+  DndContext,
+  pointerWithin,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  useDraggable,
+  useDroppable,
+  type DragEndEvent,
+  type DragStartEvent,
+} from '@dnd-kit/core';
 
 export interface ProgramEditorProps {
   commands: readonly Node[];
@@ -13,6 +25,8 @@ export interface ProgramEditorProps {
   activeIteration?: number;
   disabled?: boolean;
   onAddCommand: (op: CommandOp) => void;
+  /** Reorder existing commands (drag), not charged as add. */
+  onReorderCommand?: (fromIndex: number, toIndex: number) => void;
   onDeleteCommand: (index: number) => void;
   onClearCommands: () => void;
   onUndo: () => void;
@@ -24,6 +38,150 @@ export interface ProgramEditorProps {
   onChangeRepeatCount?: (repeatIndex: number, count: 2 | 3 | 4 | 5) => void;
 }
 
+
+/** Draggable wrapper that keeps children tappable/keyboard-operable. */
+interface PaletteDraggableProps {
+  op: CommandOp;
+  disabled: boolean;
+  children: React.ReactNode;
+}
+const PaletteDraggable: React.FC<PaletteDraggableProps> = ({ op, disabled, children }) => {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: `palette-${op}`,
+    disabled,
+  });
+  return (
+    <div
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      style={{ touchAction: 'none', opacity: isDragging ? 0.4 : 1, display: 'inline-flex' }}
+    >
+      {children}
+    </div>
+  );
+};
+
+/** Droppable insertion point (program end). */
+interface SlotDropZoneProps {
+  id: string;
+  disabled: boolean;
+  children: React.ReactNode;
+}
+const SlotDropZone: React.FC<SlotDropZoneProps> = ({ id, disabled, children }) => {
+  const { setNodeRef, isOver } = useDroppable({ id, disabled });
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        minWidth: '10px',
+        alignSelf: 'stretch',
+        borderRadius: '8px',
+        backgroundColor: isOver && !disabled ? 'rgba(36, 111, 229, 0.16)' : 'transparent',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+/** Primitive command block: draggable to reorder, tappable to remove. */
+interface PrimitiveBlockProps {
+  idx: number;
+  op: CommandOp;
+  active: boolean;
+  hasKitArt: boolean;
+  disabled: boolean;
+  onRemove: () => void;
+  children: React.ReactNode;
+}
+const PrimitiveBlock: React.FC<PrimitiveBlockProps> = ({
+  idx,
+  op,
+  active,
+  hasKitArt,
+  disabled,
+  onRemove,
+  children,
+}) => {
+  const drag = useDraggable({ id: `cmd:${idx}`, disabled });
+  // The block itself is the drop target (insert before this block).
+  const drop = useDroppable({ id: `slot-${idx}`, disabled });
+  const colors = getCommandColor(op);
+  return (
+      <div
+        ref={(node) => {
+          drag.setNodeRef(node);
+          drop.setNodeRef(node);
+        }}
+        {...drag.listeners}
+        {...drag.attributes}
+          role="group"
+          aria-label={`Slot ${idx + 1}, ${op}`}
+          style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minWidth: '52px',
+            height: '52px',
+            padding: '0 8px',
+            borderRadius: 'var(--radius-tile)',
+            backgroundColor: hasKitArt ? 'transparent' : colors.bg,
+            color: colors.text,
+            outline: drop.isOver && !disabled ? '3px dashed var(--color-primary)' : undefined,
+            boxShadow: active ? '0 0 0 4px var(--color-accent)' : 'var(--shadow-sm)',
+            transform: active ? 'scale(1.08)' : drag.isDragging ? 'scale(0.92)' : 'scale(1)',
+            opacity: drag.isDragging ? 0.4 : 1,
+            touchAction: 'none',
+            transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+            flexShrink: 0,
+            cursor: disabled ? 'default' : 'grab',
+            userSelect: 'none',
+          }}
+          onClick={onRemove}
+          title={disabled ? undefined : 'Drag to move · tap to remove'}
+        >
+          {children}
+          <span
+            style={{
+              position: 'absolute',
+              top: '-6px',
+              left: '-4px',
+              backgroundColor: 'var(--color-ink)',
+              color: '#ffffff',
+              fontSize: '10px',
+              fontWeight: 700,
+              width: '18px',
+              height: '18px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            aria-hidden="true"
+          >
+            {idx + 1}
+          </span>
+        </div>
+    );
+};
+
+
+const getCommandColor = (op: CommandOp): { bg: string; text: string } => {
+  switch (op) {
+    case 'forward':
+      return { bg: 'var(--color-primary)', text: '#ffffff' };
+    case 'left':
+    case 'right':
+      return { bg: 'var(--color-action)', text: '#ffffff' };
+    case 'repeat':
+      return { bg: 'var(--color-purple)', text: '#ffffff' };
+  }
+};
+
 export const ProgramEditor: React.FC<ProgramEditorProps> = ({
   commands,
   allowedCommands,
@@ -32,6 +190,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
   activeIteration,
   disabled = false,
   onAddCommand,
+  onReorderCommand,
   onDeleteCommand,
   onClearCommands,
   onUndo,
@@ -44,6 +203,47 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
 }) => {
   const currentCost = calculateBlockCost(commands);
   const isAtCapacity = currentCost >= maxBlocks || commands.length >= 24;
+  const [dragOp, setDragOp] = useState<CommandOp | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+  );
+
+  const handleDragStart = (event: DragStartEvent) => {
+    if (disabled) return;
+    setDragOp(String(event.active.id).replace('palette-', '') as CommandOp);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const op = String(event.active.id).replace('palette-', '') as CommandOp;
+    setDragOp(null);
+    if (disabled) return;
+    const overId = event.over?.id ? String(event.over.id) : null;
+    if (!overId) return; // dropped outside any valid target → cancel, no mutation
+
+    if (overId === 'program-end') {
+      if (!isAtCapacity) onAddCommand(op);
+      return;
+    }
+    const slotMatch = overId.match(/^slot-(\d+)$/);
+    if (slotMatch) {
+      const slot = Number(slotMatch[1]);
+      const isReorder = op.startsWith('cmd:');
+      if (isReorder) {
+        const from = Number(op.slice(4));
+        if (onReorderCommand && from !== slot && from !== slot - 1) {
+          onReorderCommand(from, slot < from ? slot : slot - 1);
+        }
+      } else if (!isAtCapacity) {
+        // Insert at the slot position via undoable add + reorder.
+        onAddCommand(op);
+        const newIndex = commands.length;
+        if (onReorderCommand && slot < newIndex) {
+          onReorderCommand(newIndex, slot);
+        }
+      }
+    }
+  };
 
   const renderCommandIcon = (op: CommandOp, size = 22) => {
     const kitSrc = BLOCK_ICON[op];
@@ -88,19 +288,16 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
     }
   };
 
-  const getCommandColor = (op: CommandOp): { bg: string; text: string } => {
-    switch (op) {
-      case 'forward':
-        return { bg: 'var(--color-primary)', text: '#ffffff' };
-      case 'left':
-      case 'right':
-        return { bg: 'var(--color-action)', text: '#ffffff' };
-      case 'repeat':
-        return { bg: 'var(--color-purple)', text: '#ffffff' };
-    }
-  };
+
 
   return (
+    <DndContext
+      sensors={sensors}
+      collisionDetection={pointerWithin}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragCancel={() => setDragOp(null)}
+    >
     <section
       aria-label="Program Editor"
       className="rp-editor-panel"
@@ -341,64 +538,24 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
               );
             }
 
-            // Standard Primitive node
+            // Standard Primitive node — tap removes; drag reorders.
             const isActive = activeNodeId === cmd.id;
-            const colors = getCommandColor(cmd.op);
             const hasKitArt = Boolean(BLOCK_ICON[cmd.op]);
 
             return (
-              <div
+              <PrimitiveBlock
                 key={cmd.id}
-                role="group"
-                aria-label={`Slot ${idx + 1}, ${cmd.op}`}
-                style={{
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  minWidth: '52px',
-                  height: '52px',
-                  padding: '0 8px',
-                  borderRadius: 'var(--radius-tile)',
-                  // Kit art is a complete tile; don't stack it on a colored tile.
-                  backgroundColor: hasKitArt ? 'transparent' : colors.bg,
-                  color: colors.text,
-                  boxShadow: isActive ? '0 0 0 4px var(--color-accent)' : 'var(--shadow-sm)',
-                  transform: isActive ? 'scale(1.08)' : 'scale(1)',
-                  transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-                  flexShrink: 0,
-                  cursor: disabled ? 'default' : 'pointer',
-                  userSelect: 'none',
-                }}
-                onClick={() => {
+                idx={idx}
+                op={cmd.op}
+                active={isActive}
+                hasKitArt={hasKitArt}
+                disabled={disabled}
+                onRemove={() => {
                   if (!disabled) onDeleteCommand(idx);
                 }}
-                title={disabled ? undefined : 'Tap to remove'}
               >
                 {renderCommandIcon(cmd.op, hasKitArt ? 52 : 22)}
-
-                {/* Slot index label */}
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '-6px',
-                    left: '-4px',
-                    backgroundColor: 'var(--color-ink)',
-                    color: '#ffffff',
-                    fontSize: '10px',
-                    fontWeight: 700,
-                    width: '18px',
-                    height: '18px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  aria-hidden="true"
-                >
-                  {idx + 1}
-                </span>
-              </div>
+              </PrimitiveBlock>
             );
           })
         )}
@@ -421,10 +578,10 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
           const hasKitArt = Boolean(BLOCK_ICON[op]);
 
           return (
+            <PaletteDraggable key={op} op={op} disabled={disabled}>
             <button
-              key={op}
               role="button"
-              aria-label={`Add ${op} command`}
+              aria-label={`Add ${op} command. Drag into the program or press to add at the end.`}
               disabled={isButtonDisabled}
               onClick={() => onAddCommand(op)}
               style={{
@@ -439,7 +596,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                 backgroundColor: hasKitArt ? 'transparent' : colors.bg,
                 color: colors.text,
                 border: 'none',
-                cursor: isButtonDisabled ? 'not-allowed' : 'pointer',
+                cursor: isButtonDisabled ? 'not-allowed' : 'grab',
                 opacity: isButtonDisabled ? 0.4 : 1,
                 boxShadow: isButtonDisabled || hasKitArt ? 'none' : 'var(--shadow-md)',
                 transition: 'transform 0.1s ease, filter 0.1s ease',
@@ -460,9 +617,25 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                 {op}
               </span>
             </button>
+            </PaletteDraggable>
           );
         })}
       </div>
+
+      {/* Drop target closing the program; also the miss-target cancel point. */}
+      <SlotDropZone id="program-end" disabled={disabled}>
+        <div style={{ width: '100%', height: '6px' }} />
+      </SlotDropZone>
+
+      {/* Floating preview of the dragged command */}
+      <DragOverlay dropAnimation={null}>
+        {dragOp ? (
+          <div style={{ opacity: 0.9, display: 'flex' }}>
+            {renderCommandIcon(dragOp, Boolean(BLOCK_ICON[dragOp]) ? 46 : 22)}
+          </div>
+        ) : null}
+      </DragOverlay>
     </section>
+    </DndContext>
   );
 };

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { getLevelsForWorld } from '../../content/levels';
+import { Level } from '../../core/model';
 import { PlayerProgress, isLevelUnlocked } from '../../core/progression';
 import { totalStars } from '../../core/score';
 import { RobotAvatar } from '../robots/RobotAvatar';
 import { IconButton } from '../../ui/IconButton';
+import { KitImage } from '../../ui/KitImage';
 import { t } from '../../content/locales';
 
 export interface WorldMapProps {
@@ -14,79 +16,103 @@ export interface WorldMapProps {
 }
 
 export const WORLDS = [
-  { id: 'w1', title: 'World 1 · Sunny Meadow', theme: 'Meadow', color: 'var(--color-action)' },
-  { id: 'w2', title: 'World 2 · Pebble Workshop', theme: 'Workshop', color: 'var(--color-primary)' },
-  { id: 'w3', title: 'World 3 · Crystal Grove', theme: 'Crystal', color: 'var(--color-purple)' },
-  { id: 'w4', title: 'World 4 · Sky Isles', theme: 'Sky', color: 'var(--color-accent)' },
+  { id: 'w1', title: 'Sunny Meadow', color: '#207a46' },
+  { id: 'w2', title: 'Pebble Workshop', color: '#246fe5' },
+  { id: 'w3', title: 'Crystal Grove', color: '#7056c8' },
+  { id: 'w4', title: 'Sky Isles', color: '#f5bd35' },
 ];
 
-export const WorldMap: React.FC<WorldMapProps> = ({
+/** Winding waypoints (percent coords) the level nodes sit along. */
+const PATH: ReadonlyArray<{ x: number; y: number }> = [
+  { x: 16, y: 84 }, { x: 38, y: 72 }, { x: 22, y: 56 }, { x: 46, y: 46 },
+  { x: 68, y: 54 }, { x: 78, y: 36 }, { x: 58, y: 26 }, { x: 34, y: 18 },
+  { x: 52, y: 10 }, { x: 76, y: 12 }, { x: 88, y: 24 }, { x: 70, y: 70 },
+  { x: 30, y: 34 }, { x: 86, y: 48 }, { x: 48, y: 60 },
+];
+
+const WorldMap: React.FC<WorldMapProps> = ({
   progress,
   onSelectLevel,
   onOpenRobotPicker,
   onOpenSettings,
 }) => {
   const [selectedWorldId, setSelectedWorldId] = useState<string>('w1');
-  const currentWorld = WORLDS.find((w) => w.id === selectedWorldId) || WORLDS[0];
+  const [listView, setListView] = useState<boolean>(false);
+  const currentWorld = WORLDS.find((w) => w.id === selectedWorldId) ?? WORLDS[0];
   const worldLevels = getLevelsForWorld(selectedWorldId);
+  const totalWorldCompleted = progress.completedLevels.filter((id) =>
+    id.startsWith(`${selectedWorldId}-`),
+  ).length;
 
   const isWorldUnlocked = (wid: string): boolean => {
     if (wid === 'w1') return true;
-    if (wid === 'w2') return progress.completedLevels.filter((id) => id.startsWith('w1-')).length >= 10;
-    if (wid === 'w3') return progress.completedLevels.filter((id) => id.startsWith('w2-')).length >= 10;
-    if (wid === 'w4') return progress.completedLevels.filter((id) => id.startsWith('w3-')).length >= 10;
-    return false;
+    const prev = WORLDS[WORLDS.findIndex((w) => w.id === wid) - 1];
+    return progress.completedLevels.filter((id) => id.startsWith(`${prev.id}-`)).length >= 10;
   };
 
-  const totalWorldCompleted = progress.completedLevels.filter((id) => id.startsWith(`${selectedWorldId}-`)).length;
+  const nodeState = (level: Level): 'completed' | 'available' | 'locked' => {
+    if (progress.levels[level.id]?.completed) return 'completed';
+    return isLevelUnlocked(level.id, level.worldId, level.ordinal, progress.completedLevels)
+      ? 'available'
+      : 'locked';
+  };
 
   return (
     <div
-      className="rp-sky-gradient rp-map-panel"
+      className="rp-sky-gradient"
       style={{
         display: 'flex',
         flexDirection: 'column',
         height: '100dvh',
-        maxWidth: '720px',
+        maxWidth: '760px',
         margin: '0 auto',
-        padding: '16px 16px calc(16px + var(--sab))',
+        padding: '12px 16px calc(12px + var(--sab))',
         boxSizing: 'border-box',
-        gap: '16px',
+        gap: '10px',
       }}
     >
       {/* Header */}
-      <header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
             onClick={onOpenRobotPicker}
             aria-label="Change selected robot"
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              borderRadius: '50%',
-            }}
+            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', borderRadius: '50%' }}
           >
-            <RobotAvatar robotId={progress.selectedRobotId} size={52} />
+            <RobotAvatar robotId={progress.selectedRobotId} size={48} />
           </button>
           <div>
             <h1 style={{ margin: 0, fontSize: 'var(--text-xl)', color: 'var(--color-ink)' }}>
               {currentWorld.title}
             </h1>
             <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-muted)', fontWeight: 600 }}>
-              {totalWorldCompleted} / {worldLevels.length} Completed
+              {totalWorldCompleted} / {worldLevels.length} completed
             </span>
           </div>
         </div>
-
         <div style={{ display: 'flex', gap: '8px' }}>
+          <IconButton
+            label={listView ? 'Show map view' : 'Show list view'}
+            variant="secondary"
+            onClick={() => setListView((v) => !v)}
+            icon={
+              listView ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M5 15c2-2 4-2 7-1s5 0 7-2M5 10c2-1.6 4-1.6 7-.6" />
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="8" y1="6" x2="21" y2="6" />
+                  <line x1="8" y1="12" x2="21" y2="12" />
+                  <line x1="8" y1="18" x2="21" y2="18" />
+                  <circle cx="4" cy="6" r="1" fill="currentColor" />
+                  <circle cx="4" cy="12" r="1" fill="currentColor" />
+                  <circle cx="4" cy="18" r="1" fill="currentColor" />
+                </svg>
+              )
+            }
+          />
           <IconButton
             label="Change Robot"
             variant="secondary"
@@ -112,20 +138,11 @@ export const WorldMap: React.FC<WorldMapProps> = ({
         </div>
       </header>
 
-      {/* World Tabs */}
-      <nav
-        aria-label="World tabs"
-        style={{
-          display: 'flex',
-          gap: '8px',
-          overflowX: 'auto',
-          paddingBottom: '4px',
-        }}
-      >
-        {WORLDS.map((w, index) => {
+      {/* World tabs */}
+      <nav aria-label="Worlds" style={{ display: 'flex', gap: '8px' }}>
+        {WORLDS.map((w, i) => {
           const unlocked = isWorldUnlocked(w.id);
           const isSelected = w.id === selectedWorldId;
-
           return (
             <button
               key={w.id}
@@ -135,137 +152,229 @@ export const WorldMap: React.FC<WorldMapProps> = ({
               onClick={() => setSelectedWorldId(w.id)}
               style={{
                 flex: 1,
-                minWidth: '120px',
-                padding: '10px 12px',
+                padding: '9px 10px',
                 borderRadius: 'var(--radius-btn)',
-                border: isSelected ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
+                border: isSelected ? `2px solid ${w.color}` : '1px solid var(--color-border)',
                 backgroundColor: isSelected ? 'var(--color-surface)' : 'var(--color-surface-soft)',
                 color: unlocked ? 'var(--color-ink)' : 'var(--color-muted)',
                 fontWeight: 700,
-                fontSize: 'var(--text-sm)',
+                fontSize: 'var(--text-xs)',
                 cursor: unlocked ? 'pointer' : 'not-allowed',
                 boxShadow: isSelected ? 'var(--shadow-sm)' : 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
                 whiteSpace: 'nowrap',
               }}
             >
-              <span>{unlocked ? `World ${index + 1}` : `🔒 W${index + 1}`}</span>
+              {unlocked ? w.title : `🔒 W${i + 1}`}
             </button>
           );
         })}
       </nav>
 
-      {/* Level List / Grid */}
-      <main
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '12px',
-          alignContent: 'start',
-          padding: '4px',
-        }}
-        role="region"
-        aria-label="Level selection list"
-      >
-        {worldLevels.map((level) => {
-          const unlocked = isLevelUnlocked(
-            level.id,
-            level.worldId,
-            level.ordinal,
-            progress.completedLevels,
-          );
-          const levelProgress = progress.levels[level.id];
-          const completed = levelProgress?.completed;
-          const stars = levelProgress ? totalStars(levelProgress.awards) : 0;
-
-          return (
-            <button
-              key={level.id}
-              className="rp-card-hover"
-              disabled={!unlocked}
-              onClick={() => onSelectLevel(level.id)}
-              aria-label={`Level ${level.ordinal}: ${t(level.titleKey)}, ${
-                !unlocked ? 'Locked' : completed ? `Completed with ${stars} stars` : 'Available to play'
-              }`}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '14px 18px',
-                borderRadius: 'var(--radius-panel)',
-                backgroundColor: unlocked ? 'var(--color-surface)' : 'var(--color-surface-soft)',
-                border: completed
-                  ? '2px solid var(--color-action)'
-                  : unlocked
-                  ? '2px solid var(--color-primary)'
-                  : '2px solid var(--color-border-subtle)',
-                boxShadow: unlocked ? 'var(--shadow-sm)' : 'none',
-                opacity: unlocked ? 1 : 0.6,
-                cursor: unlocked ? 'pointer' : 'not-allowed',
-                textAlign: 'left',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    backgroundColor: completed
-                      ? 'var(--color-action)'
-                      : unlocked
-                      ? 'var(--color-primary)'
-                      : 'var(--color-border)',
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: 'var(--text-base)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  aria-hidden="true"
-                >
-                  {unlocked ? level.ordinal : '🔒'}
-                </div>
-
-                <div>
-                  <h2 style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--color-ink)' }}>
+      {listView ? (
+        <main
+          role="region"
+          aria-label={`${currentWorld.title} level list`}
+          style={{ flex: 1, overflowY: 'auto', display: 'grid', gap: '10px', alignContent: 'start' }}
+        >
+          {worldLevels.map((level) => {
+            const state = nodeState(level);
+            const stars = progress.levels[level.id]
+              ? totalStars(progress.levels[level.id].awards)
+              : 0;
+            return (
+              <button
+                key={level.id}
+                className="rp-card-hover"
+                disabled={state === 'locked'}
+                onClick={() => onSelectLevel(level.id)}
+                aria-label={`Level ${level.ordinal}: ${t(level.titleKey)}, ${
+                  state === 'locked' ? 'locked' : state === 'completed' ? `completed with ${stars} of 3 stars` : 'available'
+                }`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '12px 16px',
+                  borderRadius: 'var(--radius-tile)',
+                  backgroundColor: 'var(--color-surface)',
+                  border:
+                    state === 'completed'
+                      ? '2px solid var(--color-action)'
+                      : state === 'available'
+                      ? '2px solid var(--color-primary)'
+                      : '2px solid var(--color-border-subtle)',
+                  opacity: state === 'locked' ? 0.6 : 1,
+                  cursor: state === 'locked' ? 'not-allowed' : 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 800,
+                      color: '#fff',
+                      background:
+                        state === 'completed'
+                          ? 'var(--color-action)'
+                          : state === 'available'
+                          ? 'var(--color-primary)'
+                          : 'var(--color-border)',
+                    }}
+                  >
+                    {state === 'locked' ? '🔒' : level.ordinal}
+                  </span>
+                  <span style={{ fontWeight: 700, color: 'var(--color-ink)' }}>
                     {t(level.titleKey)}
-                  </h2>
-                  <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-muted)' }}>
-                    Par: {level.rating.parBlocks} blocks
                   </span>
                 </div>
-              </div>
+                {state !== 'locked' && (
+                  <span aria-hidden="true" style={{ display: 'flex', gap: '2px' }}>
+                    {[1, 2, 3].map((s) => (
+                      <KitImage
+                        key={s}
+                        src="icons/star.svg"
+                        alt=""
+                        size={16}
+                        style={s <= stars ? undefined : { opacity: 0.25 }}
+                      />
+                    ))}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </main>
+      ) : (
+        <main
+          role="region"
+          aria-label={`${currentWorld.title} journey map`}
+          style={{
+            flex: 1,
+            position: 'relative',
+            borderRadius: 'var(--radius-panel)',
+            border: '2px solid rgba(255,255,255,0.9)',
+            boxShadow: '0 10px 24px rgba(23,50,77,0.10)',
+            overflow: 'hidden',
+            minHeight: 0,
+          }}
+        >
+          {/* Sky backdrop */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(180deg, #bfe6fb 0%, #d9f2c8 62%, #9be267 100%)',
+            }}
+          />
+          {/* Rolling hills */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'radial-gradient(52% 42% at 18% 96%, #7cc44e 60%, transparent 61%), radial-gradient(60% 48% at 78% 100%, #8ace58 60%, transparent 61%)',
+            }}
+          />
+          {/* Winding path connecting the nodes */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+          >
+            <polyline
+              points={PATH.map((p) => `${p.x},${p.y}`).join(' ')}
+              fill="none"
+              stroke="#fdf7e3"
+              strokeWidth="2.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeDasharray="4 3"
+              opacity="0.9"
+            />
+          </svg>
+          <div className="rp-cloud" style={{ width: 110, height: 32, top: '8%', left: '6%' }} aria-hidden="true" />
+          <div className="rp-cloud" style={{ width: 80, height: 24, top: '16%', right: '10%', opacity: 0.8 }} aria-hidden="true" />
 
-              {/* Star rating display */}
-              {unlocked && (
-                <div style={{ display: 'flex', gap: '3px' }} aria-hidden="true">
-                  {[1, 2, 3].map((starIdx) => (
-                    <svg
-                      key={starIdx}
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill={starIdx <= stars ? 'var(--color-accent)' : '#e2e8f0'}
-                      stroke={starIdx <= stars ? '#d97706' : '#cbd5e1'}
-                      strokeWidth="1.5"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-              )}
-            </button>
-          );
-        })}
-      </main>
+          {/* Level nodes along the path */}
+          {worldLevels.map((level, idx) => {
+            const state = nodeState(level);
+            const stars = progress.levels[level.id]
+              ? totalStars(progress.levels[level.id].awards)
+              : 0;
+            const p = PATH[idx % PATH.length];
+            return (
+              <button
+                key={level.id}
+                onClick={() => state !== 'locked' && onSelectLevel(level.id)}
+                disabled={state === 'locked'}
+                aria-label={`Level ${level.ordinal}: ${t(level.titleKey)}, ${
+                  state === 'locked' ? 'locked' : state === 'completed' ? `completed with ${stars} of 3 stars` : 'available'
+                }. Use the list view button for a linear list.`}
+                style={{
+                  position: 'absolute',
+                  left: `${p.x}%`,
+                  top: `${p.y}%`,
+                  transform: 'translate(-50%, -50%)',
+                  width: '52px',
+                  height: '52px',
+                  borderRadius: '50%',
+                  border:
+                    state === 'completed'
+                      ? '3px solid var(--color-action)'
+                      : state === 'available'
+                      ? '3px solid var(--color-primary)'
+                      : '3px solid #b9c9d8',
+                  background:
+                    state === 'completed'
+                      ? 'var(--color-action)'
+                      : state === 'available'
+                      ? 'var(--color-surface)'
+                      : '#e2eaf1',
+                  color:
+                    state === 'completed'
+                      ? '#fff'
+                      : state === 'available'
+                      ? 'var(--color-ink)'
+                      : '#8ba0b3',
+                  fontWeight: 800,
+                  fontSize: 'var(--text-lg)',
+                  cursor: state === 'locked' ? 'not-allowed' : 'pointer',
+                  boxShadow:
+                    state === 'available'
+                      ? '0 0 0 4px rgba(36, 111, 229, 0.18)'
+                      : '0 4px 10px rgba(23,50,77,0.12)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 2,
+                }}
+              >
+                {state === 'locked'
+                  ? '🔒'
+                  : state === 'completed'
+                  ? <KitImage src="icons/star.svg" alt="" size={20} />
+                  : level.ordinal}
+                {state === 'completed' && (
+                  <span aria-hidden="true" style={{ fontSize: '9px', fontWeight: 800 }}>{stars}/3</span>
+                )}
+              </button>
+            );
+          })}
+        </main>
+      )}
     </div>
   );
 };
+
+export { WorldMap };
