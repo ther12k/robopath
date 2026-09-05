@@ -3,6 +3,7 @@ import { CommandOp, Node, PrimitiveOp, Repeat } from '../../core/model';
 import { calculateBlockCost } from './editorReducer';
 import { IconButton } from '../../ui/IconButton';
 import { Chip } from '../../ui/Chip';
+import { KitImage, BLOCK_ICON } from '../../ui/KitImage';
 
 export interface ProgramEditorProps {
   commands: readonly Node[];
@@ -45,6 +46,14 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
   const isAtCapacity = currentCost >= maxBlocks || commands.length >= 24;
 
   const renderCommandIcon = (op: CommandOp, size = 22) => {
+    const kitSrc = BLOCK_ICON[op];
+    if (kitSrc) {
+      // Kit block art already includes its colored tile; render full-bleed.
+      if (size >= 48) {
+        return <KitImage src={kitSrc} alt="" size={size} style={{ pointerEvents: 'none' }} />;
+      }
+      return <KitImage src={kitSrc} alt="" size={size + 6} style={{ margin: -3, pointerEvents: 'none' }} />;
+    }
     switch (op) {
       case 'forward':
         return (
@@ -94,6 +103,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
   return (
     <section
       aria-label="Program Editor"
+      className="rp-editor-panel"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -167,6 +177,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
       <div
         role="region"
         aria-label="Program sequence"
+        className="rp-command-strip"
         style={{
           display: 'flex',
           gap: '8px',
@@ -340,6 +351,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
             // Standard Primitive node
             const isActive = activeNodeId === cmd.id;
             const colors = getCommandColor(cmd.op);
+            const hasKitArt = Boolean(BLOCK_ICON[cmd.op]);
 
             return (
               <div
@@ -355,7 +367,8 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                   height: '52px',
                   padding: '0 8px',
                   borderRadius: 'var(--radius-tile)',
-                  backgroundColor: colors.bg,
+                  // Kit art is a complete tile; don't stack it on a colored tile.
+                  backgroundColor: hasKitArt ? 'transparent' : colors.bg,
                   color: colors.text,
                   boxShadow: isActive ? '0 0 0 4px var(--color-accent)' : 'var(--shadow-sm)',
                   transform: isActive ? 'scale(1.08)' : 'scale(1)',
@@ -369,7 +382,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                 }}
                 title={disabled ? undefined : 'Tap to remove'}
               >
-                {renderCommandIcon(cmd.op)}
+                {renderCommandIcon(cmd.op, hasKitArt ? 52 : 22)}
 
                 {/* Slot index label */}
                 <span
@@ -412,6 +425,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
         {allowedCommands.map((op) => {
           const colors = getCommandColor(op);
           const isButtonDisabled = disabled || isAtCapacity;
+          const hasKitArt = Boolean(BLOCK_ICON[op]);
 
           return (
             <button
@@ -425,27 +439,30 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '60px',
-                height: '60px',
+                width: '64px',
+                height: '64px',
                 borderRadius: 'var(--radius-tile)',
-                backgroundColor: colors.bg,
+                // Kit art carries its own tile styling; avoid a tile-in-tile look.
+                backgroundColor: hasKitArt ? 'transparent' : colors.bg,
                 color: colors.text,
                 border: 'none',
                 cursor: isButtonDisabled ? 'not-allowed' : 'pointer',
                 opacity: isButtonDisabled ? 0.4 : 1,
-                boxShadow: isButtonDisabled ? 'none' : 'var(--shadow-md)',
+                boxShadow: isButtonDisabled || hasKitArt ? 'none' : 'var(--shadow-md)',
                 transition: 'transform 0.1s ease, filter 0.1s ease',
                 WebkitTapHighlightColor: 'transparent',
                 outline: 'none',
               }}
             >
-              {renderCommandIcon(op)}
+              {renderCommandIcon(op, hasKitArt ? 46 : 22)}
               <span
                 style={{
                   fontSize: '11px',
                   fontWeight: 700,
                   marginTop: '2px',
                   textTransform: 'capitalize',
+                  // Kit-art buttons sit on the panel background, so use ink text.
+                  color: hasKitArt ? 'var(--color-ink)' : colors.text,
                 }}
               >
                 {op}

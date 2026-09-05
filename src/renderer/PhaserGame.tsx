@@ -33,7 +33,7 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
       parent: containerRef.current,
       width: '100%',
       height: '100%',
-      backgroundColor: '#EFF9FD',
+      backgroundColor: '#78CDBD',
       scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -83,7 +83,7 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
         position: 'relative',
         overflow: 'hidden',
         minHeight: '260px',
-        backgroundColor: '#EFF9FD',
+        backgroundColor: '#78CDBD',
       }}
       role="application"
       aria-label="Isometric puzzle board view"

@@ -1,9 +1,9 @@
 import React from 'react';
 import { PlayerProgress } from '../../core/progression';
-import { RobotAvatar } from '../robots/RobotAvatar';
 import { getRobotById } from '../robots/robotCatalog';
 import { Button } from '../../ui/Button';
 import { IconButton } from '../../ui/IconButton';
+import { KitImage, ROBOT_FRONT } from '../../ui/KitImage';
 
 export interface WelcomeScreenProps {
   progress: PlayerProgress;
@@ -103,8 +103,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         </div>
 
         {/* Robot Hero Avatar Card */}
-        <button
-          className="rp-card-hover"
+          <button
+          className="rp-card-hover rp-welcome-hero"
           onClick={onChooseRobot}
           aria-label={`Current robot: ${robot.name}. Click to change.`}
           style={{
@@ -123,7 +123,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
           }}
         >
           <div className="rp-hero-blob" style={{ display: 'flex' }}>
-            <RobotAvatar robotId={robot.id} size={110} />
+            <KitImage src={ROBOT_FRONT[robot.id] ?? ROBOT_FRONT.pip} alt={`${robot.name} robot`} size={124} />
           </div>
           <div>
             <h2 style={{ margin: 0, fontSize: 'var(--text-xl)', color: 'var(--color-ink)' }}>

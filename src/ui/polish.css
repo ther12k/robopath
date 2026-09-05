@@ -1,7 +1,41 @@
-/* UI polish layer: gradients, hover lift, motion. Purely cosmetic. */
-
+/* Shared storybook canvas: warm paper, dotted paths, and playful depth. */
 .rp-sky-gradient {
-  background: linear-gradient(180deg, #eff9fd 0%, #ddf0fc 55%, #cbe8fa 100%);
+  background-color: #fff7df;
+  background-image: radial-gradient(#f3d89a 1.5px, transparent 1.5px), linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,236,184,.45));
+  background-size: 22px 22px, 100% 100%;
+}
+
+h1, h2, h3 { font-family: var(--font-display); }
+
+.rp-game-shell { max-width: 1180px !important; }
+.rp-board-stage { background: #8bd5c2 !important; border: 5px solid #244b59 !important; border-radius: 30px !important; box-shadow: 0 8px 0 #244b59, 0 18px 28px rgba(36,75,89,.18) !important; }
+.rp-editor-panel { background: #fffdf4 !important; border: 3px solid #244b59 !important; box-shadow: 0 5px 0 #244b59 !important; }
+.rp-command-strip { background: #fff3c4 !important; border: 3px dashed #e5a52d !important; }
+.rp-welcome-hero { background: #ffcf56; border: 4px solid #244b59; box-shadow: 0 7px 0 #244b59; }
+.rp-map-panel { background: rgba(255,253,244,.82); border: 3px solid #244b59; box-shadow: 0 6px 0 #244b59; }
+
+@media (min-width: 800px) {
+  .rp-game-layout { display: grid !important; grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr); align-items: stretch; gap: 18px; }
+  .rp-game-layout > main { min-height: 0 !important; height: auto !important; }
+  .rp-game-layout > footer { min-width: 0; }
+}
+@media (max-width: 799px) {
+  .rp-game-shell { padding-left: 10px !important; padding-right: 10px !important; }
+  .rp-board-stage { min-height: 0 !important; }
+  .rp-game-layout { display: flex !important; flex: 1 1 auto !important; min-height: 0 !important; flex-direction: column; overflow: visible; }
+  .rp-game-layout > main { flex: 0 0 clamp(190px, 30dvh, 255px) !important; height: clamp(190px, 30dvh, 255px) !important; min-height: 0 !important; }
+  .rp-game-layout > main > div { min-height: 0 !important; }
+  .rp-game-layout > footer { flex: 1 1 auto; min-height: 0; overflow: visible; }
+}
+
+.rp-game-shell { width: 100%; }
+.rp-game-shell > header { padding: 6px 4px; }
+.rp-game-layout > footer { min-width: 0; }
+.rp-board-stage::after { content: 'MISSION CONTROL'; position: absolute; top: 12px; left: 16px; padding: 4px 9px; border-radius: 999px; background: rgba(36,75,89,.82); color: #fff7df; font-size: 10px; font-weight: 800; letter-spacing: .12em; pointer-events: none; }
+
+@media (min-width: 1100px) {
+  .rp-game-shell { padding-left: 28px !important; padding-right: 28px !important; }
+  .rp-game-layout { grid-template-columns: minmax(0, 1.55fr) minmax(380px, .75fr) !important; gap: 24px !important; }
 }
 
 .rp-card-hover {

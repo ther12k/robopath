@@ -42,7 +42,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({
 
   return (
     <div
-      className="rp-sky-gradient"
+      className="rp-sky-gradient rp-map-panel"
       style={{
         display: 'flex',
         flexDirection: 'column',

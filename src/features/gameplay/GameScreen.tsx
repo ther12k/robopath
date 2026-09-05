@@ -17,6 +17,7 @@ import { Chip } from '../../ui/Chip';
 import { PlayerProgress, recordLevelSuccess } from '../../core/progression';
 import { StorageAdapter } from '../../storage/storageAdapter';
 import { t } from '../../content/locales';
+import { useGameAudio } from '../../ui/useGameAudio';
 
 export interface GameScreenProps {
   levelId: string;
@@ -55,6 +56,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     actionsUsed: 0,
   });
   const [lastTrace, setLastTrace] = useState<RunTrace | null>(null);
+  const audio = useGameAudio();
 
   const [isHintOpen, setIsHintOpen] = useState(false);
   const [isExplorerOpen, setIsExplorerOpen] = useState(false);
@@ -77,6 +79,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       onTraceComplete: (trace) => {
         setLastTrace(trace);
         if (trace.outcome === 'success') {
+          audio.win();
           // Durable transactional progress write
           const updated = recordLevelSuccess(
             progress,
@@ -87,6 +90,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           );
           onUpdateProgress(updated);
           storage.saveProgress(updated).catch(console.error);
+        } else {
+          audio.fail();
         }
       },
       onSendMessage: (msg) => {
@@ -136,6 +141,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       engineRulesVersion: 1 as const,
       commands: editorState.commands,
     };
+    audio.run();
     controllerRef.current?.run(program);
   };
 
@@ -177,7 +183,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   return (
     <div
-      className="rp-sky-gradient"
+      className="rp-sky-gradient rp-game-shell"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -186,7 +192,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
         margin: '0 auto',
         padding: '12px 16px calc(12px + var(--sab))',
         boxSizing: 'border-box',
-        gap: '12px',
+        gap: '8px',
         position: 'relative',
       }}
     >
@@ -268,7 +274,8 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       </header>
 
       {/* Main Game Area: Isometric Canvas */}
-      <main
+      <div className="rp-game-layout" style={{ flex: 1, minHeight: 0 }}>
+      <main className="rp-board-stage"
         style={{
           flex: 1,
           borderRadius: 'var(--radius-panel)',
@@ -322,6 +329,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           onReset={handleReset}
         />
       </footer>
+      </div>
 
       {/* Modals & Dialogs */}
       <HintModal

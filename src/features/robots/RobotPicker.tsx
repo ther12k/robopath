@@ -1,7 +1,7 @@
 import React from 'react';
 import { ROBOTS, RobotDefinition } from './robotCatalog';
-import { RobotAvatar } from './RobotAvatar';
 import { Button } from '../../ui/Button';
+import { KitImage, ROBOT_FRONT } from '../../ui/KitImage';
 
 export interface RobotPickerProps {
   selectedRobotId: string;
@@ -95,7 +95,7 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
               )}
 
               <div className="rp-hero-blob" style={{ display: 'flex' }}>
-                <RobotAvatar robotId={robot.id} size={88} />
+                <KitImage src={ROBOT_FRONT[robot.id]} alt={`${robot.name} robot`} size={104} />
               </div>
 
               <h2

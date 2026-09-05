@@ -1,0 +1,13 @@
+.rp-btn {
+  min-height: 56px;
+  border: 0;
+  border-radius: var(--rp-radius-btn);
+  padding: 0 20px;
+  font-weight: 800;
+  font-size: 18px;
+  box-shadow: var(--rp-shadow-md);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.rp-btn:active { transform: scale(0.98); }
+.rp-btn--primary { background: linear-gradient(180deg, #6EE26F 0%, #207A46 100%); color: white; }
+.rp-btn--secondary { background: white; color: var(--rp-ink); border: 2px solid #D9EAF3; }

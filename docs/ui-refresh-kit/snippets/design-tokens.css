@@ -1,0 +1,16 @@
+:root {
+  --rp-ink: #17324D;
+  --rp-sky: #EFF9FD;
+  --rp-white: #FFFFFF;
+  --rp-blue: #246FE5;
+  --rp-green: #207A46;
+  --rp-yellow: #F5BD35;
+  --rp-coral: #E77A70;
+  --rp-purple: #7056C8;
+  --rp-stone: #B8C4D1;
+  --rp-shadow-lg: 0 10px 24px rgba(23, 50, 77, 0.08);
+  --rp-shadow-md: 0 6px 14px rgba(23, 50, 77, 0.08);
+  --rp-radius-card: 24px;
+  --rp-radius-btn: 20px;
+  --rp-radius-block: 16px;
+}

@@ -17,7 +17,7 @@ export class GameScene extends Phaser.Scene {
 
   private boardContainer!: Phaser.GameObjects.Container;
   private robotContainer!: Phaser.GameObjects.Container;
-  private robotSprite!: Phaser.GameObjects.Arc;
+  private robotBody!: Phaser.GameObjects.Image;
   private facingArrow!: Phaser.GameObjects.Triangle;
   private collectibleObjects: Map<string, Phaser.GameObjects.GameObject> = new Map();
   private gateObjects: Map<string, Phaser.GameObjects.Container> = new Map();
@@ -30,8 +30,25 @@ export class GameScene extends Phaser.Scene {
     this.onAcknowledgment = data.onAcknowledgment;
   }
 
+  public preload(): void {
+    // Kit art (docs/ui-refresh-kit) — local, same-origin SVGs.
+    const world = (name: string) => `assets/world/${name}.svg`;
+    this.load.image('rp-grass', world('grass-tile'));
+    this.load.image('rp-flag', world('flag'));
+    this.load.image('rp-battery', world('battery'));
+    this.load.image('rp-star', world('star-goal'));
+    this.load.image('rp-gate-closed', world('gate-closed'));
+    this.load.image('rp-gate-open', world('gate-open'));
+    this.load.image('rp-switch', world('switch'));
+    this.load.image('rp-rock', world('rock'));
+    this.load.image('rp-tree', world('tree'));
+    for (const id of ['pip', 'mochi', 'bolt', 'sprout']) {
+      this.load.image(`rp-robot-${id}`, `assets/robots/${id}-front.svg`);
+    }
+  }
+
   public create(): void {
-    this.cameras.main.setBackgroundColor('#eaf7fe');
+    this.cameras.main.setBackgroundColor('#78cdbd');
     this.boardContainer = this.add.container(0, 0);
 
     // Re-frame whenever the canvas resizes (rotation, layout, window).
@@ -115,163 +132,81 @@ export class GameScene extends Phaser.Scene {
     );
     this.boardContainer.add(islandShadow);
 
-    // Render ground tiles
+    // Render ground tiles (kit isometric art). The playable diamond spans
+    // 104/128 of the canvas, so scale up to keep 64px tile pitch seamless.
     for (const tile of tiles) {
       const screenPos = toScreen(tile.x, tile.y);
       const isWall = wallSet.has(`${tile.x},${tile.y}`);
       const depth = calculateDepth(tile.x, tile.y, 0);
 
-      // Tile base/slab
-      const tileGfx = this.add.graphics();
-      tileGfx.setDepth(depth);
+      const grass = this.add.image(screenPos.x, screenPos.y, 'rp-grass');
+      grass.setOrigin(0.5, 0.375); // top-diamond center of the kit tile
+      grass.setDisplaySize(79, 59);
+      grass.setDepth(depth);
+      this.boardContainer.add(grass);
 
-      // Diamond ground polygon
-      const points = [
-        { x: screenPos.x, y: screenPos.y - 16 },
-        { x: screenPos.x + 32, y: screenPos.y },
-        { x: screenPos.x, y: screenPos.y + 16 },
-        { x: screenPos.x - 32, y: screenPos.y },
-      ];
-
-      // Isometric tile top (subtle checker for depth cues)
-      const topColor = (tile.x + tile.y) % 2 === 0 ? 0x82d14c : 0x76c445;
-      tileGfx.fillStyle(topColor, 1);
-      tileGfx.beginPath();
-      tileGfx.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length; i++) {
-        tileGfx.lineTo(points[i].x, points[i].y);
-      }
-      tileGfx.closePath();
-      tileGfx.fillPath();
-      tileGfx.lineStyle(1.5, 0x9fdc74, 0.9);
-      tileGfx.strokePath();
-
-      // Isometric tile edge (depth slab)
-      tileGfx.fillStyle(0x4a8222, 1);
-      tileGfx.beginPath();
-      tileGfx.moveTo(screenPos.x - 32, screenPos.y);
-      tileGfx.lineTo(screenPos.x, screenPos.y + 16);
-      tileGfx.lineTo(screenPos.x + 32, screenPos.y);
-      tileGfx.lineTo(screenPos.x + 32, screenPos.y + 12);
-      tileGfx.lineTo(screenPos.x, screenPos.y + 28);
-      tileGfx.lineTo(screenPos.x - 32, screenPos.y + 12);
-      tileGfx.closePath();
-      tileGfx.fillPath();
-
-      this.boardContainer.add(tileGfx);
-
-      // If wall, draw stone block on top
+      // Walls draw a rock decoration on the (impassable) tile
       if (isWall) {
-        const wallDepth = calculateDepth(tile.x, tile.y, 30);
-        const wallGfx = this.add.graphics();
-        wallGfx.setDepth(wallDepth);
-
-        // Stone body
-        wallGfx.fillStyle(0x94a3b8, 1);
-        wallGfx.fillRect(screenPos.x - 20, screenPos.y - 36, 40, 36);
-        wallGfx.lineStyle(2, 0x475569, 1);
-        wallGfx.strokeRect(screenPos.x - 20, screenPos.y - 36, 40, 36);
-
-        // Stone top face (isometric diamond cap)
-        wallGfx.fillStyle(0xb9c5d6, 1);
-        wallGfx.beginPath();
-        wallGfx.moveTo(screenPos.x, screenPos.y - 52);
-        wallGfx.lineTo(screenPos.x + 24, screenPos.y - 36);
-        wallGfx.lineTo(screenPos.x, screenPos.y - 20);
-        wallGfx.lineTo(screenPos.x - 24, screenPos.y - 36);
-        wallGfx.closePath();
-        wallGfx.fillPath();
-        wallGfx.lineStyle(2, 0x475569, 1);
-        wallGfx.strokePath();
-
-        this.boardContainer.add(wallGfx);
+        const rockDepth = calculateDepth(tile.x, tile.y, 30);
+        const rock = this.add.image(screenPos.x, screenPos.y - 4, 'rp-rock');
+        rock.setOrigin(0.5, 0.78);
+        rock.setDisplaySize(52, 52);
+        rock.setDepth(rockDepth);
+        this.boardContainer.add(rock);
       }
     }
 
-    // Render Goal Flag
+    // Goal flag (kit art, 96×128 → 40×53, planted on the tile)
     const goalPos = toScreen(this.level.goal.x, this.level.goal.y);
     const goalDepth = calculateDepth(this.level.goal.x, this.level.goal.y, 25);
-    const goalGfx = this.add.graphics();
-    goalGfx.setDepth(goalDepth);
+    const flag = this.add.image(goalPos.x, goalPos.y + 6, 'rp-flag');
+    flag.setOrigin(0.5, 0.88);
+    flag.setDisplaySize(48, 64);
+    flag.setDepth(goalDepth);
+    this.boardContainer.add(flag);
 
-    // Flag pole
-    goalGfx.lineStyle(3, 0x64748b, 1);
-    goalGfx.lineBetween(goalPos.x + 10, goalPos.y, goalPos.x + 10, goalPos.y - 32);
-
-    // Flag cloth
-    goalGfx.fillStyle(0xef4444, 1);
-    goalGfx.beginPath();
-    goalGfx.moveTo(goalPos.x + 10, goalPos.y - 32);
-    goalGfx.lineTo(goalPos.x - 10, goalPos.y - 24);
-    goalGfx.lineTo(goalPos.x + 10, goalPos.y - 16);
-    goalGfx.closePath();
-    goalGfx.fillPath();
-
-    this.boardContainer.add(goalGfx);
-
-    // Render Switches
+    // Switch pads
     for (const sw of this.level.switches) {
       const swPos = toScreen(sw.x, sw.y);
       const swDepth = calculateDepth(sw.x, sw.y, 5);
-      const swGfx = this.add.graphics();
-      swGfx.setDepth(swDepth);
-
-      swGfx.fillStyle(0xf59e0b, 1);
-      swGfx.fillCircle(swPos.x, swPos.y, 12);
-      swGfx.lineStyle(2, 0xd97706, 1);
-      swGfx.strokeCircle(swPos.x, swPos.y, 12);
-
-      this.boardContainer.add(swGfx);
+      const pad = this.add.image(swPos.x, swPos.y, 'rp-switch');
+      pad.setOrigin(0.5, 0.72);
+      pad.setDisplaySize(44, 44);
+      pad.setDepth(swDepth);
+      this.boardContainer.add(pad);
     }
 
-    // Render Gates
+    // Gates (closed by default; swap to open art when latched)
     for (const g of this.level.gates) {
       const gPos = toScreen(g.x, g.y);
       const gDepth = calculateDepth(g.x, g.y, 20);
 
       const gateContainer = this.add.container(gPos.x, gPos.y);
       gateContainer.setDepth(gDepth);
+      gateContainer.setData('gateId', g.id);
 
-      const gateGfx = this.add.graphics();
-      // Pillars
-      gateGfx.fillStyle(0x7c3aed, 1);
-      gateGfx.fillRect(-18, -32, 8, 32);
-      gateGfx.fillRect(10, -32, 8, 32);
-      // Beam
-      gateGfx.fillRect(-18, -32, 36, 8);
+      const gate = this.add.image(0, 0, 'rp-gate-closed');
+      gate.setOrigin(0.5, 0.82);
+      gate.setDisplaySize(48, 64);
+      gateContainer.add(gate);
 
-      gateContainer.add(gateGfx);
       this.gateObjects.set(g.id, gateContainer);
       this.boardContainer.add(gateContainer);
     }
 
-    // Render Collectibles (batteries & stars)
+    // Collectibles (kit battery / star art)
     for (const item of this.level.collectibles) {
       const itemPos = toScreen(item.x, item.y);
       const itemDepth = calculateDepth(item.x, item.y, 15);
 
-      const itemGfx = this.add.graphics();
-      itemGfx.setDepth(itemDepth);
+      const tex = item.kind === 'required' ? 'rp-battery' : 'rp-star';
+      const sprite = this.add.image(itemPos.x, itemPos.y - 14, tex);
+      sprite.setOrigin(0.5, 0.6);
+      sprite.setDisplaySize(item.kind === 'required' ? 30 : 34, item.kind === 'required' ? 40 : 34);
+      sprite.setDepth(itemDepth);
 
-      if (item.kind === 'required') {
-        // Battery
-        itemGfx.fillStyle(0x38bdf8, 1);
-        itemGfx.fillRoundedRect(itemPos.x - 10, itemPos.y - 18, 20, 24, 4);
-        itemGfx.lineStyle(2, 0x0284c7, 1);
-        itemGfx.strokeRoundedRect(itemPos.x - 10, itemPos.y - 18, 20, 24, 4);
-        // Battery terminal
-        itemGfx.fillStyle(0xf8fafc, 1);
-        itemGfx.fillRect(itemPos.x - 4, itemPos.y - 22, 8, 4);
-      } else {
-        // Bonus Star
-        itemGfx.fillStyle(0xfbbf24, 1);
-        itemGfx.fillCircle(itemPos.x, itemPos.y - 8, 10);
-        itemGfx.lineStyle(2, 0xd97706, 1);
-        itemGfx.strokeCircle(itemPos.x, itemPos.y - 8, 10);
-      }
-
-      this.collectibleObjects.set(item.id, itemGfx);
-      this.boardContainer.add(itemGfx);
+      this.collectibleObjects.set(item.id, sprite);
+      this.boardContainer.add(sprite);
     }
 
     // Build Robot Container
@@ -289,54 +224,35 @@ export class GameScene extends Phaser.Scene {
     this.robotContainer = this.add.container(startPos.x, startPos.y);
     this.robotContainer.setDepth(startDepth);
 
-    // Soft contact shadow under the robot
-    const contactShadow = this.add.ellipse(0, 4, 38, 14, 0x17324d, 0.18);
+    // Kit robot front art (256×256 → 60×60), includes its own contact shadow
+    this.robotBody = this.add.image(0, -14, `rp-robot-${robot.id}`);
+    this.robotBody.setOrigin(0.5, 0.82);
+    this.robotBody.setDisplaySize(60, 60);
 
-    // Directional foot indicator
-    this.facingArrow = this.add.triangle(0, 6, 0, -11, 9, 9, -9, 9, 0x246fe5);
-    this.facingArrow.setStrokeStyle(1.5, 0x17324d);
+    // Directional foot indicator (small, subtle cue at the robot's feet)
+    this.facingArrow = this.add.triangle(0, 8, 0, -9, 7, 7, -7, 7, 0x246fe5);
+    this.facingArrow.setStrokeStyle(1.2, 0x17324d);
+    this.facingArrow.setAlpha(0.9);
     this.updateFacingArrow(this.currentState.facing);
 
-    // Robot body circle
-    const colorHex = parseInt(robot.primaryColor.replace('#', '0x'), 16);
-    this.robotSprite = this.add.circle(0, -18, 16, colorHex);
-    this.robotSprite.setStrokeStyle(2.5, 0x17324d);
-
-    // Robot face screen
-    const faceHex = parseInt(robot.faceColor.replace('#', '0x'), 16);
-    const screenGfx = this.add.graphics();
-    screenGfx.fillStyle(0x17324d, 1);
-    screenGfx.fillRoundedRect(-11, -26, 22, 14, 3);
-    // Eyes
-    screenGfx.fillStyle(faceHex, 1);
-    screenGfx.fillCircle(-4.5, -19, 2.8);
-    screenGfx.fillCircle(4.5, -19, 2.8);
-
-    // Robot antenna
-    const accentHex = parseInt(robot.accentColor.replace('#', '0x'), 16);
-    const antennaGfx = this.add.graphics();
-    antennaGfx.fillStyle(accentHex, 1);
-    antennaGfx.fillCircle(0, -37, 4);
-    antennaGfx.lineStyle(2, 0x17324d, 1);
-    antennaGfx.lineBetween(0, -34, 0, -37);
-
-    this.robotContainer.add([contactShadow, this.facingArrow, this.robotSprite, screenGfx, antennaGfx]);
+    this.robotContainer.add([this.facingArrow, this.robotBody]);
     this.boardContainer.add(this.robotContainer);
   }
 
   private updateFacingArrow(facing: Facing): void {
+    // Explicit apex direction per facing — no rotation-convention ambiguity.
     switch (facing) {
       case 'N':
-        this.facingArrow.setRotation(-Math.PI / 4);
+        this.facingArrow.setTo(0, -9, 7, 7, -7, 7);
         break;
       case 'E':
-        this.facingArrow.setRotation(Math.PI / 4);
+        this.facingArrow.setTo(9, 0, -7, -7, -7, 7);
         break;
       case 'S':
-        this.facingArrow.setRotation((3 * Math.PI) / 4);
+        this.facingArrow.setTo(0, 9, 7, -7, -7, -7);
         break;
       case 'W':
-        this.facingArrow.setRotation((-3 * Math.PI) / 4);
+        this.facingArrow.setTo(-9, 0, 7, -7, 7, 7);
         break;
     }
   }
@@ -354,10 +270,11 @@ export class GameScene extends Phaser.Scene {
       (obj as any).setVisible(!collectedSet.has(id));
     }
 
-    // Restore gates
+    // Restore gates (open gates swap to the open art so the path stays readable)
     const openGateSet = new Set(state.openedGates);
     for (const [id, obj] of this.gateObjects.entries()) {
-      (obj as any).setVisible(!openGateSet.has(id));
+      const gateImage = (obj as Phaser.GameObjects.Container).list[0] as Phaser.GameObjects.Image;
+      gateImage.setTexture(openGateSet.has(id) ? 'rp-gate-open' : 'rp-gate-closed');
     }
   }
 
@@ -429,11 +346,16 @@ export class GameScene extends Phaser.Scene {
           } else if (ev.kind === 'open_gate') {
             const gateObj = this.gateObjects.get(ev.id);
             if (gateObj) {
+              const gateImage = (gateObj as Phaser.GameObjects.Container)
+                .list[0] as Phaser.GameObjects.Image;
               this.tweens.add({
                 targets: gateObj,
-                alpha: 0,
+                alpha: 0.25,
                 duration: 200,
-                onComplete: () => (gateObj as any).setVisible(false),
+                onComplete: () => {
+                  gateImage.setTexture('rp-gate-open');
+                  (gateObj as Phaser.GameObjects.Container).setAlpha(1);
+                },
               });
             }
           }
