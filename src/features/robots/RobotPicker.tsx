@@ -1,122 +1,137 @@
 import React from 'react';
 import { ROBOTS, RobotDefinition } from './robotCatalog';
 import { Button } from '../../ui/Button';
-import { KitImage, ROBOT_FRONT } from '../../ui/KitImage';
+import { KitImage, ROBOT_FRONT, ROBOT_AVATAR } from '../../ui/KitImage';
 
 export interface RobotPickerProps {
   selectedRobotId: string;
   onSelectRobot: (robotId: string) => void;
   onConfirm: () => void;
+  /** Label reflects where confirmation navigates (audit RPUX-006). */
+  confirmLabel?: string;
 }
 
 export const RobotPicker: React.FC<RobotPickerProps> = ({
   selectedRobotId,
   onSelectRobot,
   onConfirm,
+  confirmLabel = "Let's Go! →",
 }) => {
+  const selected = ROBOTS.find((r) => r.id === selectedRobotId) ?? ROBOTS[0];
+
   return (
     <div
       className="rp-sky-gradient"
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '24px',
-        padding: '24px 24px calc(24px + var(--sab))',
-        maxWidth: '540px',
+        gap: '20px',
+        padding: '20px 20px calc(20px + var(--sab))',
+        maxWidth: '560px',
         margin: '0 auto',
         minHeight: '100dvh',
         boxSizing: 'border-box',
       }}
     >
-      <div style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: 'var(--text-2xl)', color: 'var(--color-ink)', margin: '0 0 8px 0' }}>
-          Choose Your Robot
-        </h1>
-        <p style={{ color: 'var(--color-muted)', margin: 0, fontSize: 'var(--text-base)' }}>
-          Pick your favorite robot companion! All robots have identical speed and capabilities.
+      <h1
+        style={{
+          margin: 0,
+          fontSize: 'var(--text-2xl)',
+          color: 'var(--color-ink)',
+          textAlign: 'center',
+        }}
+      >
+        Choose Your Robot
+      </h1>
+
+      {/* Hero stage: the selected character is the star of this screen. */}
+      <div
+        className="rp-picker-stage"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '20px 24px 24px',
+        }}
+      >
+        <div className="rp-hero-blob" style={{ display: 'flex' }}>
+          <KitImage
+            src={ROBOT_FRONT[selected.id] ?? ROBOT_FRONT.pip}
+            alt={`${selected.name} robot`}
+            size={190}
+          />
+        </div>
+        <h2 style={{ margin: 0, fontSize: 'var(--text-2xl)', color: 'var(--color-ink)' }}>
+          {selected.name}
+        </h2>
+        <p
+          style={{
+            margin: 0,
+            fontSize: 'var(--text-sm)',
+            color: 'var(--color-muted)',
+            textAlign: 'center',
+            maxWidth: '320px',
+          }}
+        >
+          {selected.description}
         </p>
       </div>
 
+      {/* Portrait options — radiogroup semantics preserved. */}
       <div
         role="radiogroup"
         aria-label="Choose your robot"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '16px',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '12px',
         }}
       >
         {ROBOTS.map((robot: RobotDefinition) => {
           const isSelected = robot.id === selectedRobotId;
-
           return (
             <button
               key={robot.id}
-              className="rp-card-hover"
+              className="rp-picker-option"
               role="radio"
               aria-checked={isSelected}
               onClick={() => onSelectRobot(robot.id)}
               style={{
-                position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                padding: '18px 14px',
-                borderRadius: 'var(--radius-panel)',
-                backgroundColor: isSelected ? 'var(--color-surface)' : 'var(--color-surface-soft)',
-                border: isSelected ? '3px solid var(--color-action)' : '2px solid var(--color-border-subtle)',
-                boxShadow: isSelected ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                gap: '4px',
+                padding: '10px 6px',
                 cursor: 'pointer',
-                outline: 'none',
-                textAlign: 'center',
               }}
             >
-              {isSelected && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '12px',
-                    width: '26px',
-                    height: '26px',
-                    borderRadius: '50%',
-                    backgroundColor: 'var(--color-action)',
-                    color: '#ffffff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                  }}
-                  aria-hidden="true"
-                >
-                  ✓
-                </div>
-              )}
-
-              <div className="rp-hero-blob" style={{ display: 'flex' }}>
-                <KitImage src={ROBOT_FRONT[robot.id]} alt={`${robot.name} robot`} size={104} />
-              </div>
-
-              <h2
+              <KitImage
+                src={ROBOT_AVATAR[robot.id] ?? ROBOT_AVATAR.pip}
+                alt=""
+                size={56}
+              />
+              <span
                 style={{
-                  margin: '12px 0 4px 0',
-                  fontSize: 'var(--text-lg)',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 700,
                   color: 'var(--color-ink)',
                 }}
               >
                 {robot.name}
-              </h2>
-
-              <span
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-muted)',
-                  lineHeight: 1.4,
-                }}
-              >
-                {robot.description}
               </span>
+              {isSelected && (
+                <span
+                  aria-hidden="true"
+                  style={{
+                    color: 'var(--color-action)',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: 800,
+                  }}
+                >
+                  ✓ picked
+                </span>
+              )}
             </button>
           );
         })}
@@ -128,10 +143,20 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
         fullWidth
         className="rp-press"
         onClick={onConfirm}
-        style={{ marginTop: '8px' }}
       >
-        Let&apos;s Go! →
+        {confirmLabel}
       </Button>
+
+      <p
+        style={{
+          margin: 0,
+          fontSize: 'var(--text-xs)',
+          color: 'var(--color-muted)',
+          textAlign: 'center',
+        }}
+      >
+        All robots move exactly the same — pick whoever feels like yours.
+      </p>
     </div>
   );
 };

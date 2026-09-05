@@ -18,9 +18,14 @@ describe('App full M1 journey integration (RP-015, RP-021)', () => {
     const title = await screen.findByRole('heading', { name: /Robo Paths/i });
     expect(title).toBeInTheDocument();
 
-    // Start playing
+    // Start playing — first-time flow goes through robot selection (RPUX-006)
     const playBtn = screen.getByRole('button', { name: /Start Playing!/i });
     fireEvent.click(playBtn);
+
+    // Picker appears; choose Bolt and confirm into the first puzzle
+    await screen.findByRole('heading', { name: /Choose Your Robot/i });
+    fireEvent.click(screen.getByRole('radio', { name: /Bolt/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Let's Go!/i }));
 
     // Should now be on Level 1 (First steps)
     const levelTitle = await screen.findByRole('heading', { name: /First steps/i });

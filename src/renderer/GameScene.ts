@@ -8,19 +8,37 @@ export interface GameSceneConfig {
   onAcknowledgment: (ack: AnimationAck) => void;
 }
 
+/** Logical facing → directional pose texture suffix (RPUX-002). */
+const FACING_VIEW: Record<Facing, 'n' | 'e' | 's' | 'w'> = {
+  N: 'n',
+  E: 'e',
+  S: 's',
+  W: 'w',
+};
+
+/**
+ * Isometric board scene.
+ *
+ * Render order: world objects are added to the SCENE display list (not a
+ * container) because Phaser containers render children in insertion order
+ * and ignore child depth (UI/UX audit RPUX-005). Scene-level `setDepth`
+ * with the deterministic (x + y) * 100 + layer tie-break gives correct
+ * foreground/background sorting, including the robot passing behind and in
+ * front of tall scenery.
+ */
 export class GameScene extends Phaser.Scene {
   private level!: Level;
   private robotId = 'pip';
   private currentState!: State;
-  private currentRunId = '';
   private onAcknowledgment!: (ack: AnimationAck) => void;
 
-  private boardContainer!: Phaser.GameObjects.Container;
+  private worldObjects: Phaser.GameObjects.GameObject[] = [];
+  private boardReady = false;
   private robotContainer!: Phaser.GameObjects.Container;
   private robotBody!: Phaser.GameObjects.Image;
   private facingArrow!: Phaser.GameObjects.Triangle;
-  private collectibleObjects: Map<string, Phaser.GameObjects.GameObject> = new Map();
-  private gateObjects: Map<string, Phaser.GameObjects.Container> = new Map();
+  private collectibleObjects: Map<string, Phaser.GameObjects.Image> = new Map();
+  private gateObjects: Map<string, Phaser.GameObjects.Image> = new Map();
 
   constructor() {
     super({ key: 'GameScene' });
@@ -31,7 +49,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    // Kit art (docs/ui-refresh-kit) — local, same-origin SVGs.
     const world = (name: string) => `assets/world/${name}.svg`;
     this.load.image('rp-grass', world('grass-tile'));
     this.load.image('rp-flag', world('flag'));
@@ -41,15 +58,15 @@ export class GameScene extends Phaser.Scene {
     this.load.image('rp-gate-open', world('gate-open'));
     this.load.image('rp-switch', world('switch'));
     this.load.image('rp-rock', world('rock'));
-    this.load.image('rp-tree', world('tree'));
     for (const id of ['pip', 'mochi', 'bolt', 'sprout']) {
-      this.load.image(`rp-robot-${id}`, `assets/robots/${id}-front.svg`);
+      for (const view of ['n', 'e', 's', 'w'] as const) {
+        this.load.image(`rp-robot-${id}-${view}`, `assets/robots/${id}-${view}.svg`);
+      }
     }
   }
 
   public create(): void {
-    this.cameras.main.setBackgroundColor('#78cdbd');
-    this.boardContainer = this.add.container(0, 0);
+    this.cameras.main.setBackgroundColor('#ddf1fc');
 
     // Re-frame whenever the canvas resizes (rotation, layout, window).
     this.scale.on('resize', this.handleResize, this);
@@ -57,7 +74,7 @@ export class GameScene extends Phaser.Scene {
       this.scale.off('resize', this.handleResize, this);
     });
 
-    // If level is already configured, render it
+    this.boardReady = true;
     if (this.level) {
       this.buildBoard();
     }
@@ -73,15 +90,12 @@ export class GameScene extends Phaser.Scene {
         this.level = msg.level;
         this.robotId = msg.robotId;
         this.currentState = msg.state;
-        this.currentRunId = msg.runId;
-        void this.currentRunId;
-        if (this.boardContainer) {
+        if (this.boardReady) {
           this.buildBoard();
         }
         break;
 
       case 'snap':
-        this.currentRunId = msg.runId;
         this.currentState = msg.state;
         this.snapToState(this.currentState);
         break;
@@ -96,19 +110,32 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  private buildBoard(): void {
-    this.boardContainer.removeAll(true);
+  /** Destroys everything from a previous board build. */
+  private clearWorld(): void {
+    this.tweens.killTweensOf(this.worldObjects);
+    this.tweens.killTweensOf(this.robotContainer);
+    for (const obj of this.worldObjects) obj.destroy();
+    this.robotContainer?.destroy();
+    this.worldObjects = [];
     this.collectibleObjects.clear();
     this.gateObjects.clear();
+  }
+
+  /** Adds a world object to the scene (depth-honored) and tracks it. */
+  private track<T extends Phaser.GameObjects.GameObject>(obj: T): T {
+    this.worldObjects.push(obj);
+    return obj;
+  }
+
+  private buildBoard(): void {
+    this.clearWorld();
 
     const { tiles, walls } = this.level.board;
     const wallSet = new Set(walls.map((w) => `${w.x},${w.y}`));
-
     const content = calculateContentBounds(this.level.board.width, this.level.board.height);
 
-    // Decorative sky clouds behind the floating island
-    const clouds = this.add.graphics();
-    clouds.setDepth(-200);
+    // Decorative sky clouds behind the floating island (scene-level, depth < 0)
+    const clouds = this.add.graphics().setDepth(-200);
     const drawCloud = (cx: number, cy: number, scale: number, alpha: number) => {
       clouds.fillStyle(0xffffff, alpha);
       clouds.fillEllipse(cx, cy, 96 * scale, 30 * scale);
@@ -118,11 +145,10 @@ export class GameScene extends Phaser.Scene {
     drawCloud(content.minX + content.width * 0.18, content.minY + 26, 1.0, 0.75);
     drawCloud(content.maxX - content.width * 0.12, content.minY + content.height * 0.34, 0.8, 0.6);
     drawCloud(content.centerX, content.maxY + 58, 1.1, 0.55);
-    this.boardContainer.add(clouds);
+    this.track(clouds);
 
     // Floating-island drop shadow beneath the whole board
-    const islandShadow = this.add.graphics();
-    islandShadow.setDepth(-100);
+    const islandShadow = this.add.graphics().setDepth(-100);
     islandShadow.fillStyle(0x246fe5, 0.14);
     islandShadow.fillEllipse(
       content.centerX,
@@ -130,116 +156,119 @@ export class GameScene extends Phaser.Scene {
       content.width * 0.8,
       content.height * 0.22 + 18,
     );
-    this.boardContainer.add(islandShadow);
+    this.track(islandShadow);
 
-    // Render ground tiles (kit isometric art). The playable diamond spans
-    // 104/128 of the canvas, so scale up to keep 64px tile pitch seamless.
+    // Ground tiles (kit isometric art; diamond spans 104/128 of canvas)
     for (const tile of tiles) {
       const screenPos = toScreen(tile.x, tile.y);
       const isWall = wallSet.has(`${tile.x},${tile.y}`);
-      const depth = calculateDepth(tile.x, tile.y, 0);
 
-      const grass = this.add.image(screenPos.x, screenPos.y, 'rp-grass');
-      grass.setOrigin(0.5, 0.375); // top-diamond center of the kit tile
+      const grass = this.track(
+        this.add.image(screenPos.x, screenPos.y, 'rp-grass').setDepth(
+          calculateDepth(tile.x, tile.y, 0),
+        ),
+      );
+      grass.setOrigin(0.5, 0.375);
       grass.setDisplaySize(79, 59);
-      grass.setDepth(depth);
-      this.boardContainer.add(grass);
 
-      // Walls draw a rock decoration on the (impassable) tile
       if (isWall) {
-        const rockDepth = calculateDepth(tile.x, tile.y, 30);
-        const rock = this.add.image(screenPos.x, screenPos.y - 4, 'rp-rock');
+        const rock = this.track(
+          this.add.image(screenPos.x, screenPos.y - 4, 'rp-rock').setDepth(
+            calculateDepth(tile.x, tile.y, 30),
+          ),
+        );
         rock.setOrigin(0.5, 0.78);
         rock.setDisplaySize(52, 52);
-        rock.setDepth(rockDepth);
-        this.boardContainer.add(rock);
       }
     }
 
-    // Goal flag (kit art, 96×128 → 40×53, planted on the tile)
+    // Goal flag
     const goalPos = toScreen(this.level.goal.x, this.level.goal.y);
-    const goalDepth = calculateDepth(this.level.goal.x, this.level.goal.y, 25);
-    const flag = this.add.image(goalPos.x, goalPos.y + 6, 'rp-flag');
+    const flag = this.track(
+      this.add.image(goalPos.x, goalPos.y + 6, 'rp-flag').setDepth(
+        calculateDepth(this.level.goal.x, this.level.goal.y, 25),
+      ),
+    );
     flag.setOrigin(0.5, 0.88);
     flag.setDisplaySize(48, 64);
-    flag.setDepth(goalDepth);
-    this.boardContainer.add(flag);
 
     // Switch pads
     for (const sw of this.level.switches) {
       const swPos = toScreen(sw.x, sw.y);
-      const swDepth = calculateDepth(sw.x, sw.y, 5);
-      const pad = this.add.image(swPos.x, swPos.y, 'rp-switch');
+      const pad = this.track(
+        this.add.image(swPos.x, swPos.y, 'rp-switch').setDepth(
+          calculateDepth(sw.x, sw.y, 5),
+        ),
+      );
       pad.setOrigin(0.5, 0.72);
       pad.setDisplaySize(44, 44);
-      pad.setDepth(swDepth);
-      this.boardContainer.add(pad);
     }
 
-    // Gates (closed by default; swap to open art when latched)
+    // Gates (texture swaps between closed/open art)
     for (const g of this.level.gates) {
       const gPos = toScreen(g.x, g.y);
-      const gDepth = calculateDepth(g.x, g.y, 20);
-
-      const gateContainer = this.add.container(gPos.x, gPos.y);
-      gateContainer.setDepth(gDepth);
-      gateContainer.setData('gateId', g.id);
-
-      const gate = this.add.image(0, 0, 'rp-gate-closed');
+      const gate = this.track(
+        this.add.image(gPos.x, gPos.y, 'rp-gate-closed').setDepth(
+          calculateDepth(g.x, g.y, 20),
+        ),
+      );
       gate.setOrigin(0.5, 0.82);
       gate.setDisplaySize(48, 64);
-      gateContainer.add(gate);
-
-      this.gateObjects.set(g.id, gateContainer);
-      this.boardContainer.add(gateContainer);
+      this.gateObjects.set(g.id, gate);
     }
 
     // Collectibles (kit battery / star art)
     for (const item of this.level.collectibles) {
       const itemPos = toScreen(item.x, item.y);
-      const itemDepth = calculateDepth(item.x, item.y, 15);
-
-      const tex = item.kind === 'required' ? 'rp-battery' : 'rp-star';
-      const sprite = this.add.image(itemPos.x, itemPos.y - 14, tex);
+      const sprite = this.track(
+        this.add
+          .image(itemPos.x, itemPos.y - 14, item.kind === 'required' ? 'rp-battery' : 'rp-star')
+          .setDepth(calculateDepth(item.x, item.y, 15)),
+      );
       sprite.setOrigin(0.5, 0.6);
-      sprite.setDisplaySize(item.kind === 'required' ? 30 : 34, item.kind === 'required' ? 40 : 34);
-      sprite.setDepth(itemDepth);
-
+      sprite.setDisplaySize(
+        item.kind === 'required' ? 30 : 34,
+        item.kind === 'required' ? 40 : 34,
+      );
       this.collectibleObjects.set(item.id, sprite);
-      this.boardContainer.add(sprite);
     }
 
-    // Build Robot Container
     this.createRobot();
-
-    // Position camera to center the board
     this.centerCamera();
+  }
+
+  private robotTextureKey(): string {
+    return `rp-robot-${this.robotId}-${FACING_VIEW[this.currentState.facing]}`;
   }
 
   private createRobot(): void {
     const robot = getRobotById(this.robotId);
     const startPos = toScreen(this.currentState.x, this.currentState.y);
-    const startDepth = calculateDepth(this.currentState.x, this.currentState.y, 50);
 
+    // Scene-level container: its own depth participates in display sorting.
     this.robotContainer = this.add.container(startPos.x, startPos.y);
-    this.robotContainer.setDepth(startDepth);
+    this.robotContainer.setDepth(calculateDepth(this.currentState.x, this.currentState.y, 50));
+    this.track(this.robotContainer);
 
-    // Kit robot front art (256×256 → 60×60), includes its own contact shadow
-    this.robotBody = this.add.image(0, -14, `rp-robot-${robot.id}`);
+    // Directional pose art — facing is conveyed by the character itself.
+    this.robotBody = this.add.image(0, -14, this.robotTextureKey());
     this.robotBody.setOrigin(0.5, 0.82);
     this.robotBody.setDisplaySize(60, 60);
+    void robot;
 
-    // Directional foot indicator (small, subtle cue at the robot's feet)
+    // Supplementary facing cue (accessibility aid, not the only signal)
     this.facingArrow = this.add.triangle(0, 8, 0, -9, 7, 7, -7, 7, 0x246fe5);
     this.facingArrow.setStrokeStyle(1.2, 0x17324d);
     this.facingArrow.setAlpha(0.9);
-    this.updateFacingArrow(this.currentState.facing);
 
     this.robotContainer.add([this.facingArrow, this.robotBody]);
-    this.boardContainer.add(this.robotContainer);
+    this.updateFacingCue(this.currentState.facing);
   }
 
-  private updateFacingArrow(facing: Facing): void {
+  /** Swap the pose texture + foot arrow for a new logical facing. */
+  private updateFacingCue(facing: Facing): void {
+    this.robotBody?.setTexture(`rp-robot-${this.robotId}-${FACING_VIEW[facing]}`);
+    if (!this.facingArrow) return;
     // Explicit apex direction per facing — no rotation-convention ambiguity.
     switch (facing) {
       case 'N':
@@ -257,24 +286,39 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Reset/snapshot handler. Kills any in-flight tweens first so late
+   * callbacks cannot re-hide restored objects, then fully restores every
+   * visual property the run animations touch (visibility, alpha, scale,
+   * gate texture) — not just visibility (audit RPUX-005).
+   */
   private snapToState(state: State): void {
     this.currentState = state;
+    this.tweens.killTweensOf(this.robotContainer);
+
     const pos = toScreen(state.x, state.y);
     this.robotContainer.setPosition(pos.x, pos.y);
+    this.robotContainer.setScale(1);
     this.robotContainer.setDepth(calculateDepth(state.x, state.y, 50));
-    this.updateFacingArrow(state.facing);
+    this.updateFacingCue(state.facing);
 
-    // Restore collectibles
+    // Restore collectibles completely
     const collectedSet = new Set(state.collected);
-    for (const [id, obj] of this.collectibleObjects.entries()) {
-      (obj as any).setVisible(!collectedSet.has(id));
+    for (const [id, sprite] of this.collectibleObjects.entries()) {
+      this.tweens.killTweensOf(sprite);
+      sprite.setAlpha(1);
+      sprite.setScale(1);
+      sprite.setVisible(!collectedSet.has(id));
     }
 
-    // Restore gates (open gates swap to the open art so the path stays readable)
+    // Restore gates: open gates show the open art, closed revert.
     const openGateSet = new Set(state.openedGates);
-    for (const [id, obj] of this.gateObjects.entries()) {
-      const gateImage = (obj as Phaser.GameObjects.Container).list[0] as Phaser.GameObjects.Image;
-      gateImage.setTexture(openGateSet.has(id) ? 'rp-gate-open' : 'rp-gate-closed');
+    for (const [id, sprite] of this.gateObjects.entries()) {
+      this.tweens.killTweensOf(sprite);
+      sprite.setAlpha(1);
+      sprite.setScale(1);
+      sprite.setTexture(openGateSet.has(id) ? 'rp-gate-open' : 'rp-gate-closed');
+      sprite.setVisible(true);
     }
   }
 
@@ -287,16 +331,14 @@ export class GameScene extends Phaser.Scene {
     const targetPos = toScreen(step.after.x, step.after.y);
     const targetDepth = calculateDepth(step.after.x, step.after.y, 50);
 
-    // Handle turns
     if (step.before.facing !== step.after.facing) {
-      this.updateFacingArrow(step.after.facing);
+      this.updateFacingCue(step.after.facing);
     }
 
-    // Handle blocked wobble
+    // Blocked: small stop/wobble at the current tile
     if (step.blocked) {
       const deltaX = (step.blocked.target.x - step.before.x) * 8;
       const deltaY = (step.blocked.target.y - step.before.y) * 4;
-
       this.tweens.add({
         targets: this.robotContainer,
         x: this.robotContainer.x + deltaX,
@@ -316,45 +358,44 @@ export class GameScene extends Phaser.Scene {
       return;
     }
 
-    // Normal movement tween
+    // Normal movement; depth follows the destination for correct sorting.
+    this.robotContainer.setDepth(targetDepth);
     this.tweens.add({
       targets: this.robotContainer,
       x: targetPos.x,
       y: targetPos.y,
       duration: durationMs,
       ease: 'Cubic.easeInOut',
-      onUpdate: () => {
-        this.robotContainer.setDepth(targetDepth);
-      },
       onComplete: () => {
         this.currentState = step.after;
 
-        // Process step events (pickups / gates)
         for (const ev of step.events) {
           if (ev.kind === 'collect') {
-            const itemObj = this.collectibleObjects.get(ev.id);
-            if (itemObj) {
+            const item = this.collectibleObjects.get(ev.id);
+            if (item) {
               this.tweens.add({
-                targets: itemObj,
+                targets: item,
                 alpha: 0,
                 scaleX: 1.5,
                 scaleY: 1.5,
                 duration: 180,
-                onComplete: () => (itemObj as any).setVisible(false),
+                onComplete: () => {
+                  // Guard: a reset may have destroyed/restored this object.
+                  if (item.active) item.setVisible(false);
+                },
               });
             }
           } else if (ev.kind === 'open_gate') {
-            const gateObj = this.gateObjects.get(ev.id);
-            if (gateObj) {
-              const gateImage = (gateObj as Phaser.GameObjects.Container)
-                .list[0] as Phaser.GameObjects.Image;
+            const gate = this.gateObjects.get(ev.id);
+            if (gate) {
               this.tweens.add({
-                targets: gateObj,
+                targets: gate,
                 alpha: 0.25,
                 duration: 200,
                 onComplete: () => {
-                  gateImage.setTexture('rp-gate-open');
-                  (gateObj as Phaser.GameObjects.Container).setAlpha(1);
+                  if (!gate.active) return;
+                  gate.setTexture('rp-gate-open');
+                  gate.setAlpha(1);
                 },
               });
             }

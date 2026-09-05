@@ -208,7 +208,6 @@ export const WorldMap: React.FC<WorldMapProps> = ({
                 opacity: unlocked ? 1 : 0.6,
                 cursor: unlocked ? 'pointer' : 'not-allowed',
                 textAlign: 'left',
-                outline: 'none',
                 transition: 'all 0.15s ease',
               }}
             >

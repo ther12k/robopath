@@ -188,7 +188,6 @@ export const GameScreen: React.FC<GameScreenProps> = ({
         display: 'flex',
         flexDirection: 'column',
         height: '100dvh',
-        maxWidth: '900px',
         margin: '0 auto',
         padding: '12px 16px calc(12px + var(--sab))',
         boxSizing: 'border-box',
@@ -275,28 +274,17 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
       {/* Main Game Area: Isometric Canvas */}
       <div className="rp-game-layout" style={{ flex: 1, minHeight: 0 }}>
-      <main className="rp-board-stage"
-        style={{
-          flex: 1,
-          borderRadius: 'var(--radius-panel)',
-          overflow: 'hidden',
-          backgroundColor: 'var(--color-sky)',
-          border: '1px solid var(--color-border-subtle)',
-          boxShadow: 'var(--shadow-sm)',
-          position: 'relative',
-          minHeight: '240px',
-        }}
-      >
-        <PhaserGame
-          level={level}
-          robotId={progress.selectedRobotId}
-          currentState={currentState}
-          onAcknowledgment={(ack) => controllerRef.current?.acknowledge(ack)}
-          onMountScene={(scene) => {
-            sceneRef.current = scene;
-          }}
-        />
-      </main>
+        <main className="rp-board-stage">
+          <PhaserGame
+            level={level}
+            robotId={progress.selectedRobotId}
+            currentState={currentState}
+            onAcknowledgment={(ack) => controllerRef.current?.acknowledge(ack)}
+            onMountScene={(scene) => {
+              sceneRef.current = scene;
+            }}
+          />
+        </main>
 
       {/* Bottom Area: Program Editor & Playback Controls */}
       <footer style={{ display: 'flex', flexDirection: 'column', gap: '10px', flexShrink: 0 }}>

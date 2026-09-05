@@ -108,11 +108,7 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
         display: 'flex',
         flexDirection: 'column',
         gap: '12px',
-        backgroundColor: 'var(--color-surface)',
-        borderRadius: 'var(--radius-panel)',
         padding: '16px',
-        boxShadow: 'var(--shadow-md)',
-        border: '1px solid var(--color-border-subtle)',
       }}
     >
       {/* Editor Header */}
@@ -185,9 +181,6 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
           minHeight: '64px',
           padding: '8px',
           alignItems: 'center',
-          backgroundColor: 'var(--color-surface-soft)',
-          borderRadius: 'var(--radius-tile)',
-          border: '2px dashed var(--color-border)',
         }}
       >
         {commands.length === 0 ? (
@@ -451,7 +444,6 @@ export const ProgramEditor: React.FC<ProgramEditorProps> = ({
                 boxShadow: isButtonDisabled || hasKitArt ? 'none' : 'var(--shadow-md)',
                 transition: 'transform 0.1s ease, filter 0.1s ease',
                 WebkitTapHighlightColor: 'transparent',
-                outline: 'none',
               }}
             >
               {renderCommandIcon(op, hasKitArt ? 46 : 22)}

@@ -118,7 +118,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             flexDirection: 'column',
             alignItems: 'center',
             gap: '12px',
-            outline: 'none',
             marginTop: '12px',
           }}
         >

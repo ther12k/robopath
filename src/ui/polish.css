@@ -1,42 +1,109 @@
-/* Shared storybook canvas: warm paper, dotted paths, and playful depth. */
+/*
+ * Bright Meadow visual system — provisional reference:
+ * design/mockups/01-bright-meadow.png (owner approval still required).
+ *
+ * Direction enforced here (per UI/UX audit RPUX-001/004):
+ *   soft sky background · light surfaces · subtle borders · soft shadows
+ *   gameplay hierarchy: puzzle board first, command editor second.
+ * Component appearance lives in these classes; inline styles are reserved
+ * for genuinely dynamic layout values only.
+ */
+
 .rp-sky-gradient {
-  background-color: #fff7df;
-  background-image: radial-gradient(#f3d89a 1.5px, transparent 1.5px), linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,236,184,.45));
-  background-size: 22px 22px, 100% 100%;
+  background: linear-gradient(180deg, #f4fbff 0%, #e6f4fd 55%, #d9effb 100%);
 }
 
-h1, h2, h3 { font-family: var(--font-display); }
+/* ---------- Gameplay composition ---------- */
 
-.rp-game-shell { max-width: 1180px !important; }
-.rp-board-stage { background: #8bd5c2 !important; border: 5px solid #244b59 !important; border-radius: 30px !important; box-shadow: 0 8px 0 #244b59, 0 18px 28px rgba(36,75,89,.18) !important; }
-.rp-editor-panel { background: #fffdf4 !important; border: 3px solid #244b59 !important; box-shadow: 0 5px 0 #244b59 !important; }
-.rp-command-strip { background: #fff3c4 !important; border: 3px dashed #e5a52d !important; }
-.rp-welcome-hero { background: #ffcf56; border: 4px solid #244b59; box-shadow: 0 7px 0 #244b59; }
-.rp-map-panel { background: rgba(255,253,244,.82); border: 3px solid #244b59; box-shadow: 0 6px 0 #244b59; }
-
-@media (min-width: 800px) {
-  .rp-game-layout { display: grid !important; grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr); align-items: stretch; gap: 18px; }
-  .rp-game-layout > main { min-height: 0 !important; height: auto !important; }
-  .rp-game-layout > footer { min-width: 0; }
-}
-@media (max-width: 799px) {
-  .rp-game-shell { padding-left: 10px !important; padding-right: 10px !important; }
-  .rp-board-stage { min-height: 0 !important; }
-  .rp-game-layout { display: flex !important; flex: 1 1 auto !important; min-height: 0 !important; flex-direction: column; overflow: visible; }
-  .rp-game-layout > main { flex: 0 0 clamp(190px, 30dvh, 255px) !important; height: clamp(190px, 30dvh, 255px) !important; min-height: 0 !important; }
-  .rp-game-layout > main > div { min-height: 0 !important; }
-  .rp-game-layout > footer { flex: 1 1 auto; min-height: 0; overflow: visible; }
+.rp-game-shell {
+  width: 100%;
+  max-width: 1100px;
 }
 
-.rp-game-shell { width: 100%; }
-.rp-game-shell > header { padding: 6px 4px; }
-.rp-game-layout > footer { min-width: 0; }
-.rp-board-stage::after { content: 'MISSION CONTROL'; position: absolute; top: 12px; left: 16px; padding: 4px 9px; border-radius: 999px; background: rgba(36,75,89,.82); color: #fff7df; font-size: 10px; font-weight: 800; letter-spacing: .12em; pointer-events: none; }
-
-@media (min-width: 1100px) {
-  .rp-game-shell { padding-left: 28px !important; padding-right: 28px !important; }
-  .rp-game-layout { grid-template-columns: minmax(0, 1.55fr) minmax(380px, .75fr) !important; gap: 24px !important; }
+.rp-game-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
 }
+
+/* The board stage is the hero of the screen. */
+.rp-board-stage {
+  position: relative;
+  background: #ddf1fc;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-panel);
+  box-shadow: 0 10px 24px rgba(23, 50, 77, 0.1);
+  overflow: hidden;
+}
+
+.rp-editor-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  box-shadow: 0 6px 14px rgba(23, 50, 77, 0.06);
+}
+
+.rp-command-strip {
+  background: #f2f8fd;
+  border: 2px dashed #cfe4f5;
+}
+
+/* Desktop: board left (dominant), editor dock right. */
+@media (min-width: 880px) {
+  .rp-game-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(340px, 0.6fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .rp-board-layout-main {
+    min-height: 0;
+  }
+}
+
+/* Mobile: board takes the flexible space; the editor stays a compact dock. */
+@media (max-width: 879px) {
+  .rp-board-stage {
+    flex: 1 1 auto;
+    min-height: 44dvh;
+  }
+}
+
+/* Short landscape screens still guarantee a usable board. */
+@media (max-width: 879px) and (max-height: 500px) {
+  .rp-board-stage {
+    min-height: 240px;
+  }
+}
+
+/* ---------- Robot picker ---------- */
+
+.rp-picker-stage {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  box-shadow: 0 10px 24px rgba(23, 50, 77, 0.08);
+}
+
+.rp-picker-option {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border-subtle);
+  border-radius: var(--radius-tile);
+  box-shadow: 0 4px 10px rgba(23, 50, 77, 0.05);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.rp-picker-option[aria-checked='true'] {
+  border-color: var(--color-action);
+  box-shadow: 0 0 0 3px rgba(32, 122, 70, 0.18);
+}
+
+.rp-picker-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+/* ---------- Shared micro-interactions ---------- */
 
 .rp-card-hover {
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -51,7 +118,7 @@ h1, h2, h3 { font-family: var(--font-display); }
   transform: translateY(0);
 }
 
-/* Soft radial glow behind the hero robot on the welcome screen */
+/* Soft radial glow behind hero robots on menu screens */
 .rp-hero-blob {
   position: relative;
 }
@@ -63,18 +130,18 @@ h1, h2, h3 { font-family: var(--font-display); }
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(36, 111, 229, 0.16) 0%,
-    rgba(36, 111, 229, 0.07) 45%,
+    rgba(36, 111, 229, 0.14) 0%,
+    rgba(36, 111, 229, 0.06) 45%,
     rgba(36, 111, 229, 0) 70%
   );
   pointer-events: none;
 }
 
-/* Floating decorative clouds on menu screens */
+/* Decorative clouds on menu screens */
 .rp-cloud {
   position: absolute;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   filter: blur(1px);
   pointer-events: none;
 }
@@ -84,7 +151,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 }
 
 .rp-press:hover:not(:disabled) {
-  filter: brightness(1.05);
+  filter: brightness(1.04);
 }
 
 .rp-press:active:not(:disabled) {
@@ -93,10 +160,12 @@ h1, h2, h3 { font-family: var(--font-display); }
 
 @media (prefers-reduced-motion: reduce) {
   .rp-card-hover,
-  .rp-press {
+  .rp-press,
+  .rp-picker-option {
     transition: none;
   }
-  .rp-card-hover:hover:not(:disabled) {
+  .rp-card-hover:hover:not(:disabled),
+  .rp-picker-option:hover:not(:disabled) {
     transform: none;
   }
   .rp-press:active:not(:disabled) {

@@ -56,6 +56,10 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
       sceneRef.current = activeScene;
       if (activeScene) {
         activeScene.init({ onAcknowledgment });
+        // DEV-only inspection hook for browser verification scripts.
+        if (import.meta.env.DEV) {
+          (window as unknown as Record<string, unknown>).__RP_SCENE__ = activeScene;
+        }
         activeScene.handleMessage({
           type: 'load',
           runId: 'init',

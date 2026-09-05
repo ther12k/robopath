@@ -20,6 +20,9 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
   const [activeLevelId, setActiveLevelId] = useState<string>('w1-01');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isReady, setIsReady] = useState<boolean>(false);
+  /** Why the picker is open: first-time setup continues into play; later
+   *  changes return to where the player came from (audit RPUX-006). */
+  const [pickerIntent, setPickerIntent] = useState<'start' | 'return'>('start');
 
   useEffect(() => {
     storage.loadProgress().then((loaded) => {
@@ -52,18 +55,28 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
   };
 
   const handleStartPlay = () => {
-    // If player has already made progress, go to world map; otherwise first level
+    // First-time: Welcome → pick your robot → first puzzle.
+    // Returning players get the fast Continue path straight to the map.
     if (progress.completedLevels.length > 0) {
       setCurrentRoute('world-map');
     } else {
-      setActiveLevelId('w1-01');
-      setCurrentRoute('game');
+      setPickerIntent('start');
+      setCurrentRoute('robot-picker');
     }
   };
 
   const handleSelectLevel = (levelId: string) => {
     setActiveLevelId(levelId);
     setCurrentRoute('game');
+  };
+
+  const handlePickerConfirm = () => {
+    if (pickerIntent === 'start') {
+      setActiveLevelId('w1-01');
+      setCurrentRoute('game');
+    } else {
+      setCurrentRoute(progress.completedLevels.length > 0 ? 'world-map' : 'welcome');
+    }
   };
 
   return (
@@ -79,7 +92,10 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
         <WelcomeScreen
           progress={progress}
           onPlay={handleStartPlay}
-          onChooseRobot={() => setCurrentRoute('robot-picker')}
+          onChooseRobot={() => {
+            setPickerIntent('return');
+            setCurrentRoute('robot-picker');
+          }}
           onOpenSettings={() => setIsSettingsOpen(true)}
         />
       )}
@@ -87,17 +103,11 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
       {currentRoute === 'robot-picker' && (
         <RobotPicker
           selectedRobotId={progress.selectedRobotId}
+          confirmLabel={pickerIntent === 'start' ? "Let's Go! →" : 'Save Choice'}
           onSelectRobot={(robotId) => {
             handleUpdateProgress({ ...progress, selectedRobotId: robotId });
           }}
-          onConfirm={() => {
-            // Return to previous or go to world map
-            if (progress.completedLevels.length > 0) {
-              setCurrentRoute('world-map');
-            } else {
-              setCurrentRoute('welcome');
-            }
-          }}
+          onConfirm={handlePickerConfirm}
         />
       )}
 
@@ -105,7 +115,10 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
         <WorldMap
           progress={progress}
           onSelectLevel={handleSelectLevel}
-          onOpenRobotPicker={() => setCurrentRoute('robot-picker')}
+          onOpenRobotPicker={() => {
+            setPickerIntent('return');
+            setCurrentRoute('robot-picker');
+          }}
           onOpenSettings={() => setIsSettingsOpen(true)}
         />
       )}

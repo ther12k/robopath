@@ -21,15 +21,12 @@ async function runJourney(engine, browserFactory, screenshotPrefix) {
     await page.waitForSelector('text=Robo Paths');
     await page.screenshot({ path: `qa/screenshots/${screenshotPrefix}-welcome.png` });
 
-    // 2. Robot Selection
-    await page.click('text=Choose Another Robot');
+    // 2. First-time flow: Start Playing → robot selection (RPUX-006)
+    await page.click('button:has-text("Start Playing!")');
     await page.waitForSelector('text=Choose Your Robot');
     await page.screenshot({ path: `qa/screenshots/${screenshotPrefix}-robot-picker.png` });
     await page.click('button:has-text("Mochi")');
     await page.click("button:has-text(\"Let's Go!\")");
-
-    // 3. Start Level 1 and dismiss tutorial
-    await page.click('button:has-text("Start Playing!")');
     await page.waitForSelector('text=First steps');
     const tryItBtn = await page.waitForSelector('button:has-text("Try It!")', { timeout: 8000 });
     await tryItBtn.click();

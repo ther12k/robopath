@@ -14,12 +14,13 @@ async function journey(viewport, tag) {
   await page.waitForSelector('text=Robo Paths');
   await page.screenshot({ path: `qa/screenshots/polish-${tag}-welcome.png` });
 
-  await page.click('text=Choose Another Robot');
+  // First-time flow: Start Playing → robot selection → first puzzle
+  await page.click('button:has-text("Start Playing!")');
   await page.waitForSelector('text=Choose Your Robot');
   await page.screenshot({ path: `qa/screenshots/polish-${tag}-picker.png` });
+  await page.click('button:has-text("Mochi")');
   await page.click("button:has-text(\"Let's Go!\")");
 
-  await page.click('button:has-text("Start Playing!")');
   await page.waitForSelector('text=First steps');
   const t = await page.waitForSelector('button:has-text("Try It!")', { timeout: 8000 });
   await t.click();
