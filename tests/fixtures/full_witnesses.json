@@ -1735,7 +1735,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -1743,11 +1743,11 @@
       },
       {
         "id": "c-2",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
@@ -1755,30 +1755,14 @@
       },
       {
         "id": "c-5",
-        "op": "forward"
-      },
-      {
-        "id": "c-6",
         "op": "left"
       },
       {
+        "id": "c-6",
+        "op": "forward"
+      },
+      {
         "id": "c-7",
-        "op": "forward"
-      },
-      {
-        "id": "c-8",
-        "op": "forward"
-      },
-      {
-        "id": "c-9",
-        "op": "right"
-      },
-      {
-        "id": "c-10",
-        "op": "forward"
-      },
-      {
-        "id": "c-11",
         "op": "forward"
       }
     ]
@@ -1801,11 +1785,11 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
@@ -1813,26 +1797,10 @@
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
-        "op": "forward"
-      },
-      {
-        "id": "c-8",
-        "op": "forward"
-      },
-      {
-        "id": "c-9",
-        "op": "right"
-      },
-      {
-        "id": "c-10",
-        "op": "forward"
-      },
-      {
-        "id": "c-11",
         "op": "forward"
       }
     ]
@@ -1843,7 +1811,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -1855,19 +1823,19 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
@@ -1875,11 +1843,11 @@
       },
       {
         "id": "c-8",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-9",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-10",
@@ -1887,6 +1855,38 @@
       },
       {
         "id": "c-11",
+        "op": "right"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "forward"
+      },
+      {
+        "id": "c-14",
+        "op": "left"
+      },
+      {
+        "id": "c-15",
+        "op": "left"
+      },
+      {
+        "id": "c-16",
+        "op": "forward"
+      },
+      {
+        "id": "c-17",
+        "op": "forward"
+      },
+      {
+        "id": "c-18",
+        "op": "forward"
+      },
+      {
+        "id": "c-19",
         "op": "forward"
       }
     ]
@@ -1897,7 +1897,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -1909,11 +1909,11 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-5",
@@ -1921,26 +1921,14 @@
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-8",
-        "op": "forward"
-      },
-      {
-        "id": "c-9",
-        "op": "right"
-      },
-      {
-        "id": "c-10",
-        "op": "forward"
-      },
-      {
-        "id": "c-11",
         "op": "forward"
       }
     ]
@@ -1951,7 +1939,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -1963,11 +1951,11 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-5",
@@ -1975,7 +1963,7 @@
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
@@ -1995,6 +1983,38 @@
       },
       {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "forward"
+      },
+      {
+        "id": "c-14",
+        "op": "left"
+      },
+      {
+        "id": "c-15",
+        "op": "left"
+      },
+      {
+        "id": "c-16",
+        "op": "forward"
+      },
+      {
+        "id": "c-17",
+        "op": "forward"
+      },
+      {
+        "id": "c-18",
+        "op": "left"
+      },
+      {
+        "id": "c-19",
         "op": "forward"
       }
     ]
@@ -2013,11 +2033,11 @@
       },
       {
         "id": "c-2",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
@@ -2037,18 +2057,50 @@
       },
       {
         "id": "c-8",
-        "op": "forward"
-      },
-      {
-        "id": "c-9",
         "op": "right"
       },
       {
-        "id": "c-10",
+        "id": "c-9",
         "op": "forward"
       },
       {
+        "id": "c-10",
+        "op": "right"
+      },
+      {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "forward"
+      },
+      {
+        "id": "c-14",
+        "op": "right"
+      },
+      {
+        "id": "c-15",
+        "op": "forward"
+      },
+      {
+        "id": "c-16",
+        "op": "forward"
+      },
+      {
+        "id": "c-17",
+        "op": "forward"
+      },
+      {
+        "id": "c-18",
+        "op": "left"
+      },
+      {
+        "id": "c-19",
         "op": "forward"
       }
     ]
@@ -2059,7 +2111,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -2071,7 +2123,7 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
@@ -2083,26 +2135,6 @@
       },
       {
         "id": "c-6",
-        "op": "left"
-      },
-      {
-        "id": "c-7",
-        "op": "forward"
-      },
-      {
-        "id": "c-8",
-        "op": "forward"
-      },
-      {
-        "id": "c-9",
-        "op": "right"
-      },
-      {
-        "id": "c-10",
-        "op": "forward"
-      },
-      {
-        "id": "c-11",
         "op": "forward"
       }
     ]
@@ -2113,7 +2145,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "left"
       },
       {
         "id": "c-1",
@@ -2125,19 +2157,19 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
@@ -2145,11 +2177,11 @@
       },
       {
         "id": "c-8",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-9",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-10",
@@ -2157,6 +2189,22 @@
       },
       {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "left"
+      },
+      {
+        "id": "c-14",
+        "op": "forward"
+      },
+      {
+        "id": "c-15",
         "op": "forward"
       }
     ]
@@ -2167,7 +2215,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "left"
       },
       {
         "id": "c-1",
@@ -2175,11 +2223,11 @@
       },
       {
         "id": "c-2",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
@@ -2191,26 +2239,14 @@
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
-        "op": "forward"
-      },
-      {
-        "id": "c-8",
-        "op": "forward"
-      },
-      {
-        "id": "c-9",
         "op": "right"
       },
       {
-        "id": "c-10",
-        "op": "forward"
-      },
-      {
-        "id": "c-11",
+        "id": "c-8",
         "op": "forward"
       }
     ]
@@ -2221,7 +2257,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -2237,7 +2273,7 @@
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
@@ -2257,7 +2293,7 @@
       },
       {
         "id": "c-9",
-        "op": "right"
+        "op": "left"
       },
       {
         "id": "c-10",
@@ -2265,6 +2301,10 @@
       },
       {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
         "op": "forward"
       }
     ]
@@ -2275,7 +2315,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -2287,19 +2327,19 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
@@ -2307,11 +2347,11 @@
       },
       {
         "id": "c-8",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-9",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-10",
@@ -2319,6 +2359,26 @@
       },
       {
         "id": "c-11",
+        "op": "left"
+      },
+      {
+        "id": "c-12",
+        "op": "left"
+      },
+      {
+        "id": "c-13",
+        "op": "forward"
+      },
+      {
+        "id": "c-14",
+        "op": "forward"
+      },
+      {
+        "id": "c-15",
+        "op": "forward"
+      },
+      {
+        "id": "c-16",
         "op": "forward"
       }
     ]
@@ -2341,11 +2401,11 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
@@ -2373,6 +2433,54 @@
       },
       {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "right"
+      },
+      {
+        "id": "c-14",
+        "op": "forward"
+      },
+      {
+        "id": "c-15",
+        "op": "forward"
+      },
+      {
+        "id": "c-16",
+        "op": "forward"
+      },
+      {
+        "id": "c-17",
+        "op": "left"
+      },
+      {
+        "id": "c-18",
+        "op": "forward"
+      },
+      {
+        "id": "c-19",
+        "op": "left"
+      },
+      {
+        "id": "c-20",
+        "op": "forward"
+      },
+      {
+        "id": "c-21",
+        "op": "left"
+      },
+      {
+        "id": "c-22",
+        "op": "forward"
+      },
+      {
+        "id": "c-23",
         "op": "forward"
       }
     ]
@@ -2383,7 +2491,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -2391,15 +2499,15 @@
       },
       {
         "id": "c-2",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
@@ -2407,11 +2515,11 @@
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
-        "op": "forward"
+        "op": "right"
       },
       {
         "id": "c-8",
@@ -2419,14 +2527,18 @@
       },
       {
         "id": "c-9",
-        "op": "right"
-      },
-      {
-        "id": "c-10",
         "op": "forward"
       },
       {
+        "id": "c-10",
+        "op": "left"
+      },
+      {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
         "op": "forward"
       }
     ]
@@ -2449,11 +2561,11 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
@@ -2461,7 +2573,7 @@
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
@@ -2473,14 +2585,22 @@
       },
       {
         "id": "c-9",
-        "op": "right"
-      },
-      {
-        "id": "c-10",
         "op": "forward"
       },
       {
+        "id": "c-10",
+        "op": "left"
+      },
+      {
         "id": "c-11",
+        "op": "forward"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
         "op": "forward"
       }
     ]
@@ -2491,7 +2611,7 @@
     "commands": [
       {
         "id": "c-0",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-1",
@@ -2503,19 +2623,19 @@
       },
       {
         "id": "c-3",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-4",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-5",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-6",
-        "op": "left"
+        "op": "forward"
       },
       {
         "id": "c-7",
@@ -2523,11 +2643,11 @@
       },
       {
         "id": "c-8",
-        "op": "forward"
+        "op": "left"
       },
       {
         "id": "c-9",
-        "op": "right"
+        "op": "forward"
       },
       {
         "id": "c-10",
@@ -2535,6 +2655,38 @@
       },
       {
         "id": "c-11",
+        "op": "right"
+      },
+      {
+        "id": "c-12",
+        "op": "forward"
+      },
+      {
+        "id": "c-13",
+        "op": "forward"
+      },
+      {
+        "id": "c-14",
+        "op": "left"
+      },
+      {
+        "id": "c-15",
+        "op": "left"
+      },
+      {
+        "id": "c-16",
+        "op": "forward"
+      },
+      {
+        "id": "c-17",
+        "op": "forward"
+      },
+      {
+        "id": "c-18",
+        "op": "forward"
+      },
+      {
+        "id": "c-19",
         "op": "forward"
       }
     ]

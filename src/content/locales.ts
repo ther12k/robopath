@@ -66,6 +66,10 @@ export const LOCALES_EN: Record<string, string> = {
   'level.w1-06.hint.3': 'Turn Right, Forward, Turn Left, Forward, Forward, Turn Left, Forward, Turn Right.',
 };
 
+import { LOCALES_DATA } from './localesData';
+
+const ALL_LOCALES: Record<string, string> = { ...LOCALES_DATA, ...LOCALES_EN };
+
 export function t(key: string): string {
-  return LOCALES_EN[key] || key;
+  return ALL_LOCALES[key] || key;
 }

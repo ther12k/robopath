@@ -5267,39 +5267,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-01.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 3,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
           "x": 1,
           "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 1,
-          "y": 3
         },
         {
           "x": 2,
@@ -5314,48 +5290,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 2
         },
         {
-          "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
-          "y": 1
-        },
-        {
           "x": 3,
           "y": 2
         },
         {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
           "x": 4,
           "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -5364,33 +5307,18 @@ export const ALL_60_LEVELS: readonly Level[] = [
     },
     "goal": {
       "x": 4,
-      "y": 0
+      "y": 2
     },
     "collectibles": [
       {
-        "id": "b-1",
-        "x": 2,
+        "id": "b1",
+        "x": 3,
         "y": 2,
         "kind": "required"
       }
     ],
-    "gates": [
-      {
-        "id": "g-1",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-1",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-1"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -5398,15 +5326,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 12,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 8
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "transfer",
+      "archetype": "two-islands-bridge",
       "difficulty": 3
     },
     "hintKeys": [
@@ -5424,7 +5352,7 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 2,
     "titleKey": "level.w4-02.title",
     "board": {
-      "width": 5,
+      "width": 4,
       "height": 4,
       "tiles": [
         {
@@ -5449,27 +5377,11 @@ export const ALL_60_LEVELS: readonly Level[] = [
         },
         {
           "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 1,
           "y": 3
         },
         {
           "x": 2,
           "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
-        },
-        {
-          "x": 2,
-          "y": 2
         },
         {
           "x": 2,
@@ -5489,31 +5401,10 @@ export const ALL_60_LEVELS: readonly Level[] = [
         },
         {
           "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
-          "x": 4,
-          "y": 2
-        },
-        {
-          "x": 4,
           "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -5521,34 +5412,19 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 3,
+      "y": 3
     },
     "collectibles": [
       {
-        "id": "b-2",
-        "x": 2,
-        "y": 2,
-        "kind": "required"
-      }
-    ],
-    "gates": [
-      {
-        "id": "g-2",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-2",
+        "id": "s1",
         "x": 0,
-        "y": 2,
-        "opens": [
-          "g-2"
-        ]
+        "y": 3,
+        "kind": "bonus"
       }
     ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -5556,15 +5432,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 12,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 8
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "bonus-ordering",
+      "archetype": "ring-perimeter",
       "difficulty": 3
     },
     "hintKeys": [
@@ -5583,95 +5459,54 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-03.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 3,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 1
+        },
+        {
           "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
           "y": 2
         },
         {
           "x": 1,
-          "y": 3
-        },
-        {
-          "x": 2,
-          "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
+          "y": 2
         },
         {
           "x": 2,
           "y": 2
         },
         {
-          "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
-          "y": 1
-        },
-        {
           "x": 3,
           "y": 2
         },
         {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
           "x": 4,
           "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -5680,30 +5515,30 @@ export const ALL_60_LEVELS: readonly Level[] = [
     },
     "goal": {
       "x": 4,
-      "y": 0
+      "y": 2
     },
     "collectibles": [
       {
-        "id": "b-3",
-        "x": 2,
-        "y": 2,
-        "kind": "required"
+        "id": "s1",
+        "x": 4,
+        "y": 0,
+        "kind": "bonus"
       }
     ],
     "gates": [
       {
-        "id": "g-3",
+        "id": "g1",
         "x": 3,
-        "y": 0
+        "y": 2
       }
     ],
     "switches": [
       {
-        "id": "sw-3",
+        "id": "sw1",
         "x": 0,
         "y": 2,
         "opens": [
-          "g-3"
+          "g1"
         ]
       }
     ],
@@ -5714,15 +5549,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 22,
+      "maxActions": 24
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 20
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "gate-transfer",
+      "archetype": "spur-switch",
       "difficulty": 3
     },
     "hintKeys": [
@@ -5740,96 +5575,67 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 4,
     "titleKey": "level.w4-04.title",
     "board": {
-      "width": 5,
-      "height": 4,
+      "width": 6,
+      "height": 3,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
           "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
           "y": 2
         },
         {
           "x": 1,
-          "y": 3
-        },
-        {
-          "x": 2,
-          "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
+          "y": 2
         },
         {
           "x": 2,
           "y": 2
         },
         {
-          "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
-          "y": 1
-        },
-        {
           "x": 3,
           "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
         },
         {
           "x": 4,
           "y": 2
         },
         {
+          "x": 5,
+          "y": 2
+        },
+        {
+          "x": 1,
+          "y": 1
+        },
+        {
           "x": 4,
-          "y": 3
+          "y": 1
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -5837,31 +5643,44 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 5,
+      "y": 2
     },
     "collectibles": [
       {
-        "id": "b-4",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 3,
+        "y": 0,
         "kind": "required"
       }
     ],
     "gates": [
       {
-        "id": "g-4",
-        "x": 3,
-        "y": 0
+        "id": "g1",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "id": "g2",
+        "x": 4,
+        "y": 2
       }
     ],
     "switches": [
       {
-        "id": "sw-4",
-        "x": 0,
-        "y": 2,
+        "id": "sw1",
+        "x": 1,
+        "y": 1,
         "opens": [
-          "g-4"
+          "g1"
+        ]
+      },
+      {
+        "id": "sw2",
+        "x": 4,
+        "y": 1,
+        "opens": [
+          "g2"
         ]
       }
     ],
@@ -5872,15 +5691,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 12,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 9
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "switch-ordering",
+      "archetype": "two-gates",
       "difficulty": 3
     },
     "hintKeys": [
@@ -5899,47 +5718,71 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-05.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 5,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 1
+        },
+        {
+          "x": 4,
+          "y": 2
+        },
+        {
+          "x": 4,
+          "y": 3
+        },
+        {
+          "x": 4,
+          "y": 4
+        },
+        {
+          "x": 3,
+          "y": 4
+        },
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 1,
+          "y": 4
+        },
+        {
           "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
+          "y": 4
         },
         {
           "x": 0,
           "y": 3
         },
         {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
+          "x": 0,
           "y": 2
         },
         {
           "x": 1,
-          "y": 3
-        },
-        {
-          "x": 2,
-          "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
+          "y": 2
         },
         {
           "x": 2,
@@ -5947,47 +5790,10 @@ export const ALL_60_LEVELS: readonly Level[] = [
         },
         {
           "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
-          "y": 1
-        },
-        {
-          "x": 3,
-          "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
-          "x": 4,
-          "y": 2
-        },
-        {
-          "x": 4,
           "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -5995,34 +5801,19 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 2,
+      "y": 3
     },
     "collectibles": [
       {
-        "id": "b-5",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 0,
+        "y": 4,
         "kind": "required"
       }
     ],
-    "gates": [
-      {
-        "id": "g-5",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-5",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-5"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -6030,15 +5821,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 22,
+      "maxActions": 24
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 20
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "route-planning",
+      "archetype": "spiral-inward",
       "difficulty": 3
     },
     "hintKeys": [
@@ -6057,7 +5848,7 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-06.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 5,
       "tiles": [
         {
           "x": 0,
@@ -6068,84 +5859,79 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 1
         },
         {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 1,
+          "y": 1
+        },
+        {
+          "x": 2,
+          "y": 1
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 1
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 1
+        },
+        {
+          "x": 4,
+          "y": 2
+        },
+        {
+          "x": 3,
+          "y": 3
+        },
+        {
+          "x": 3,
+          "y": 4
+        },
+        {
+          "x": 4,
+          "y": 3
+        },
+        {
+          "x": 4,
+          "y": 4
+        },
+        {
+          "x": 2,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 3
+        },
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 1,
+          "y": 3
+        },
+        {
+          "x": 1,
+          "y": 4
+        },
+        {
           "x": 0,
           "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 1,
-          "y": 3
-        },
-        {
-          "x": 2,
-          "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
-        },
-        {
-          "x": 2,
-          "y": 2
-        },
-        {
-          "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
-          "y": 1
-        },
-        {
-          "x": 3,
-          "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
-          "x": 4,
-          "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -6153,34 +5939,19 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 1,
+      "y": 4
     },
     "collectibles": [
       {
-        "id": "b-6",
-        "x": 2,
-        "y": 2,
-        "kind": "required"
+        "id": "s1",
+        "x": 4,
+        "y": 0,
+        "kind": "bonus"
       }
     ],
-    "gates": [
-      {
-        "id": "g-6",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-6",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-6"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -6188,15 +5959,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 22,
+      "maxActions": 24
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 20
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "multi-island",
+      "archetype": "zigzag-bridges",
       "difficulty": 3
     },
     "hintKeys": [
@@ -6214,96 +5985,43 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 7,
     "titleKey": "level.w4-07.title",
     "board": {
-      "width": 5,
-      "height": 4,
+      "width": 8,
+      "height": 1,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
           "x": 1,
           "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 1,
-          "y": 3
         },
         {
           "x": 2,
           "y": 0
         },
         {
-          "x": 2,
-          "y": 1
-        },
-        {
-          "x": 2,
-          "y": 2
-        },
-        {
-          "x": 2,
-          "y": 3
-        },
-        {
           "x": 3,
           "y": 0
-        },
-        {
-          "x": 3,
-          "y": 1
-        },
-        {
-          "x": 3,
-          "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
         },
         {
           "x": 4,
           "y": 0
         },
         {
-          "x": 4,
-          "y": 1
+          "x": 5,
+          "y": 0
         },
         {
-          "x": 4,
-          "y": 2
+          "x": 6,
+          "y": 0
         },
         {
-          "x": 4,
-          "y": 3
+          "x": 7,
+          "y": 0
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -6311,34 +6029,19 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
+      "x": 7,
       "y": 0
     },
     "collectibles": [
       {
-        "id": "b-7",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 3,
+        "y": 0,
         "kind": "required"
       }
     ],
-    "gates": [
-      {
-        "id": "g-7",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-7",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-7"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -6346,15 +6049,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 12,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 7
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "repeat-synthesis",
+      "archetype": "long-corridor",
       "difficulty": 3
     },
     "hintKeys": [
@@ -6458,14 +6161,22 @@ export const ALL_60_LEVELS: readonly Level[] = [
       ],
       "walls": [
         {
-          "x": 4,
-          "y": 3
+          "x": 1,
+          "y": 1
+        },
+        {
+          "x": 3,
+          "y": 1
+        },
+        {
+          "x": 3,
+          "y": 0
         }
       ]
     },
     "start": {
       "x": 0,
-      "y": 0,
+      "y": 3,
       "facing": "E"
     },
     "goal": {
@@ -6474,26 +6185,26 @@ export const ALL_60_LEVELS: readonly Level[] = [
     },
     "collectibles": [
       {
-        "id": "b-8",
-        "x": 2,
-        "y": 2,
-        "kind": "required"
+        "id": "s1",
+        "x": 0,
+        "y": 0,
+        "kind": "bonus"
       }
     ],
     "gates": [
       {
-        "id": "g-8",
-        "x": 3,
-        "y": 0
+        "id": "g1",
+        "x": 4,
+        "y": 1
       }
     ],
     "switches": [
       {
-        "id": "sw-8",
-        "x": 0,
+        "id": "sw1",
+        "x": 2,
         "y": 2,
         "opens": [
-          "g-8"
+          "g1"
         ]
       }
     ],
@@ -6505,14 +6216,14 @@ export const ALL_60_LEVELS: readonly Level[] = [
     ],
     "limits": {
       "maxBlocks": 18,
-      "maxActions": 26
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 16
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "gate-maze",
+      "archetype": "corner-gate",
       "difficulty": 3
     },
     "hintKeys": [
@@ -6531,7 +6242,7 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-09.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 3,
       "tiles": [
         {
           "x": 0,
@@ -6546,10 +6257,6 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 2
         },
         {
-          "x": 0,
-          "y": 3
-        },
-        {
           "x": 1,
           "y": 0
         },
@@ -6560,10 +6267,6 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 1,
           "y": 2
-        },
-        {
-          "x": 1,
-          "y": 3
         },
         {
           "x": 2,
@@ -6578,10 +6281,6 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 2
         },
         {
-          "x": 2,
-          "y": 3
-        },
-        {
           "x": 3,
           "y": 0
         },
@@ -6594,10 +6293,6 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 2
         },
         {
-          "x": 3,
-          "y": 3
-        },
-        {
           "x": 4,
           "y": 0
         },
@@ -6608,53 +6303,29 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 4,
           "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
-      "y": 0,
+      "y": 1,
       "facing": "E"
     },
     "goal": {
       "x": 4,
-      "y": 0
+      "y": 1
     },
     "collectibles": [
       {
-        "id": "b-9",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 4,
+        "y": 0,
         "kind": "required"
       }
     ],
-    "gates": [
-      {
-        "id": "g-9",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-9",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-9"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -6662,15 +6333,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 12,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 9
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "backtracking",
+      "archetype": "dead-end-spur",
       "difficulty": 3
     },
     "hintKeys": [
@@ -6688,96 +6359,63 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 10,
     "titleKey": "level.w4-10.title",
     "board": {
-      "width": 5,
-      "height": 4,
+      "width": 6,
+      "height": 3,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
           "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
           "y": 2
         },
         {
           "x": 1,
-          "y": 3
-        },
-        {
-          "x": 2,
-          "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
+          "y": 2
         },
         {
           "x": 2,
           "y": 2
         },
         {
+          "x": 3,
+          "y": 2
+        },
+        {
+          "x": 4,
+          "y": 2
+        },
+        {
+          "x": 5,
+          "y": 2
+        },
+        {
           "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
           "y": 1
-        },
-        {
-          "x": 3,
-          "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
-          "x": 4,
-          "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -6785,31 +6423,37 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 5,
+      "y": 2
     },
     "collectibles": [
       {
-        "id": "b-10",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 3,
+        "y": 0,
         "kind": "required"
       }
     ],
     "gates": [
       {
-        "id": "g-10",
+        "id": "g1",
         "x": 3,
-        "y": 0
+        "y": 2
+      },
+      {
+        "id": "g2",
+        "x": 4,
+        "y": 2
       }
     ],
     "switches": [
       {
-        "id": "sw-10",
-        "x": 0,
-        "y": 2,
+        "id": "sw1",
+        "x": 2,
+        "y": 1,
         "opens": [
-          "g-10"
+          "g1",
+          "g2"
         ]
       }
     ],
@@ -6820,15 +6464,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 15,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 13
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "multi-gate",
+      "archetype": "one-switch-two-gates",
       "difficulty": 3
     },
     "hintKeys": [
@@ -6847,41 +6491,9 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-11.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 5,
       "tiles": [
         {
-          "x": 0,
-          "y": 0
-        },
-        {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 1,
-          "y": 3
-        },
-        {
           "x": 2,
           "y": 0
         },
@@ -6898,79 +6510,53 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 3
         },
         {
-          "x": 3,
-          "y": 0
+          "x": 2,
+          "y": 4
         },
         {
-          "x": 3,
-          "y": 1
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 1,
+          "y": 2
         },
         {
           "x": 3,
           "y": 2
         },
         {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
           "x": 4,
           "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
-      "x": 0,
+      "x": 2,
       "y": 0,
-      "facing": "E"
+      "facing": "S"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 0,
+      "y": 2
     },
     "collectibles": [
       {
-        "id": "b-11",
+        "id": "b1",
         "x": 2,
-        "y": 2,
+        "y": 4,
         "kind": "required"
-      }
-    ],
-    "gates": [
+      },
       {
-        "id": "g-11",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-11",
-        "x": 0,
+        "id": "s1",
+        "x": 4,
         "y": 2,
-        "opens": [
-          "g-11"
-        ]
+        "kind": "bonus"
       }
     ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -6978,15 +6564,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 19,
+      "maxActions": 21
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 17
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "ordering",
+      "archetype": "plus-shape",
       "difficulty": 3
     },
     "hintKeys": [
@@ -7004,8 +6590,8 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 12,
     "titleKey": "level.w4-12.title",
     "board": {
-      "width": 5,
-      "height": 4,
+      "width": 6,
+      "height": 5,
       "tiles": [
         {
           "x": 0,
@@ -7024,6 +6610,10 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 3
         },
         {
+          "x": 0,
+          "y": 4
+        },
+        {
           "x": 1,
           "y": 0
         },
@@ -7038,6 +6628,10 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 1,
           "y": 3
+        },
+        {
+          "x": 1,
+          "y": 4
         },
         {
           "x": 2,
@@ -7056,6 +6650,10 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 3
         },
         {
+          "x": 2,
+          "y": 4
+        },
+        {
           "x": 3,
           "y": 0
         },
@@ -7072,6 +6670,10 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 3
         },
         {
+          "x": 3,
+          "y": 4
+        },
+        {
           "x": 4,
           "y": 0
         },
@@ -7086,12 +6688,52 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 4,
           "y": 3
+        },
+        {
+          "x": 4,
+          "y": 4
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 1
+        },
+        {
+          "x": 5,
+          "y": 2
+        },
+        {
+          "x": 5,
+          "y": 3
+        },
+        {
+          "x": 5,
+          "y": 4
         }
       ],
       "walls": [
         {
-          "x": 4,
+          "x": 2,
+          "y": 2
+        },
+        {
+          "x": 3,
+          "y": 2
+        },
+        {
+          "x": 2,
           "y": 3
+        },
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 3,
+          "y": 4
         }
       ]
     },
@@ -7101,31 +6743,31 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 3,
+      "y": 3
     },
     "collectibles": [
       {
-        "id": "b-12",
-        "x": 2,
-        "y": 2,
-        "kind": "required"
+        "id": "s1",
+        "x": 5,
+        "y": 4,
+        "kind": "bonus"
       }
     ],
     "gates": [
       {
-        "id": "g-12",
-        "x": 3,
-        "y": 0
+        "id": "g1",
+        "x": 4,
+        "y": 3
       }
     ],
     "switches": [
       {
-        "id": "sw-12",
-        "x": 0,
-        "y": 2,
+        "id": "sw1",
+        "x": 1,
+        "y": 3,
         "opens": [
-          "g-12"
+          "g1"
         ]
       }
     ],
@@ -7136,15 +6778,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 26,
+      "maxActions": 28
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 24
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "ring-gate",
+      "archetype": "ring-inner-chamber",
       "difficulty": 3
     },
     "hintKeys": [
@@ -7162,7 +6804,7 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 13,
     "titleKey": "level.w4-13.title",
     "board": {
-      "width": 5,
+      "width": 7,
       "height": 4,
       "tiles": [
         {
@@ -7170,32 +6812,8 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 0
         },
         {
-          "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
           "x": 1,
           "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
-          "y": 2
-        },
-        {
-          "x": 1,
-          "y": 3
         },
         {
           "x": 2,
@@ -7206,32 +6824,8 @@ export const ALL_60_LEVELS: readonly Level[] = [
           "y": 1
         },
         {
-          "x": 2,
-          "y": 2
-        },
-        {
-          "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
           "x": 3,
           "y": 1
-        },
-        {
-          "x": 3,
-          "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
         },
         {
           "x": 4,
@@ -7244,14 +6838,21 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 4,
           "y": 3
+        },
+        {
+          "x": 5,
+          "y": 3
+        },
+        {
+          "x": 6,
+          "y": 3
+        },
+        {
+          "x": 3,
+          "y": 2
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -7259,34 +6860,19 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
-      "y": 0
+      "x": 6,
+      "y": 3
     },
     "collectibles": [
       {
-        "id": "b-13",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 4,
+        "y": 1,
         "kind": "required"
       }
     ],
-    "gates": [
-      {
-        "id": "g-13",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-13",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-13"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -7294,15 +6880,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 15,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 13
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "island-chain",
+      "archetype": "staircase-islands",
       "difficulty": 3
     },
     "hintKeys": [
@@ -7320,7 +6906,7 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "ordinal": 14,
     "titleKey": "level.w4-14.title",
     "board": {
-      "width": 5,
+      "width": 6,
       "height": 4,
       "tiles": [
         {
@@ -7402,12 +6988,36 @@ export const ALL_60_LEVELS: readonly Level[] = [
         {
           "x": 4,
           "y": 3
+        },
+        {
+          "x": 5,
+          "y": 0
+        },
+        {
+          "x": 5,
+          "y": 1
+        },
+        {
+          "x": 5,
+          "y": 2
+        },
+        {
+          "x": 5,
+          "y": 3
         }
       ],
       "walls": [
         {
-          "x": 4,
-          "y": 3
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 1
+        },
+        {
+          "x": 2,
+          "y": 2
         }
       ]
     },
@@ -7417,34 +7027,19 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "facing": "E"
     },
     "goal": {
-      "x": 4,
+      "x": 5,
       "y": 0
     },
     "collectibles": [
       {
-        "id": "b-14",
-        "x": 2,
-        "y": 2,
-        "kind": "required"
+        "id": "s1",
+        "x": 5,
+        "y": 3,
+        "kind": "bonus"
       }
     ],
-    "gates": [
-      {
-        "id": "g-14",
-        "x": 3,
-        "y": 0
-      }
-    ],
-    "switches": [
-      {
-        "id": "sw-14",
-        "x": 0,
-        "y": 2,
-        "opens": [
-          "g-14"
-        ]
-      }
-    ],
+    "gates": [],
+    "switches": [],
     "commands": [
       "forward",
       "left",
@@ -7452,15 +7047,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 16,
+      "maxActions": 20
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 14
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "walled-detour",
+      "archetype": "perimeter-detour",
       "difficulty": 3
     },
     "hintKeys": [
@@ -7479,95 +7074,54 @@ export const ALL_60_LEVELS: readonly Level[] = [
     "titleKey": "level.w4-15.title",
     "board": {
       "width": 5,
-      "height": 4,
+      "height": 3,
       "tiles": [
         {
           "x": 0,
           "y": 0
         },
         {
+          "x": 1,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 3,
+          "y": 0
+        },
+        {
+          "x": 4,
+          "y": 0
+        },
+        {
           "x": 0,
-          "y": 1
-        },
-        {
-          "x": 0,
-          "y": 2
-        },
-        {
-          "x": 0,
-          "y": 3
-        },
-        {
-          "x": 1,
-          "y": 0
-        },
-        {
-          "x": 1,
-          "y": 1
-        },
-        {
-          "x": 1,
           "y": 2
         },
         {
           "x": 1,
-          "y": 3
-        },
-        {
-          "x": 2,
-          "y": 0
-        },
-        {
-          "x": 2,
-          "y": 1
+          "y": 2
         },
         {
           "x": 2,
           "y": 2
         },
         {
+          "x": 3,
+          "y": 2
+        },
+        {
+          "x": 4,
+          "y": 2
+        },
+        {
           "x": 2,
-          "y": 3
-        },
-        {
-          "x": 3,
-          "y": 0
-        },
-        {
-          "x": 3,
           "y": 1
-        },
-        {
-          "x": 3,
-          "y": 2
-        },
-        {
-          "x": 3,
-          "y": 3
-        },
-        {
-          "x": 4,
-          "y": 0
-        },
-        {
-          "x": 4,
-          "y": 1
-        },
-        {
-          "x": 4,
-          "y": 2
-        },
-        {
-          "x": 4,
-          "y": 3
         }
       ],
-      "walls": [
-        {
-          "x": 4,
-          "y": 3
-        }
-      ]
+      "walls": []
     },
     "start": {
       "x": 0,
@@ -7576,30 +7130,49 @@ export const ALL_60_LEVELS: readonly Level[] = [
     },
     "goal": {
       "x": 4,
-      "y": 0
+      "y": 2
     },
     "collectibles": [
       {
-        "id": "b-15",
-        "x": 2,
-        "y": 2,
+        "id": "b1",
+        "x": 4,
+        "y": 0,
         "kind": "required"
+      },
+      {
+        "id": "s1",
+        "x": 0,
+        "y": 2,
+        "kind": "bonus"
       }
     ],
     "gates": [
       {
-        "id": "g-15",
+        "id": "g1",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "id": "g2",
         "x": 3,
-        "y": 0
+        "y": 2
       }
     ],
     "switches": [
       {
-        "id": "sw-15",
-        "x": 0,
+        "id": "sw1",
+        "x": 3,
+        "y": 0,
+        "opens": [
+          "g1"
+        ]
+      },
+      {
+        "id": "sw2",
+        "x": 2,
         "y": 2,
         "opens": [
-          "g-15"
+          "g2"
         ]
       }
     ],
@@ -7610,15 +7183,15 @@ export const ALL_60_LEVELS: readonly Level[] = [
       "repeat"
     ],
     "limits": {
-      "maxBlocks": 18,
-      "maxActions": 26
+      "maxBlocks": 22,
+      "maxActions": 24
     },
     "rating": {
-      "parBlocks": 12
+      "parBlocks": 20
     },
     "teaching": {
-      "concept": "synthesis",
-      "archetype": "floating-isle",
+      "concept": "full-synthesis",
+      "archetype": "grand-synthesis",
       "difficulty": 3
     },
     "hintKeys": [

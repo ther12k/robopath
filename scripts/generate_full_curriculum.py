@@ -7,6 +7,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # Load existing 12 levels
 levels = {}
 programs = {}
+TITLES = {}
+CONCEPTS = {}
 
 fixtures = json.loads((ROOT / 'examples/fixtures.json').read_text())
 for f in fixtures:
@@ -14,9 +16,17 @@ for f in fixtures:
     levels[lid] = json.loads((ROOT / 'examples' / f['level']).read_text())
     programs[lid] = json.loads((ROOT / 'examples' / f['program']).read_text())
 
+# Seed titles/concepts for the example levels from the curriculum brief
+for entry in json.loads((ROOT / 'examples/curriculum.json').read_text()):
+    if entry['id'] in levels:
+        TITLES[entry['id']] = entry['title']
+        CONCEPTS[entry['id']] = entry['concept'].lower()
+
 # Helper to create level
 def make_level(wid, num, title, concept, archetype, diff, w, h, tiles, walls, start, goal, collectibles, gates, switches, commands, maxBlocks, maxActions, parBlocks):
     lid = f"{wid}-{num:02d}"
+    TITLES[lid] = title
+    CONCEPTS[lid] = concept
     return {
         "schemaVersion": 1,
         "engineRulesVersion": 1,
@@ -240,19 +250,167 @@ l315_tiles = [(x, y) for x in range(5) for y in range(5)]
 levels['w3-15'] = make_level('w3', 15, "Crystal grove finale", "switch-gate-synthesis", "crystal-mastery", 3, 5, 5, l315_tiles, [(2,2)], {"x":0,"y":0,"facing":"E"}, {"x":4,"y":4}, [{"id":"b1","x":4,"y":0,"kind":"required"}], [{"id":"g1","x":4,"y":2}], [{"id":"sw1","x":2,"y":0,"opens":["g1"]}], ["forward","left","right","repeat"], 14, 24, 8)
 programs['w3-15'] = repeat_prog([(4, "F"), "R", (4, "F")])
 
-# ==================== WORLD 4 (01 to 15) ====================
-for n in range(1, 16):
-    lid = f"w4-{n:02d}"
-    tiles = [(x, y) for x in range(5) for y in range(4)]
-    walls = [(4, 3)]
-    start = {"x": 0, "y": 0, "facing": "E"}
-    goal = {"x": 4, "y": 0}
-    collectible = [{"id": f"b-{n}", "x": 2, "y": 2, "kind": "required"}]
-    gates = [{"id": f"g-{n}", "x": 3, "y": 0}]
-    switches = [{"id": f"sw-{n}", "x": 0, "y": 2, "opens": [f"g-{n}"]}]
-    cmds = ["forward", "left", "right", "repeat"]
-    levels[lid] = make_level('w4', n, f"Sky Isle {n}", "synthesis", "floating-isle", 3, 5, 4, tiles, walls, start, goal, collectible, gates, switches, cmds, 18, 26, 12)
-    programs[lid] = prim_prog("RFFLFFLFFRFF")
+# ==================== WORLD 4 (01 to 15) — structurally distinct Sky Isles ====================
+# A BFS solver derives a guaranteed-correct witness for each board: it searches over
+# (x, y, facing, collectedMask, openedGatesMask) so switch/gate latching and pickup
+# ordering are handled exactly like the runtime rules.
+DIRS = ['N', 'E', 'S', 'W']
+DELTAS = {'N': (0, -1), 'E': (1, 0), 'S': (0, 1), 'W': (-1, 0)}
+from collections import deque
+
+def solve_witness(level):
+    """BFS over (x, y, facing, collectedMask, openedGatesMask) using the exact
+    runtime rules (latched gates, auto-pickups). Returns a minimal primitive
+    witness that collects every collectible before entering the goal."""
+    tiles = {(t['x'], t['y']) for t in level['board']['tiles']}
+    walls = {(w['x'], w['y']) for w in level['board']['walls']}
+    walkable = tiles - walls
+    gates = {(g['x'], g['y']): g['id'] for g in level['gates']}
+    gate_ids = sorted(g['id'] for g in level['gates'])
+    gate_bit = {gid: i for i, gid in enumerate(gate_ids)}
+    switches = {(s['x'], s['y']): s for s in level['switches']}
+    pickups = {(c['x'], c['y']): c for c in level['collectibles']}
+    id_index = {c['id']: i for i, c in enumerate(level['collectibles'])}
+    all_collected = (1 << len(level['collectibles'])) - 1
+    goal = (level['goal']['x'], level['goal']['y'])
+
+    start = (level['start']['x'], level['start']['y'], level['start']['facing'], 0, 0)
+    prev = {start: None}
+    queue = deque([start])
+    while queue:
+        state = queue.popleft()
+        x, y, facing, cmask, omask = state
+        if (x, y) == goal and cmask == all_collected:
+            path = []
+            cur = state
+            while cur is not None:
+                path.append(cur)
+                cur = prev[cur]
+            path.reverse()
+            letters = []
+            for a, b in zip(path, path[1:]):
+                if a[2] != b[2]:
+                    delta = (DIRS.index(b[2]) - DIRS.index(a[2])) % 4
+                    letters.append('R' if delta == 1 else 'L')
+                else:
+                    letters.append('F')
+            return prim_prog(''.join(letters))
+        fi = DIRS.index(facing)
+        # Turn left / turn right (never blocked)
+        for new_facing, op in ((DIRS[(fi - 1) % 4], 'L'), (DIRS[(fi + 1) % 4], 'R')):
+            nxt = (x, y, new_facing, cmask, omask)
+            if nxt not in prev:
+                prev[nxt] = state
+                queue.append(nxt)
+        # Forward with wall/void/closed-gate rules
+        dx, dy = DELTAS[facing]
+        tgt = (x + dx, y + dy)
+        if tgt in walkable:
+            open_gates = {gate_ids[i] for i in range(len(gate_ids)) if omask & (1 << i)}
+            gate_at_target = gates.get(tgt)
+            if gate_at_target is None or gate_at_target in open_gates:
+                nmask, nomask = cmask, omask
+                if tgt in pickups:
+                    nmask |= 1 << id_index[pickups[tgt]['id']]
+                if tgt in switches:
+                    for gid in switches[tgt]['opens']:
+                        nomask |= 1 << gate_bit[gid]
+                nxt = (tgt[0], tgt[1], facing, nmask, nomask)
+                if nxt not in prev:
+                    prev[nxt] = state
+                    queue.append(nxt)
+    raise ValueError(f"No witness found for {level['id']}")
+
+def rect(x0, y0, x1, y1):
+    return [(x, y) for x in range(x0, x1 + 1) for y in range(y0, y1 + 1)]
+
+W4_DESIGNS = [
+    # (num, title, concept, archetype, w, h, tiles, walls, start, goal, collectibles, gates, switches)
+    (1, "Sky bridge", "transfer", "two-islands-bridge",
+     5, 3, rect(0,0,2,0) + [(2,1)] + rect(2,2,4,2),
+     [], {"x":0,"y":0,"facing":"E"}, {"x":4,"y":2},
+     [{"id":"b1","x":3,"y":2,"kind":"required"}], [], []),
+    (2, "Ring road", "bonus-ordering", "ring-perimeter",
+     4, 4, [t for t in rect(0,0,3,3) if t not in [(1,1),(2,1),(1,2),(2,2)]],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":3},
+     [{"id":"s1","x":0,"y":3,"kind":"bonus"}], [], []),
+    (3, "Switch island", "gate-transfer", "spur-switch",
+     5, 3, rect(0,0,4,0) + [(2,1)] + rect(0,2,4,2),
+     [], {"x":0,"y":0,"facing":"E"}, {"x":4,"y":2},
+     [{"id":"s1","x":4,"y":0,"kind":"bonus"}],
+     [{"id":"g1","x":3,"y":2}], [{"id":"sw1","x":0,"y":2,"opens":["g1"]}]),
+    (4, "Twin gates", "switch-ordering", "two-gates",
+     6, 3, rect(0,0,5,0) + rect(0,2,5,2) + [(1,1),(4,1)],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":5,"y":2},
+     [{"id":"b1","x":3,"y":0,"kind":"required"}],
+     [{"id":"g1","x":1,"y":2},{"id":"g2","x":4,"y":2}],
+     [{"id":"sw1","x":1,"y":1,"opens":["g1"]},{"id":"sw2","x":4,"y":1,"opens":["g2"]}]),
+    (5, "Spiral isle", "route-planning", "spiral-inward",
+     5, 5, [(0,0),(1,0),(2,0),(3,0),(4,0),(4,1),(4,2),(4,3),(4,4),(3,4),(2,4),(1,4),(0,4),(0,3),(0,2),(1,2),(2,2),(2,3)],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":2,"y":3},
+     [{"id":"b1","x":0,"y":4,"kind":"required"}], [], []),
+    (6, "Zigzag bridges", "multi-island", "zigzag-bridges",
+     5, 5, rect(0,0,1,1) + [(2,1)] + rect(3,0,4,1) + [(4,2)] + rect(3,3,4,4) + [(2,3)] + rect(0,3,1,4) + [(0,2)],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":1,"y":4},
+     [{"id":"s1","x":4,"y":0,"kind":"bonus"}], [], []),
+    (7, "Long stride", "repeat-synthesis", "long-corridor",
+     8, 1, rect(0,0,7,0),
+     [], {"x":0,"y":0,"facing":"E"}, {"x":7,"y":0},
+     [{"id":"b1","x":3,"y":0,"kind":"required"}], [], []),
+    (8, "Guarded corner", "gate-maze", "corner-gate",
+     5, 4, rect(0,0,4,3),
+     [(1,1),(3,1),(3,0)], {"x":0,"y":3,"facing":"E"}, {"x":4,"y":0},
+     [{"id":"s1","x":0,"y":0,"kind":"bonus"}],
+     [{"id":"g1","x":4,"y":1}], [{"id":"sw1","x":2,"y":2,"opens":["g1"]}]),
+    (9, "Backtrack isle", "backtracking", "dead-end-spur",
+     5, 3, rect(0,0,4,2),
+     [], {"x":0,"y":1,"facing":"E"}, {"x":4,"y":1},
+     [{"id":"b1","x":4,"y":0,"kind":"required"}], [], []),
+    (10, "Double switch", "multi-gate", "one-switch-two-gates",
+     6, 3, rect(0,0,5,0) + rect(0,2,5,2) + [(2,1)],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":5,"y":2},
+     [{"id":"b1","x":3,"y":0,"kind":"required"}],
+     [{"id":"g1","x":3,"y":2},{"id":"g2","x":4,"y":2}],
+     [{"id":"sw1","x":2,"y":1,"opens":["g1","g2"]}]),
+    (11, "Crossroads", "ordering", "plus-shape",
+     5, 5, list(dict.fromkeys(rect(2,0,2,4) + rect(0,2,4,2))),
+     [], {"x":2,"y":0,"facing":"S"}, {"x":0,"y":2},
+     [{"id":"b1","x":2,"y":4,"kind":"required"},{"id":"s1","x":4,"y":2,"kind":"bonus"}], [], []),
+    (12, "Perimeter patrol", "ring-gate", "ring-inner-chamber",
+     6, 5, rect(0,0,5,4),
+     [(2,2),(3,2),(2,3),(2,4),(3,4)], {"x":0,"y":0,"facing":"E"}, {"x":3,"y":3},
+     [{"id":"s1","x":5,"y":4,"kind":"bonus"}],
+     [{"id":"g1","x":4,"y":3}], [{"id":"sw1","x":1,"y":3,"opens":["g1"]}]),
+    (13, "Diagonal hops", "island-chain", "staircase-islands",
+     7, 4, rect(0,0,2,0) + [(2,1)] + rect(3,1,4,1) + [(4,2)] + rect(4,3,6,3) + [(3,2)],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":6,"y":3},
+     [{"id":"b1","x":4,"y":1,"kind":"required"}], [], []),
+    (14, "The long way round", "walled-detour", "perimeter-detour",
+     6, 4, rect(0,0,5,3),
+     [(2,0),(2,1),(2,2)], {"x":0,"y":0,"facing":"E"}, {"x":5,"y":0},
+     [{"id":"s1","x":5,"y":3,"kind":"bonus"}], [], []),
+    (15, "Sky finale", "full-synthesis", "grand-synthesis",
+     5, 3, rect(0,0,4,0) + rect(0,2,4,2) + [(2,1)],
+     [], {"x":0,"y":0,"facing":"E"}, {"x":4,"y":2},
+     [{"id":"b1","x":4,"y":0,"kind":"required"},{"id":"s1","x":0,"y":2,"kind":"bonus"}],
+     [{"id":"g1","x":1,"y":2},{"id":"g2","x":3,"y":2}],
+     [{"id":"sw1","x":3,"y":0,"opens":["g1"]},{"id":"sw2","x":2,"y":2,"opens":["g2"]}]),
+]
+
+for (num, title, concept, archetype, w, h, tiles, walls, start, goal, collectibles, gates, switches) in W4_DESIGNS:
+    lid = f"w4-{num:02d}"
+    witness_prog = None
+    # Try generous budgets first; solver gives minimal primitive witness.
+    lvl = make_level('w4', num, title, concept, archetype, 3, w, h, tiles, walls, start, goal, collectibles, gates, switches,
+                     ["forward","left","right","repeat"], 24, 60, 24)
+    witness_prog = solve_witness(lvl)
+    n_blocks = len(witness_prog['commands'])
+    # parBlocks equals the witness cost so three stars are attainable; keep generous caps.
+    lvl['rating']['parBlocks'] = n_blocks
+    lvl['limits']['maxBlocks'] = max(n_blocks + 2, 12)
+    lvl['limits']['maxActions'] = max(n_blocks + 4, 20)
+    levels[lid] = lvl
+    programs[lid] = witness_prog
 
 print(f"Total levels generated: {len(levels)}")
 
@@ -265,7 +423,11 @@ for lid, l in levels.items():
         print(f"FAILED VALIDATION on {lid}: {e}")
         raise
     p = programs[lid]
-    trace = simulate(l, p)
+    try:
+        trace = simulate(l, p)
+    except Exception as e:
+        print(f"FAILED SIMULATION on {lid}: {e} (witness blocks: {len(p['commands'])})")
+        raise
     if trace['usedBlocks'] > l['rating']['parBlocks']:
         # Set parBlocks equal to usedBlocks to ensure 3-star attainability
         l['rating']['parBlocks'] = trace['usedBlocks']
@@ -288,5 +450,83 @@ out_ts = 'import { Level } from "../core/model";\n\nexport const ALL_60_LEVELS: 
 out_prog = {lid: programs[lid] for lid in levels}
 (ROOT / 'tests/fixtures/full_witnesses.json').write_text(json.dumps(out_prog, indent=2))
 
-print("Wrote src/content/levelsData.ts and tests/fixtures/full_witnesses.json successfully!")
+# ---------------- Locales emission (titles + 3-tier hints for all 60 levels) ----------------
+HINT_ADVICE = {
+    'forward': 'Each Forward command moves your robot one tile ahead in the direction it faces.',
+    'right-turn': 'Turn Right spins your robot a quarter turn clockwise — it stays on the same tile.',
+    'left-turn': 'Turn Left spins your robot a quarter turn counter-clockwise — it stays on the same tile.',
+    'required-pickup': 'Robots pick up batteries automatically just by stepping on their tile.',
+    'optional-detour': 'A bonus star is extra: take the longer route to grab it before the flag.',
+    'debug-blocked-route': 'If a rock or wall blocks the way, plan a route around it.',
+    'facing-transfer': 'Check which way your robot faces at the start before planning moves.',
+    'pickup-order': 'Plan the order of your turns so you pass every battery on the way.',
+    'goal-prerequisites': 'Reaching the flag only counts once every required battery is collected.',
+    'block-budget': 'A shorter program earns the block-target star — trim unnecessary turns.',
+    'backtracking': 'Sometimes you must walk into a dead end and come back to reach everything.',
+    'debugging-sequence': 'Watch which block runs when the robot stops — fix just that one turn.',
+    'multiple-solutions': 'More than one route can work; pick your favorite and test it.',
+    'ordering': 'Choose the visiting order carefully so you do not walk the same tiles twice.',
+    'repeat-count': 'A Repeat block runs its body several times — match the count to the distance.',
+    'repeat-body': 'Put the repeating pattern inside the Repeat body to save blocks.',
+    'prefix-suffix': 'Commands before and after a Repeat can handle the leftover steps.',
+    'prefix': 'One setup action before the loop can make the pattern fit perfectly.',
+    'rotating-bodies': 'A repeated move-and-turn pattern walks around corners nicely.',
+    'static-limits': 'The expanded program would not fit — a Repeat makes it fit the cap.',
+    'mixed-patterns': 'Two different-length stretches may need their own Repeat blocks.',
+    'suffix-reasoning': 'If the loop ends one step short, add a single extra command.',
+    'bonus-planning': 'You can still collect bonus stars while using Repeat blocks.',
+    'repeat-stairs': 'A staircase repeats the same little pattern going up and across.',
+    'alternating-repeats': 'Alternate right and left turns to snake across the board.',
+    'sequential-loops': 'Place one Repeat for the first stretch, then another for the second.',
+    'loop-with-detour': 'Use a loop for the long stretch, then plain steps for the detour.',
+    'mastery-repeat': 'Combine everything you learned about loops in one program.',
+    'switch-sequence': 'Step on the switch pad first — it opens its matching gate.',
+    'side-switch': 'The switch may sit on a side path away from the main route.',
+    'multi-gate': 'One switch can open several gates at once when you step on it.',
+    'gate-loop': 'Gates stay open for the rest of the attempt once triggered.',
+    'redundant-switch': 'Either switch can open this gate — pick the handier one.',
+    'gate-ordering': 'Open the gates in the order you meet them on your route.',
+    'maze-routing': 'Trace the walkable path with your eyes before writing any commands.',
+    'gate-containment': 'Something valuable may hide behind a closed gate.',
+    'bonus-behind-gate': 'Find the switch that opens the way to the bonus star.',
+    'loop-switch': 'A looping route can press the switch and still reach the goal.',
+    'triple-gates': 'All three gates may share one switch pad.',
+    'barrier-planning': 'Plan which side of the barrier to cross and where to come back.',
+    'switch-gate-synthesis': 'Combine switches, gates and loops in the same journey.',
+    'transfer': 'Everything you practiced before works the same on the new sky islands.',
+    'bonus-ordering': 'Collect the bonus before you step on the flag — success stops the run.',
+    'gate-transfer': 'Press the switch before trying to cross its gate.',
+    'switch-ordering': 'Visit the switch pads in an order that keeps your route short.',
+    'route-planning': 'Follow the corridor shape — it shows you the turning order.',
+    'multi-island': 'Cross the little bridges one island at a time.',
+    'repeat-synthesis': 'A long straight stretch is perfect for one Repeat block.',
+    'gate-maze': 'Walls and a gate together: route around the walls, open the gate.',
+    'ring-gate': 'Walk the ring to find the switch, then enter the inner chamber.',
+    'island-chain': 'Hop along the island chain, collecting as you go.',
+    'walled-detour': 'The direct path is walled off — go around the long way.',
+    'full-synthesis': 'Everything together: batteries, stars, switches, gates and loops.',
+}
+
+def hint_for(lid, tier):
+    title = TITLES[lid]
+    concept = CONCEPTS[lid]
+    advice = HINT_ADVICE.get(concept, 'Watch how your robot moves and adjust one command at a time.')
+    if tier == 1:
+        return f'Look at the board for "{title}": find the flag and anything you must collect.'
+    if tier == 2:
+        return advice
+    return f'{advice} Then run your program step by step to check each turn.'
+
+locales = {}
+for lid in sorted(levels):
+    locales[f'level.{lid}.title'] = TITLES[lid]
+    for tier in (1, 2, 3):
+        locales[f'level.{lid}.hint.{tier}'] = hint_for(lid, tier)
+
+out_locales = ('// Generated by scripts/generate_full_curriculum.py — do not edit by hand.\n'
+               'export const LOCALES_DATA: Record<string, string> = '
+               + json.dumps(locales, indent=2, ensure_ascii=False) + ';\n')
+(ROOT / 'src/content/localesData.ts').write_text(out_locales)
+
+print("Wrote src/content/levelsData.ts, tests/fixtures/full_witnesses.json and src/content/localesData.ts successfully!")
 
