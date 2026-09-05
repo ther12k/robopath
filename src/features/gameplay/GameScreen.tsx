@@ -177,13 +177,14 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 
   return (
     <div
+      className="rp-sky-gradient"
       style={{
         display: 'flex',
         flexDirection: 'column',
         height: '100dvh',
         maxWidth: '900px',
         margin: '0 auto',
-        padding: '12px 16px',
+        padding: '12px 16px calc(12px + var(--sab))',
         boxSizing: 'border-box',
         gap: '12px',
         position: 'relative',

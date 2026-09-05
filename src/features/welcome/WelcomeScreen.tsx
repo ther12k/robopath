@@ -23,7 +23,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
 
   return (
     <div
+      className="rp-sky-gradient"
       style={{
+        position: 'relative',
+        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -31,13 +34,18 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         height: '100dvh',
         maxWidth: '480px',
         margin: '0 auto',
-        padding: '32px 24px',
+        padding: '32px 24px calc(32px + var(--sab))',
         boxSizing: 'border-box',
         textAlign: 'center',
       }}
     >
+      {/* Decorative floating clouds */}
+      <div className="rp-cloud" style={{ width: 130, height: 38, top: '12%', left: '-30px' }} aria-hidden="true" />
+      <div className="rp-cloud" style={{ width: 90, height: 28, top: '22%', right: '-14px', opacity: 0.7 }} aria-hidden="true" />
+      <div className="rp-cloud" style={{ width: 160, height: 44, bottom: '26%', left: '-40px', opacity: 0.6 }} aria-hidden="true" />
+
       {/* Top Bar: Settings Button */}
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', zIndex: 1 }}>
         <IconButton
           label="Settings and Grown-Up Area"
           variant="secondary"
@@ -53,7 +61,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
       </div>
 
       {/* Hero Section: Title & Robot Avatar */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', zIndex: 1 }}>
         <div>
           <span
             style={{
@@ -96,6 +104,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
 
         {/* Robot Hero Avatar Card */}
         <button
+          className="rp-card-hover"
           onClick={onChooseRobot}
           aria-label={`Current robot: ${robot.name}. Click to change.`}
           style={{
@@ -113,7 +122,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             marginTop: '12px',
           }}
         >
-          <RobotAvatar robotId={robot.id} size={110} />
+          <div className="rp-hero-blob" style={{ display: 'flex' }}>
+            <RobotAvatar robotId={robot.id} size={110} />
+          </div>
           <div>
             <h2 style={{ margin: 0, fontSize: 'var(--text-xl)', color: 'var(--color-ink)' }}>
               {robot.name}
@@ -126,11 +137,11 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
-        <Button variant="action" size="lg" fullWidth onClick={onPlay}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', zIndex: 1 }}>
+        <Button variant="action" size="lg" fullWidth className="rp-press" onClick={onPlay}>
           {hasProgress ? 'Continue Adventure →' : 'Start Playing! →'}
         </Button>
-        <Button variant="secondary" size="md" fullWidth onClick={onChooseRobot}>
+        <Button variant="secondary" size="md" fullWidth className="rp-press" onClick={onChooseRobot}>
           Choose Another Robot
         </Button>
       </div>

@@ -1,0 +1,71 @@
+/* UI polish layer: gradients, hover lift, motion. Purely cosmetic. */
+
+.rp-sky-gradient {
+  background: linear-gradient(180deg, #eff9fd 0%, #ddf0fc 55%, #cbe8fa 100%);
+}
+
+.rp-card-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.rp-card-hover:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.rp-card-hover:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Soft radial glow behind the hero robot on the welcome screen */
+.rp-hero-blob {
+  position: relative;
+}
+
+.rp-hero-blob::before {
+  content: '';
+  position: absolute;
+  inset: -18% -12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(36, 111, 229, 0.16) 0%,
+    rgba(36, 111, 229, 0.07) 45%,
+    rgba(36, 111, 229, 0) 70%
+  );
+  pointer-events: none;
+}
+
+/* Floating decorative clouds on menu screens */
+.rp-cloud {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.rp-press {
+  transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.rp-press:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.rp-press:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-card-hover,
+  .rp-press {
+    transition: none;
+  }
+  .rp-card-hover:hover:not(:disabled) {
+    transform: none;
+  }
+  .rp-press:active:not(:disabled) {
+    transform: none;
+  }
+}

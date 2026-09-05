@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './ui/tokens.css';
+import './ui/polish.css';
 import { App } from './app/App';
 
 const rootEl = document.getElementById('root');

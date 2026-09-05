@@ -68,9 +68,9 @@ export const App: React.FC<AppProps> = ({ storageAdapter }) => {
 
   return (
     <div
+      className="rp-sky-gradient"
       style={{
         minHeight: '100dvh',
-        backgroundColor: 'var(--color-sky)',
         display: 'flex',
         flexDirection: 'column',
       }}

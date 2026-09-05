@@ -42,13 +42,14 @@ export const WorldMap: React.FC<WorldMapProps> = ({
 
   return (
     <div
+      className="rp-sky-gradient"
       style={{
         display: 'flex',
         flexDirection: 'column',
         height: '100dvh',
         maxWidth: '720px',
         margin: '0 auto',
-        padding: '16px',
+        padding: '16px 16px calc(16px + var(--sab))',
         boxSizing: 'border-box',
         gap: '16px',
       }}
@@ -185,6 +186,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({
           return (
             <button
               key={level.id}
+              className="rp-card-hover"
               disabled={!unlocked}
               onClick={() => onSelectLevel(level.id)}
               aria-label={`Level ${level.ordinal}: ${t(level.titleKey)}, ${

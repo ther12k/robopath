@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { Facing, Level, State, Step } from '../core/model';
 import { AnimationAck, SceneMessage } from '../bridge/messages';
-import { toScreen, calculateDepth, calculateBoardBounds } from './projection';
+import { toScreen, calculateDepth, calculateContentBounds } from './projection';
 import { getRobotById } from '../features/robots/robotCatalog';
 
 export interface GameSceneConfig {
@@ -31,13 +31,23 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create(): void {
-    this.cameras.main.setBackgroundColor('#EFF9FD');
+    this.cameras.main.setBackgroundColor('#eaf7fe');
     this.boardContainer = this.add.container(0, 0);
+
+    // Re-frame whenever the canvas resizes (rotation, layout, window).
+    this.scale.on('resize', this.handleResize, this);
+    this.events.once('shutdown', () => {
+      this.scale.off('resize', this.handleResize, this);
+    });
 
     // If level is already configured, render it
     if (this.level) {
       this.buildBoard();
     }
+  }
+
+  private handleResize(): void {
+    this.centerCamera();
   }
 
   public handleMessage(msg: SceneMessage): void {
@@ -77,6 +87,34 @@ export class GameScene extends Phaser.Scene {
     const { tiles, walls } = this.level.board;
     const wallSet = new Set(walls.map((w) => `${w.x},${w.y}`));
 
+    const content = calculateContentBounds(this.level.board.width, this.level.board.height);
+
+    // Decorative sky clouds behind the floating island
+    const clouds = this.add.graphics();
+    clouds.setDepth(-200);
+    const drawCloud = (cx: number, cy: number, scale: number, alpha: number) => {
+      clouds.fillStyle(0xffffff, alpha);
+      clouds.fillEllipse(cx, cy, 96 * scale, 30 * scale);
+      clouds.fillEllipse(cx - 34 * scale, cy + 4 * scale, 56 * scale, 22 * scale);
+      clouds.fillEllipse(cx + 36 * scale, cy + 2 * scale, 60 * scale, 24 * scale);
+    };
+    drawCloud(content.minX + content.width * 0.18, content.minY + 26, 1.0, 0.75);
+    drawCloud(content.maxX - content.width * 0.12, content.minY + content.height * 0.34, 0.8, 0.6);
+    drawCloud(content.centerX, content.maxY + 58, 1.1, 0.55);
+    this.boardContainer.add(clouds);
+
+    // Floating-island drop shadow beneath the whole board
+    const islandShadow = this.add.graphics();
+    islandShadow.setDepth(-100);
+    islandShadow.fillStyle(0x246fe5, 0.14);
+    islandShadow.fillEllipse(
+      content.centerX,
+      content.maxY + 14,
+      content.width * 0.8,
+      content.height * 0.22 + 18,
+    );
+    this.boardContainer.add(islandShadow);
+
     // Render ground tiles
     for (const tile of tiles) {
       const screenPos = toScreen(tile.x, tile.y);
@@ -95,8 +133,9 @@ export class GameScene extends Phaser.Scene {
         { x: screenPos.x - 32, y: screenPos.y },
       ];
 
-      // Isometric tile top
-      tileGfx.fillStyle(0x7ac943, 1);
+      // Isometric tile top (subtle checker for depth cues)
+      const topColor = (tile.x + tile.y) % 2 === 0 ? 0x82d14c : 0x76c445;
+      tileGfx.fillStyle(topColor, 1);
       tileGfx.beginPath();
       tileGfx.moveTo(points[0].x, points[0].y);
       for (let i = 1; i < points.length; i++) {
@@ -104,7 +143,7 @@ export class GameScene extends Phaser.Scene {
       }
       tileGfx.closePath();
       tileGfx.fillPath();
-      tileGfx.lineStyle(1.5, 0x5a9e2d, 1);
+      tileGfx.lineStyle(1.5, 0x9fdc74, 0.9);
       tileGfx.strokePath();
 
       // Isometric tile edge (depth slab)
@@ -127,11 +166,23 @@ export class GameScene extends Phaser.Scene {
         const wallGfx = this.add.graphics();
         wallGfx.setDepth(wallDepth);
 
-        // Stone block
+        // Stone body
         wallGfx.fillStyle(0x94a3b8, 1);
         wallGfx.fillRect(screenPos.x - 20, screenPos.y - 36, 40, 36);
         wallGfx.lineStyle(2, 0x475569, 1);
         wallGfx.strokeRect(screenPos.x - 20, screenPos.y - 36, 40, 36);
+
+        // Stone top face (isometric diamond cap)
+        wallGfx.fillStyle(0xb9c5d6, 1);
+        wallGfx.beginPath();
+        wallGfx.moveTo(screenPos.x, screenPos.y - 52);
+        wallGfx.lineTo(screenPos.x + 24, screenPos.y - 36);
+        wallGfx.lineTo(screenPos.x, screenPos.y - 20);
+        wallGfx.lineTo(screenPos.x - 24, screenPos.y - 36);
+        wallGfx.closePath();
+        wallGfx.fillPath();
+        wallGfx.lineStyle(2, 0x475569, 1);
+        wallGfx.strokePath();
 
         this.boardContainer.add(wallGfx);
       }
@@ -238,35 +289,38 @@ export class GameScene extends Phaser.Scene {
     this.robotContainer = this.add.container(startPos.x, startPos.y);
     this.robotContainer.setDepth(startDepth);
 
+    // Soft contact shadow under the robot
+    const contactShadow = this.add.ellipse(0, 4, 38, 14, 0x17324d, 0.18);
+
     // Directional foot indicator
-    this.facingArrow = this.add.triangle(0, 4, 0, -10, 8, 8, -8, 8, 0x246fe5);
+    this.facingArrow = this.add.triangle(0, 6, 0, -11, 9, 9, -9, 9, 0x246fe5);
     this.facingArrow.setStrokeStyle(1.5, 0x17324d);
     this.updateFacingArrow(this.currentState.facing);
 
     // Robot body circle
     const colorHex = parseInt(robot.primaryColor.replace('#', '0x'), 16);
-    this.robotSprite = this.add.circle(0, -16, 14, colorHex);
+    this.robotSprite = this.add.circle(0, -18, 16, colorHex);
     this.robotSprite.setStrokeStyle(2.5, 0x17324d);
 
     // Robot face screen
     const faceHex = parseInt(robot.faceColor.replace('#', '0x'), 16);
     const screenGfx = this.add.graphics();
     screenGfx.fillStyle(0x17324d, 1);
-    screenGfx.fillRoundedRect(-10, -22, 20, 12, 3);
+    screenGfx.fillRoundedRect(-11, -26, 22, 14, 3);
     // Eyes
     screenGfx.fillStyle(faceHex, 1);
-    screenGfx.fillCircle(-4, -16, 2.5);
-    screenGfx.fillCircle(4, -16, 2.5);
+    screenGfx.fillCircle(-4.5, -19, 2.8);
+    screenGfx.fillCircle(4.5, -19, 2.8);
 
     // Robot antenna
     const accentHex = parseInt(robot.accentColor.replace('#', '0x'), 16);
     const antennaGfx = this.add.graphics();
     antennaGfx.fillStyle(accentHex, 1);
-    antennaGfx.fillCircle(0, -32, 3.5);
+    antennaGfx.fillCircle(0, -37, 4);
     antennaGfx.lineStyle(2, 0x17324d, 1);
-    antennaGfx.lineBetween(0, -30, 0, -32);
+    antennaGfx.lineBetween(0, -34, 0, -37);
 
-    this.robotContainer.add([this.facingArrow, this.robotSprite, screenGfx, antennaGfx]);
+    this.robotContainer.add([contactShadow, this.facingArrow, this.robotSprite, screenGfx, antennaGfx]);
     this.boardContainer.add(this.robotContainer);
   }
 
@@ -397,14 +451,17 @@ export class GameScene extends Phaser.Scene {
 
   public centerCamera(): void {
     if (!this.level || !this.cameras?.main) return;
-    const bounds = calculateBoardBounds(this.level.board.width, this.level.board.height);
     const camera = this.cameras.main;
+    const content = calculateContentBounds(this.level.board.width, this.level.board.height);
 
-    const zoomX = camera.width / bounds.width;
-    const zoomY = camera.height / bounds.height;
-    const zoom = Math.min(zoomX, zoomY, 1.6);
+    // Fit the puzzle content into the canvas with a small breathing margin,
+    // so even a tiny 3-tile board fills the viewport instead of floating far away.
+    const margin = 24;
+    const availW = Math.max(camera.width - margin * 2, 60);
+    const availH = Math.max(camera.height - margin * 2, 60);
+    const zoom = Math.min(availW / content.width, availH / content.height);
 
-    camera.setZoom(Math.max(zoom * 0.85, 0.6));
-    camera.centerOn((bounds.minX + bounds.maxX) / 2, (bounds.minY + bounds.maxY) / 2);
+    camera.setZoom(Phaser.Math.Clamp(zoom, 0.5, 3));
+    camera.centerOn(content.centerX, content.centerY);
   }
 }

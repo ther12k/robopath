@@ -16,13 +16,16 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
 }) => {
   return (
     <div
+      className="rp-sky-gradient"
       style={{
         display: 'flex',
         flexDirection: 'column',
         gap: '24px',
-        padding: '24px',
+        padding: '24px 24px calc(24px + var(--sab))',
         maxWidth: '540px',
         margin: '0 auto',
+        minHeight: '100dvh',
+        boxSizing: 'border-box',
       }}
     >
       <div style={{ textAlign: 'center' }}>
@@ -49,6 +52,7 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
           return (
             <button
               key={robot.id}
+              className="rp-card-hover"
               role="radio"
               aria-checked={isSelected}
               onClick={() => onSelectRobot(robot.id)}
@@ -57,13 +61,12 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                padding: '16px',
+                padding: '18px 14px',
                 borderRadius: 'var(--radius-panel)',
                 backgroundColor: isSelected ? 'var(--color-surface)' : 'var(--color-surface-soft)',
                 border: isSelected ? '3px solid var(--color-action)' : '2px solid var(--color-border-subtle)',
-                boxShadow: isSelected ? 'var(--shadow-md)' : 'none',
+                boxShadow: isSelected ? 'var(--shadow-md)' : 'var(--shadow-sm)',
                 cursor: 'pointer',
-                transition: 'all 0.15s ease',
                 outline: 'none',
                 textAlign: 'center',
               }}
@@ -91,7 +94,9 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
                 </div>
               )}
 
-              <RobotAvatar robotId={robot.id} size={80} />
+              <div className="rp-hero-blob" style={{ display: 'flex' }}>
+                <RobotAvatar robotId={robot.id} size={88} />
+              </div>
 
               <h2
                 style={{
@@ -121,6 +126,7 @@ export const RobotPicker: React.FC<RobotPickerProps> = ({
         variant="action"
         size="lg"
         fullWidth
+        className="rp-press"
         onClick={onConfirm}
         style={{ marginTop: '8px' }}
       >
